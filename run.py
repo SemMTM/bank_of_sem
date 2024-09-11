@@ -163,7 +163,7 @@ def main_menu(username):
             print("You have selected 5")
             break
         else: 
-            print("Please select a valid option\n")
+            print("Please select a valid option (1-5)\n")
 
 
 def show_balance(username):
@@ -179,6 +179,45 @@ def show_balance(username):
         if option == '1':
             main_menu(username)
             break
+
+
+def withdraw_deposit_funds_menu(username):
+    existing_username = username
+    existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES, balance in zip(ALL_USERNAMES, ALL_BALANCES)}
+    balance = existing_balances.get(username)
+
+    print("\n***********************")
+    print(f"Your balance is: £{balance}\n")
+    print("Please select an option\n")
+    print("1. Deposit Funds")
+    print("2. Withdraw Funds")
+    print("3. Back")
+    print("***********************\n")
+    option = input("Please select an option (1-3):\n")
+
+    while True:
+        if option == '1':
+            show_balance(existing_username)
+            break
+        elif option == '2':
+            print("You have selected 2") 
+            break
+        elif option == '3':
+            main_menu(existing_username)
+            break
+        else: 
+            print("Please select a valid option (1-3)\n")
+
+def deposit_funds(username):
+    existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES, balance in zip(ALL_USERNAMES, ALL_BALANCES)}
+    balance = existing_balances.get(username)
+
+    print("\n***********************")
+    deposit_amount = input("How much would you like to deposit?\n£")#
+    print("***********************\n")
+
+    new_balance = int(balance) + int(deposit_amount)
+    print(f"£{new_balance}")
 
 
 def main():
