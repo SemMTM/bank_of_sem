@@ -103,12 +103,14 @@ def existing_user_log_in():
     """
     print("***********************\n")
     print("Please enter your log in details")
-    existing_username = input("Please enter your username:\n")
-    existing_password = input("Please enter your password:\n")
+    existing_username = input("Enter your username:\n")
+    existing_password = input("Enter your password:\n")
     print("***********************")  
     
-    if validate_existing_login_details(existing_username, int(existing_password)):
-        d
+    if validate_existing_login_details(existing_username, existing_password):
+        print("Correct Login Details")
+    else:
+        print("Incorrect Details")
 
 
 def get_existing_login_details():
@@ -119,6 +121,12 @@ def get_existing_login_details():
 
 def validate_existing_login_details(username, password):
     existing_credentials = get_existing_login_details()
+    correct_password = existing_credentials.get(username)
+
+    if username in existing_credentials and correct_password == password:
+        return True
+    else:
+        return False
 
 
 def main():
