@@ -60,27 +60,24 @@ def validate_username(username):
         create_account()
     else:
         print("New username created")
-        print(username)
-
-    #for x in all_usernames:
-        #if x == username:
-            #print("Username already exists. Please enter a new username")
-            #create_account()
-            #break
-        #else:
-            #print("New username created")
-            #return username
-            #break
+        return True
 
 
-def update_worksheet(data, worksheet):
+def validate_password(password):
     """
-    Update specified worksheet with relevant data.
+    Validates users password. Checks if it is 4 numbers.
     """
+    try:
+        int(password)
+        if len(password) != 4:
+            print(f"Invalid password. Password must be 4 numbers, you entered {len(password)}, please try again. \n")
+    except ValueError:
+        print("Invalid password. Password must be 4 numbers, please try again. \n")
 
+    return True
 
 #def main():
  #   user_log_in()
 
 
-validate_username("SemMTMMMM")
+validate_password("abs")
