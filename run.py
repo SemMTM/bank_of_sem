@@ -18,7 +18,6 @@ def user_log_in():
     """
     print("***********************")
     print("Welcome to Bank of Sem.")
-    print("Da best bank there is.")
 
     while True:
         print("***********************\n")
@@ -35,6 +34,5 @@ def user_log_in():
         else: 
             print("Please select a valid option.\n")
 
-    print(option)
-
+            
 user_log_in()
