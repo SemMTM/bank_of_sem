@@ -213,18 +213,23 @@ def deposit_funds(username):
     balance = existing_balances.get(username)
 
     print("\n***********************")
-    deposit_amount = input("How much would you like to deposit?\n£")#
+    deposit_amount = input("How much would you like to deposit?\n£")
     print("***********************\n")
 
     new_balance = int(balance) + int(deposit_amount)
     print(f"£{new_balance}")
 
 
-def main():
+#def main():
     """
     Run all program functions.
     """
-    user_log_in()
+    #user_log_in()
 
 
-main()
+#main()
+
+test = SHEET.worksheet("user-details").get_all_values()
+print(test)
+
+#Trying to figure out how to update the balance of a specific username.
