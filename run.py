@@ -47,8 +47,6 @@ def create_account():
         if validate_new_username(new_username):
             break
 
-    print(new_username)
-
     while True:
         print("Your password must be a 4 digit number")
         new_password = input("Please enter a password: \n")
@@ -57,7 +55,12 @@ def create_account():
         if validate_new_password(new_password):
             break
 
-    print(new_password)
+    new_user_details = [new_username, new_password]
+
+    print("Adding new user details to database...\n")
+    user_worksheet = SHEET.worksheet("user-details")
+    user_worksheet.append_row(new_user_details)
+    print("Your new account has been created\n")
 
 
 def validate_new_username(username):
