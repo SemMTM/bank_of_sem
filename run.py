@@ -17,7 +17,7 @@ def user_log_in():
     Ask user to log in
     """
     print("***********************")
-    print("Welcome to Bank of Sem.")
+    print("Welcome to Bank of Sem")
 
     while True:
         print("***********************\n")
@@ -29,10 +29,58 @@ def user_log_in():
             print("Log in successful!\n") 
             break
         elif option == '2':
-            print("Log in successful!\n") 
+            create_account() 
             break
         else: 
-            print("Please select a valid option.\n")
+            print("Please select a valid option\n")
 
-            
-user_log_in()
+
+def create_account():
+    """
+    Create a new account and upload data to spreadsheet
+    """
+    print("***********************\n")
+    print("Your new username must be unique")
+    new_username = input("Please enter a username:\n")
+    print("Your password must be a 4 digit number")
+    new_password = input("Please enter a password: \n")
+    print("***********************\n")
+
+
+def validate_username(username):
+    """
+    Validate the user entered username against the database.
+    Raises an error if the Username is not unique.
+    """
+    all_usernames = SHEET.worksheet("user-details").col_values(1)
+    existing_username = any(x == username for x in all_usernames)
+
+    if existing_username == True:
+        print("Username already exists. Please enter a new username")
+        create_account()
+    else:
+        print("New username created")
+        print(username)
+
+    #for x in all_usernames:
+        #if x == username:
+            #print("Username already exists. Please enter a new username")
+            #create_account()
+            #break
+        #else:
+            #print("New username created")
+            #return username
+            #break
+
+
+def update_worksheet(data, worksheet):
+    """
+    Update specified worksheet with relevant data.
+    """
+
+
+#def main():
+ #   user_log_in()
+
+
+validate_username("SemMTMMMM")
