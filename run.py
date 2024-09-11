@@ -13,6 +13,7 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('bank_of_sem')
 ALL_USERNAMES = SHEET.worksheet("user-details").col_values(1)
 ALL_PASSWORDS = SHEET.worksheet("user-details").col_values(2)
+ALL_BALANCES = SHEET.worksheet("user-details").col_values(3)
 
 
 def user_log_in():
@@ -58,12 +59,13 @@ def create_account():
         if validate_new_password(new_password):
             break
 
-    new_user_details = [new_username, new_password]
+    new_user_details = [new_username, new_password, 0]
 
     print("Adding new user details to database...\n")
     user_worksheet = SHEET.worksheet("user-details")
     user_worksheet.append_row(new_user_details)
     print("Your new account has been created\n")
+    print("Please restart the program and login.")
 
 
 def validate_new_username(username):
@@ -74,7 +76,7 @@ def validate_new_username(username):
     existing_username = any(x == username for x in ALL_USERNAMES)
 
     if existing_username == True:
-        print("Username already exists. Please enter a new username\n")
+        print("\nUsername already exists. Please enter a new username\n")
         create_account()
     else:
         print("New username created\n")
@@ -102,15 +104,17 @@ def existing_user_log_in():
     Checks for existing user credentials in the database and allows user to log in. 
     """
     print("***********************\n")
-    print("Please enter your log in details")
+    print("Please enter your log in details\n")
     existing_username = input("Enter your username:\n")
-    existing_password = input("Enter your password:\n")
-    print("***********************")  
+    existing_password = input("\nEnter your password:\n")
+    print("\n***********************")  
     
     if validate_existing_login_details(existing_username, existing_password):
-        print("Correct Login Details")
+        print("Correct Login Details\n")
+        main_menu(existing_username)
     else:
-        print("Incorrect Details")
+        print("Incorrect Details\n")
+        existing_user_log_in()
 
 
 def get_existing_login_details():
@@ -127,6 +131,54 @@ def validate_existing_login_details(username, password):
         return True
     else:
         return False
+
+
+def main_menu(username):
+    existing_username = username 
+
+    print("\n***********************")
+    print("Please select an option\n")
+    print("1. Show Balance")
+    print("2. Withdraw/Deposit Funds")
+    print("3. Send Money")
+    print("4. See Account History")
+    print("5. Exit")
+    print("***********************\n")
+    option = input("Please select an option (1-5):\n")
+    
+    while True:
+        if option == '1':
+            show_balance(existing_username)
+            break
+        elif option == '2':
+            print("You have selected 2") 
+            break
+        elif option == '3':
+            print("You have selected 3")
+            break
+        elif option == '4':
+            print("You have selected 4")
+            break
+        elif option == '5':
+            print("You have selected 5")
+            break
+        else: 
+            print("Please select a valid option\n")
+
+
+def show_balance(username):
+    existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES, balance in zip(ALL_USERNAMES, ALL_BALANCES)}
+    balance = existing_balances.get(username)
+
+    print(f"\nYour balance is: £{balance}")
+    print("***********************\n")
+    print("1. Back")
+    option = input("Please select an option:\n")
+    
+    while True:
+        if option == '1':
+            main_menu(username)
+            break
 
 
 def main():
