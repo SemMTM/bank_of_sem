@@ -11,6 +11,9 @@ CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('bank_of_sem')
+ALL_USERNAMES = SHEET.worksheet("user-details").col_values(1)
+ALL_PASSWORDS = SHEET.worksheet("user-details").col_values(2)
+
 
 def user_log_in():
     """
@@ -26,7 +29,7 @@ def user_log_in():
         print("***********************")    
         option = input("Please select an option (1-2):\n")
         if option == '1':
-            print("Log in successful!\n") 
+            existing_user_log_in() 
             break
         elif option == '2':
             create_account() 
@@ -68,8 +71,7 @@ def validate_new_username(username):
     Validate the user entered username against the database.
     Raises an error if the Username is not unique.
     """
-    all_usernames = SHEET.worksheet("user-details").col_values(1)
-    existing_username = any(x == username for x in all_usernames)
+    existing_username = any(x == username for x in ALL_USERNAMES)
 
     if existing_username == True:
         print("Username already exists. Please enter a new username\n")
@@ -94,7 +96,36 @@ def validate_new_password(password):
 
     return True
 
+
+def existing_user_log_in():
+    """
+    Checks for existing user credentials in the database and allows user to log in. 
+    """
+    print("***********************\n")
+    print("Please enter your log in details")
+    existing_username = input("Please enter your username:\n")
+    existing_password = input("Please enter your password:\n")
+    print("***********************")  
+    
+    if validate_existing_login_details(existing_username, int(existing_password)):
+        d
+
+
+def get_existing_login_details():
+    existing_credentials = {ALL_USERNAMES: password for ALL_USERNAMES, password in zip(ALL_USERNAMES, ALL_PASSWORDS)}
+
+    return existing_credentials
+
+
+def validate_existing_login_details(username, password):
+    existing_credentials = get_existing_login_details()
+
+
 def main():
+    """
+    Run all program functions.
+    """
     user_log_in()
+
 
 main()
