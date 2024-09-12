@@ -154,7 +154,7 @@ def main_menu(username):
             withdraw_deposit_funds_menu(username)
             break
         elif option == '3':
-            print("You have selected 3")
+            withdraw_funds(username)
             break
         elif option == '4':
             print("You have selected 4")
@@ -240,19 +240,32 @@ def withdraw_funds(username):
     new_balance = int(balance) - int(withdraw_amount)
     
     if int(withdraw_amount) > int(balance) or int(balance) == 0:
-        print("Insufficient funds for withdrawal, please enter a lower amount")
+        print("Insufficient funds for withdrawal, please enter a lower amount\n")
+        print("***********************")
+        print("1. Try again")
+        print("2. Back")
+        print("***********************")
+        option = input("\nPlease select an option:\n")
+    
+        while True:
+            if option == '1':
+                withdraw_funds(username)
+                break
+            if option == '2':
+                main_menu(username)
+                break
     else:
         print("Withdrawing funds...\n")
         USER_DETAILS_SHEET.update_cell(username_cell.row, 3, new_balance)
         print(f"Withdraw complete. Your new balance is £{new_balance}\n")
-        print("***********************\n")
+        print("***********************")
         print("1. Back")
         option = input("Please select an option:\n")
     
-    while True:
-        if option == '1':
-            main_menu(username)
-            break
+        while True:
+            if option == '1':
+                main_menu(username)
+                break
 
 
 #def main():
