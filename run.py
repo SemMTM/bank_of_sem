@@ -22,13 +22,13 @@ def user_log_in():
     Ask user to log in
     """
     print("***********************")
-    print("Welcome to Bank of Sem")
+    print("Welcome to Bank of Sem\n")
 
     while True:
-        print("***********************\n")
+        print("***********************")
         print("1. Log In")
-        print("2. Create An Account\n")
-        print("***********************")    
+        print("2. Create An Account")
+        print("***********************\n")    
         option = input("Please select an option (1-2):\n")
         if option == '1':
             existing_user_log_in() 
@@ -104,7 +104,7 @@ def existing_user_log_in():
     """
     Checks for existing user credentials in the database and allows user to log in. 
     """
-    print("***********************\n")
+    print("\n***********************")
     print("Please enter your log in details\n")
     existing_username = input("Enter your username:\n")
     existing_password = input("\nEnter your password:\n")
@@ -170,9 +170,10 @@ def show_balance(username):
     existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES, balance in zip(ALL_USERNAMES, ALL_BALANCES)}
     balance = existing_balances.get(username)
 
-    print(f"\nYour balance is: £{balance}")
-    print("***********************\n")
+    print(f"\nYour balance is: £{balance}\n")
+    print("***********************")
     print("1. Back")
+    print("***********************\n")
     option = input("Please select an option:\n")
     
     while True:
@@ -185,8 +186,8 @@ def withdraw_deposit_funds_menu(username):
     existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES, balance in zip(ALL_USERNAMES, ALL_BALANCES)}
     balance = existing_balances.get(username)
 
-    print("\n***********************")
-    print(f"Your balance is: £{balance}\n")
+    print(f"\nYour balance is: £{balance}\n")
+    print("***********************")
     print("Please select an option\n")
     print("1. Deposit Funds")
     print("2. Withdraw Funds")
@@ -199,7 +200,7 @@ def withdraw_deposit_funds_menu(username):
             deposit_funds(username)
             break
         elif option == '2':
-            print("You have selected 2") 
+            withdraw_funds(username)
             break
         elif option == '3':
             main_menu(username)
@@ -214,18 +215,19 @@ def deposit_funds(username):
 
     print("\n***********************")
     deposit_amount = input("How much would you like to deposit?\n£")
-    print("***********************\n")
+    print("\n***********************")
     new_balance = int(balance) + int(deposit_amount)
     print("Depositing funds...\n")
     USER_DETAILS_SHEET.update_cell(username_cell.row, 3, new_balance)
     print(f"Deposit complete. Your new balance is £{new_balance}\n")
-    print("***********************\n")
+    print("***********************")
     print("1. Back")
+    print("***********************\n")
     option = input("Please select an option:\n")
     
     while True:
         if option == '1':
-            main_menu(username)
+            withdraw_deposit_funds_menu(username)
             break
 
 
@@ -260,6 +262,7 @@ def withdraw_funds(username):
         print(f"Withdraw complete. Your new balance is £{new_balance}\n")
         print("***********************")
         print("1. Back")
+        print("***********************\n")
         option = input("Please select an option:\n")
     
         while True:
@@ -268,12 +271,11 @@ def withdraw_funds(username):
                 break
 
 
-#def main():
+def main():
     """
     Run all program functions.
     """
-    #user_log_in()
+    user_log_in()
 
 
-#main()
-withdraw_funds('SemMTM')
+main()
