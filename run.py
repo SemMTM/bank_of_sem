@@ -62,6 +62,7 @@ def create_account():
 
     new_user_details = [new_username, new_password, 0]
 
+    #Updates worksheet with new username if the username is unqiue
     print("Adding new user details to database...\n")
     user_worksheet = SHEET.worksheet("user-details")
     user_worksheet.append_row(new_user_details)
@@ -93,6 +94,8 @@ def validate_new_password(password):
         if len(password) != 4:
             print(f"Invalid password. Password must be 4 numbers, you entered {len(password)}, please try again. \n")
             return False
+            
+    # Throws error is password is not numbers
     except ValueError:
         print("Invalid password. Password must be 4 numbers, please try again. \n")
         return False
@@ -180,6 +183,7 @@ def show_balance(username):
     Pairs all balances to the correct usernames then shows the balance assosiated with the 
     username used to log in.
     """
+    #Gets all exisiting usernames and pairs them to the correct balances in a dictionary
     existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES, balance in zip(ALL_USERNAMES, ALL_BALANCES)}
     balance = existing_balances.get(username)
 
@@ -199,6 +203,7 @@ def withdraw_deposit_funds_menu(username):
     """
     Withdraw/Deposit funds menu.
     """
+    #Gets all exisiting usernames and pairs them to the correct balances in a dictionary
     existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES, balance in zip(ALL_USERNAMES, ALL_BALANCES)}
     balance = existing_balances.get(username)
 
@@ -230,6 +235,7 @@ def deposit_funds(username):
     username used to log in. Allows the user to then add an amount to that balance and update
     the spreadsheet.
     """
+    #Gets all exisiting usernames and pairs them to the correct balances in a dictionary
     existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES, balance in zip(ALL_USERNAMES, ALL_BALANCES)}
     balance = existing_balances.get(username)
     username_cell = USER_DETAILS_SHEET.find(username)
@@ -237,9 +243,15 @@ def deposit_funds(username):
     print("\n***********************")
     deposit_amount = input("How much would you like to deposit?\n£")
     print("\n***********************")
+
+    # Calculates the new balance after deposit 
     new_balance = int(balance) + int(deposit_amount)
+
     print("Depositing funds...\n")
+
+    # Updates the users balance on the spreadsheet
     USER_DETAILS_SHEET.update_cell(username_cell.row, 3, new_balance)
+
     print(f"Deposit complete. Your new balance is £{new_balance}\n")
     print("***********************")
     print("1. Back")
@@ -258,6 +270,7 @@ def withdraw_funds(username):
     username used to log in. Allows the user to then withdraw an amount from that balance and update
     the spreadsheet. Wont allow more then the value of their exisiting balance to be withdrawn.
     """
+    #Gets all exisiting usernames and pairs them to the correct balances in a dictionary
     existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES, balance in zip(ALL_USERNAMES, ALL_BALANCES)}
     balance = existing_balances.get(username)
     username_cell = USER_DETAILS_SHEET.find(username)
@@ -265,8 +278,10 @@ def withdraw_funds(username):
     print("\n***********************")
     withdraw_amount = input("How much would you like to withdraw?\n£")
     print("***********************\n")
+
     new_balance = int(balance) - int(withdraw_amount)
     
+    # Throws message if withdraw amount is more then the available balance and wont allow the action 
     if int(withdraw_amount) > int(balance) or int(balance) == 0:
         print("Insufficient funds for withdrawal, please enter a lower amount\n")
         print("***********************")
@@ -284,7 +299,10 @@ def withdraw_funds(username):
                 break
     else:
         print("Withdrawing funds...\n")
+
+        #Updates users balance on the spreadsheet after withdrawl
         USER_DETAILS_SHEET.update_cell(username_cell.row, 3, new_balance)
+
         print(f"Withdraw complete. Your new balance is £{new_balance}\n")
         print("***********************")
         print("1. Back")
@@ -301,20 +319,34 @@ def send_money(username):
     """
     Allows the user to withdraw money from their balance and deposit to another users.
     """
+    #Gets all exisiting usernames and pairs them to the correct balances in a dictionary
     existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES, balance in zip(ALL_USERNAMES, ALL_BALANCES)}
     balance = existing_balances.get(username)
+
+    #Gets the location of the cell that matches the username 
     username_cell = USER_DETAILS_SHEET.find(username)
 
     user_option = input("Which user would you like to transfer to?\n")
     print("\nLocating user...\n")
+
+    #Gets the location of the cell that matches the user they wish to transfer to
     selected_user_cell = USER_DETAILS_SHEET.find(user_option)
     existing_username = any(x == user_option for x in ALL_USERNAMES)
 
+    #Checks if requested user exists in the spreadsheet
     if existing_username == True:
         amount_to_send = input("User found. How much would you like to transfer?\n£")
+        
+        #Calculates logged in users balance after withdraw amount has been selected
         new_balance = int(balance) - int(amount_to_send)
+
+        #Gets the selected users balance before transfer
         selected_user_balance = existing_balances.get(user_option)
+
+        #Calculates the selected users balance after transfer
         transfer_balance = int(selected_user_balance) + int(amount_to_send)
+
+        #Throws a message if the transfer amount is more than available funds
         if int(amount_to_send) > int(balance) or int(balance) == 0:
             print("\nInsufficient funds for transfer, please try again.\n")
             print("***********************")
@@ -322,6 +354,7 @@ def send_money(username):
             print("2. Back to main menu")
             print("***********************\n")
             option = input("Please select an option:\n")
+            
             while True:
                 if option == '1':
                     send_money(username)
@@ -331,13 +364,19 @@ def send_money(username):
                     break
         else:
             print("\nTransfering funds...\n")
+
+            #Updates logged in users balance on the spreadsheet 
             USER_DETAILS_SHEET.update_cell(selected_user_cell.row, 3, transfer_balance)
+
+            #Updates selected users balance on the spreadsheet 
             USER_DETAILS_SHEET.update_cell(username_cell.row, 3, new_balance)
+
             print(f"Transfer complete. Your new balance is £{new_balance}\n")
             print("***********************")
             print("1. Back")
             print("***********************\n")
             option = input("Please select an option:\n")
+
             while True:
                 if option == '1':
                     main_menu(username)
@@ -345,6 +384,10 @@ def send_money(username):
     else:
         print("User does not exist. Please try again.\n")
         send_money(username)
+
+
+def update_user_history():
+    d
 
 
 def main():
