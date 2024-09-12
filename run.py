@@ -173,7 +173,8 @@ def main_menu(username):
     print("2. Withdraw/Deposit Funds")
     print("3. Send Money")
     print("4. See Account History")
-    print("5. Exit")
+    print("5. Change Password")
+    print("6. Exit")
     print("***********************\n")
     option = input("Please select an option (1-5):\n")
     
@@ -191,6 +192,9 @@ def main_menu(username):
             call_user_history(username)
             break
         elif option == '5':
+            change_password(username)
+            break
+        elif option == '6':
             print("\nThank you for using Bank Of Sem. We hope you have a wonderful day.")
             break
         else: 
@@ -447,6 +451,9 @@ def next_available_row(worksheet):
 
 
 def update_user_history(username, action):
+    """
+    Updates the logged in users history workseet with the last completed action
+    """
     time_now = datetime.now()
     history_worksheet = SHEET.worksheet(f"{username}-history")
     next_row = next_available_row(history_worksheet)
@@ -457,6 +464,9 @@ def update_user_history(username, action):
 
 
 def call_user_history(username):
+    """
+    Calls the data in the logged in users history worksheet and returns it as a readable table
+    """
     history_worksheet = SHEET.worksheet(f"{username}-history")
     all_times = history_worksheet.col_values(1)
     all_history = history_worksheet.col_values(2)
@@ -464,6 +474,28 @@ def call_user_history(username):
 
     for time, history in history_dict.items():
         print(f'{time:19}  -  {history}')
+
+    action = "Viewed account history"
+    update_user_history(username, action)
+
+
+def change_password(username):
+    get_existing_login_details()
+
+    username_cell = USER_DETAILS_SHEET.find(username)
+    existing_credentials = get_existing_login_details()
+
+    while True:
+        print("***********************\n")
+        new_password = input("Please enter in a new password. It must be 4 numbers:\n")
+        
+        if validate_new_password(new_password):
+            break
+    
+    print("\nUpdating your password...\n")
+    USER_DETAILS_SHEET.update_cell(username_cell.row, 2, new_password)
+    print("Password successfully updated\n")
+    print("Please restart the program and login.")
 
 
 def main():
