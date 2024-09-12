@@ -15,8 +15,6 @@ SHEET = GSPREAD_CLIENT.open('bank_of_sem')
 USER_DETAILS_SHEET = SHEET.worksheet("user-details")
 ALL_USERNAMES = SHEET.worksheet("user-details").col_values(1)
 ALL_PASSWORDS = SHEET.worksheet("user-details").col_values(2)
-#ALL_BALANCES = SHEET.worksheet("user-details").col_values(3)
-TIME_NOW = datetime.now()
 
 
 def user_log_in():
@@ -46,6 +44,8 @@ def create_account():
     """
     Create a new username and upload data to spreadsheet
     """
+    time_now = datetime.now()
+
     while True:
         print("***********************\n")
         print("Your new username must be unique")
@@ -73,7 +73,7 @@ def create_account():
     SHEET.add_worksheet(title=f"{new_username}-history", rows = 100, cols = 20)
     SHEET.worksheet(f"{new_username}-history").update_acell('A1', 'Date & Time')
     SHEET.worksheet(f"{new_username}-history").update_acell('B1', 'Details')
-    SHEET.worksheet(f"{new_username}-history").update_acell('A2', str(TIME_NOW))
+    SHEET.worksheet(f"{new_username}-history").update_acell('A2', str(time_now))
     SHEET.worksheet(f"{new_username}-history").update_acell('B2', 'New account created')
     print("Your new account has been created\n")
     print("Please restart the program and login.")
@@ -188,7 +188,7 @@ def main_menu(username):
             send_money(username)
             break
         elif option == '4':
-            print("You have selected 4")
+            call_user_history(username)
             break
         elif option == '5':
             print("\nThank you for using Bank Of Sem. We hope you have a wonderful day.")
@@ -221,6 +221,7 @@ def show_balance(username):
         if option == '1':
             main_menu(username)
             break
+
 
 def withdraw_deposit_funds_menu(username):
     """
@@ -446,12 +447,23 @@ def next_available_row(worksheet):
 
 
 def update_user_history(username, action):
+    time_now = datetime.now()
     history_worksheet = SHEET.worksheet(f"{username}-history")
     next_row = next_available_row(history_worksheet)
 
     #From an external source (Please see README)
-    history_worksheet.update_acell("A{}".format(next_row), str(TIME_NOW))
+    history_worksheet.update_acell("A{}".format(next_row), str(time_now))
     history_worksheet.update_acell("B{}".format(next_row), action)
+
+
+def call_user_history(username):
+    history_worksheet = SHEET.worksheet(f"{username}-history")
+    all_times = history_worksheet.col_values(1)
+    all_history = history_worksheet.col_values(2)
+    history_dict = {all_times: history for all_times, history in zip(all_times, all_history)}
+
+    for time, history in history_dict.items():
+        print(f'{time:19}  -  {history}')
 
 
 def main():
