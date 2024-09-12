@@ -119,12 +119,18 @@ def existing_user_log_in():
 
 
 def get_existing_login_details():
+    """
+    Returns all exisiting usernames and passwords as pairs in a dictonary.
+    """
     existing_credentials = {ALL_USERNAMES: password for ALL_USERNAMES, password in zip(ALL_USERNAMES, ALL_PASSWORDS)}
 
     return existing_credentials
 
 
 def validate_existing_login_details(username, password):
+    """
+    Validates user entered log in details against exisiting credentials in the spreadsheet.
+    """
     existing_credentials = get_existing_login_details()
     correct_password = existing_credentials.get(username)
 
@@ -135,6 +141,9 @@ def validate_existing_login_details(username, password):
 
 
 def main_menu(username):
+    """
+    Main menu selection.
+    """
 
     print("\n***********************")
     print("Please select an option\n")
@@ -167,6 +176,10 @@ def main_menu(username):
 
 
 def show_balance(username):
+    """
+    Pairs all balances to the correct usernames then shows the balance assosiated with the 
+    username used to log in.
+    """
     existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES, balance in zip(ALL_USERNAMES, ALL_BALANCES)}
     balance = existing_balances.get(username)
 
@@ -183,6 +196,9 @@ def show_balance(username):
 
 
 def withdraw_deposit_funds_menu(username):
+    """
+    Withdraw/Deposit funds menu.
+    """
     existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES, balance in zip(ALL_USERNAMES, ALL_BALANCES)}
     balance = existing_balances.get(username)
 
@@ -209,6 +225,11 @@ def withdraw_deposit_funds_menu(username):
             print("Please select a valid option (1-3)\n")
 
 def deposit_funds(username):
+    """
+    Pairs all balances to the correct usernames then shows the balance assosiated with the 
+    username used to log in. Allows the user to then add an amount to that balance and update
+    the spreadsheet.
+    """
     existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES, balance in zip(ALL_USERNAMES, ALL_BALANCES)}
     balance = existing_balances.get(username)
     username_cell = USER_DETAILS_SHEET.find(username)
@@ -232,6 +253,11 @@ def deposit_funds(username):
 
 
 def withdraw_funds(username):
+    """
+    Pairs all balances to the correct usernames then shows the balance assosiated with the 
+    username used to log in. Allows the user to then withdraw an amount from that balance and update
+    the spreadsheet. Wont allow more then the value of their exisiting balance to be withdrawn.
+    """
     existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES, balance in zip(ALL_USERNAMES, ALL_BALANCES)}
     balance = existing_balances.get(username)
     username_cell = USER_DETAILS_SHEET.find(username)
@@ -269,6 +295,14 @@ def withdraw_funds(username):
             if option == '1':
                 main_menu(username)
                 break
+
+
+def send_money(username):
+    """
+    Allows the user to withdraw money from their balance and deposit to another users.
+    """
+    user_option = ("Which user would you like to transfer to?\n")
+
 
 
 def main():
