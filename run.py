@@ -22,7 +22,7 @@ def user_log_in():
     Ask user to log in
     """
     print("***********************")
-    print("Welcome to Bank of Sem\n")
+    print("Welcome to Bank Of Sem\n")
 
     while True:
         print("***********************")
@@ -163,13 +163,13 @@ def main_menu(username):
             withdraw_deposit_funds_menu(username)
             break
         elif option == '3':
-            withdraw_funds(username)
+            send_money(username)
             break
         elif option == '4':
             print("You have selected 4")
             break
         elif option == '5':
-            print("You have selected 5")
+            print("\nThank you for using Bank Of Sem. We hope you have a wonderful day.")
             break
         else: 
             print("Please select a valid option (1-5)\n")
@@ -306,7 +306,7 @@ def send_money(username):
     username_cell = USER_DETAILS_SHEET.find(username)
 
     user_option = input("Which user would you like to transfer to?\n")
-    print("Locating user...\n")
+    print("\nLocating user...\n")
     selected_user_cell = USER_DETAILS_SHEET.find(user_option)
     existing_username = any(x == user_option for x in ALL_USERNAMES)
 
@@ -316,11 +316,12 @@ def send_money(username):
         selected_user_balance = existing_balances.get(user_option)
         transfer_balance = int(selected_user_balance) + int(amount_to_send)
         if int(amount_to_send) > int(balance) or int(balance) == 0:
-            print("Insufficient funds for transfer, please try again.\n")
+            print("\nInsufficient funds for transfer, please try again.\n")
             print("***********************")
             print("1. Try again")
             print("2. Back to main menu")
-            print("***********************")
+            print("***********************\n")
+            option = input("Please select an option:\n")
             while True:
                 if option == '1':
                     send_money(username)
@@ -346,12 +347,11 @@ def send_money(username):
         send_money(username)
 
 
-#def main():
+def main():
     """
     Run all program functions.
     """
-    #user_log_in()
+    user_log_in()
 
 
-#main()
-send_money('SemMTM')
+main()
