@@ -301,15 +301,57 @@ def send_money(username):
     """
     Allows the user to withdraw money from their balance and deposit to another users.
     """
-    user_option = ("Which user would you like to transfer to?\n")
+    existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES, balance in zip(ALL_USERNAMES, ALL_BALANCES)}
+    balance = existing_balances.get(username)
+    username_cell = USER_DETAILS_SHEET.find(username)
+
+    user_option = input("Which user would you like to transfer to?\n")
+    print("Locating user...\n")
+    selected_user_cell = USER_DETAILS_SHEET.find(user_option)
+    existing_username = any(x == user_option for x in ALL_USERNAMES)
+
+    if existing_username == True:
+        amount_to_send = input("User found. How much would you like to transfer?\n£")
+        new_balance = int(balance) - int(amount_to_send)
+        selected_user_balance = existing_balances.get(user_option)
+        transfer_balance = int(selected_user_balance) + int(amount_to_send)
+        if int(amount_to_send) > int(balance) or int(balance) == 0:
+            print("Insufficient funds for transfer, please try again.\n")
+            print("***********************")
+            print("1. Try again")
+            print("2. Back to main menu")
+            print("***********************")
+            while True:
+                if option == '1':
+                    send_money(username)
+                    break
+                if option == '2':
+                    main_menu(username)
+                    break
+        else:
+            print("\nTransfering funds...\n")
+            USER_DETAILS_SHEET.update_cell(selected_user_cell.row, 3, transfer_balance)
+            USER_DETAILS_SHEET.update_cell(username_cell.row, 3, new_balance)
+            print(f"Transfer complete. Your new balance is £{new_balance}\n")
+            print("***********************")
+            print("1. Back")
+            print("***********************\n")
+            option = input("Please select an option:\n")
+            while True:
+                if option == '1':
+                    main_menu(username)
+                    break
+    else:
+        print("User does not exist. Please try again.\n")
+        send_money(username)
 
 
-
-def main():
+#def main():
     """
     Run all program functions.
     """
-    user_log_in()
+    #user_log_in()
 
 
-main()
+#main()
+send_money('SemMTM')
