@@ -15,7 +15,7 @@ SHEET = GSPREAD_CLIENT.open('bank_of_sem')
 USER_DETAILS_SHEET = SHEET.worksheet("user-details")
 ALL_USERNAMES = SHEET.worksheet("user-details").col_values(1)
 ALL_PASSWORDS = SHEET.worksheet("user-details").col_values(2)
-ALL_BALANCES = SHEET.worksheet("user-details").col_values(3)
+#ALL_BALANCES = SHEET.worksheet("user-details").col_values(3)
 TIME_NOW = datetime.now()
 
 
@@ -127,7 +127,7 @@ def existing_user_log_in():
 
         #Update user history with action
         action = "User log in"
-        update_user_history(username, action)
+        update_user_history(existing_username, action)
 
         main_menu(existing_username)
     else:
@@ -135,7 +135,7 @@ def existing_user_log_in():
 
         #Update user history with action
         action = "Attempted log in"
-        update_user_history(username, action)
+        update_user_history(existing_username, action)
 
         existing_user_log_in()
 
@@ -203,7 +203,8 @@ def show_balance(username):
     username used to log in.
     """
     #Gets all exisiting usernames and pairs them to the correct balances in a dictionary
-    existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES, balance in zip(ALL_USERNAMES, ALL_BALANCES)}
+    all_balances = SHEET.worksheet("user-details").col_values(3)
+    existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES, balance in zip(ALL_USERNAMES, all_balances)}
     balance = existing_balances.get(username)
 
     #Update user history with action
@@ -226,7 +227,8 @@ def withdraw_deposit_funds_menu(username):
     Withdraw/Deposit funds menu.
     """
     #Gets all exisiting usernames and pairs them to the correct balances in a dictionary
-    existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES, balance in zip(ALL_USERNAMES, ALL_BALANCES)}
+    all_balances = SHEET.worksheet("user-details").col_values(3)
+    existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES, balance in zip(ALL_USERNAMES, all_balances)}
     balance = existing_balances.get(username)
 
     print(f"\nYour balance is: £{balance}\n")
@@ -259,7 +261,8 @@ def deposit_funds(username):
     the spreadsheet.
     """
     #Gets all exisiting usernames and pairs them to the correct balances in a dictionary
-    existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES, balance in zip(ALL_USERNAMES, ALL_BALANCES)}
+    all_balances = SHEET.worksheet("user-details").col_values(3)
+    existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES, balance in zip(ALL_USERNAMES, all_balances)}
     balance = existing_balances.get(username)
     username_cell = USER_DETAILS_SHEET.find(username)
 
@@ -290,6 +293,8 @@ def deposit_funds(username):
             withdraw_deposit_funds_menu(username)
             break
 
+    all_balances = SHEET.worksheet("user-details").col_values(3)
+
 
 def withdraw_funds(username):
     """
@@ -297,8 +302,9 @@ def withdraw_funds(username):
     username used to log in. Allows the user to then withdraw an amount from that balance and update
     the spreadsheet. Wont allow more then the value of their exisiting balance to be withdrawn.
     """
+    all_balances = SHEET.worksheet("user-details").col_values(3)
     #Gets all exisiting usernames and pairs them to the correct balances in a dictionary
-    existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES, balance in zip(ALL_USERNAMES, ALL_BALANCES)}
+    existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES, balance in zip(ALL_USERNAMES, all_balances)}
     balance = existing_balances.get(username)
     username_cell = USER_DETAILS_SHEET.find(username)
 
@@ -349,13 +355,16 @@ def withdraw_funds(username):
                 main_menu(username)
                 break
 
+    all_balances = SHEET.worksheet("user-details").col_values(3)
+
 
 def send_money(username):
     """
     Allows the user to withdraw money from their balance and deposit to another users.
     """
+    all_balances = SHEET.worksheet("user-details").col_values(3)
     #Gets all exisiting usernames and pairs them to the correct balances in a dictionary
-    existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES, balance in zip(ALL_USERNAMES, ALL_BALANCES)}
+    existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES, balance in zip(ALL_USERNAMES, all_balances)}
     balance = existing_balances.get(username)
 
     #Gets the location of the cell that matches the username 
@@ -426,6 +435,8 @@ def send_money(username):
     else:
         print("User does not exist. Please try again.\n")
         send_money(username)
+
+    all_balances = SHEET.worksheet("user-details").col_values(3)
 
 
 def next_available_row(worksheet):
