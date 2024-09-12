@@ -1,5 +1,6 @@
 import gspread
 from google.oauth2.service_account import Credentials
+from datetime import datetime
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -15,6 +16,7 @@ USER_DETAILS_SHEET = SHEET.worksheet("user-details")
 ALL_USERNAMES = SHEET.worksheet("user-details").col_values(1)
 ALL_PASSWORDS = SHEET.worksheet("user-details").col_values(2)
 ALL_BALANCES = SHEET.worksheet("user-details").col_values(3)
+TIME_NOW = datetime.now()
 
 
 def user_log_in():
@@ -71,6 +73,8 @@ def create_account():
     SHEET.add_worksheet(title=f"{new_username}-history", rows = 100, cols = 20)
     SHEET.worksheet(f"{new_username}-history").update_acell('A1', 'Date & Time')
     SHEET.worksheet(f"{new_username}-history").update_acell('B1', 'Details')
+    SHEET.worksheet(f"{new_username}-history").update_acell('A2', str(TIME_NOW))
+    SHEET.worksheet(f"{new_username}-history").update_acell('B2', 'Created new account')
     print("Your new account has been created\n")
     print("Please restart the program and login.")
 
@@ -389,8 +393,8 @@ def send_money(username):
         send_money(username)
 
 
-def update_user_history():
-    d
+def update_user_history(username):
+    history_worksheet = SHEET.worksheet(f"{new_username}-history")
 
 
 def main():
