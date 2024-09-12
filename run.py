@@ -66,6 +66,11 @@ def create_account():
     print("Adding new user details to database...\n")
     user_worksheet = SHEET.worksheet("user-details")
     user_worksheet.append_row(new_user_details)
+
+    #Creates new history worksheet for new user
+    SHEET.add_worksheet(title=f"{new_username}-history", rows = 100, cols = 20)
+    SHEET.worksheet(f"{new_username}-history").update_acell('A1', 'Date & Time')
+    SHEET.worksheet(f"{new_username}-history").update_acell('B1', 'Details')
     print("Your new account has been created\n")
     print("Please restart the program and login.")
 
@@ -365,10 +370,8 @@ def send_money(username):
         else:
             print("\nTransfering funds...\n")
 
-            #Updates logged in users balance on the spreadsheet 
+            #Updates logged in users & selected users balance on the spreadsheet 
             USER_DETAILS_SHEET.update_cell(selected_user_cell.row, 3, transfer_balance)
-
-            #Updates selected users balance on the spreadsheet 
             USER_DETAILS_SHEET.update_cell(username_cell.row, 3, new_balance)
 
             print(f"Transfer complete. Your new balance is £{new_balance}\n")
