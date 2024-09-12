@@ -11,6 +11,7 @@ CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('bank_of_sem')
+USER_DETAILS_SHEET = SHEET.worksheet("user-details")
 ALL_USERNAMES = SHEET.worksheet("user-details").col_values(1)
 ALL_PASSWORDS = SHEET.worksheet("user-details").col_values(2)
 ALL_BALANCES = SHEET.worksheet("user-details").col_values(3)
@@ -151,7 +152,7 @@ def main_menu(username):
             show_balance(existing_username)
             break
         elif option == '2':
-            print("You have selected 2") 
+            withdraw_deposit_funds_menu(existing_username)
             break
         elif option == '3':
             print("You have selected 3")
@@ -197,7 +198,7 @@ def withdraw_deposit_funds_menu(username):
 
     while True:
         if option == '1':
-            show_balance(existing_username)
+            deposit_funds(existing_username)
             break
         elif option == '2':
             print("You have selected 2") 
@@ -211,25 +212,25 @@ def withdraw_deposit_funds_menu(username):
 def deposit_funds(username):
     existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES, balance in zip(ALL_USERNAMES, ALL_BALANCES)}
     balance = existing_balances.get(username)
+    username_cell = USER_DETAILS_SHEET.find(username)
+    existing_username = username
 
     print("\n***********************")
     deposit_amount = input("How much would you like to deposit?\n£")
     print("***********************\n")
 
     new_balance = int(balance) + int(deposit_amount)
-    print(f"£{new_balance}")
+    print("Depositing funds...\n")
+    USER_DETAILS_SHEET.update_cell(username_cell.row, 3, new_balance)
+    print(f"Deposit complete. Your new balance is £{new_balance}\n")
+    withdraw_deposit_funds_menu(existing_username)
 
 
-#def main():
+def main():
     """
     Run all program functions.
     """
-    #user_log_in()
+    user_log_in()
 
 
-#main()
-
-test = SHEET.worksheet("user-details").get_all_values()
-print(test)
-
-#Trying to figure out how to update the balance of a specific username.
+main()
