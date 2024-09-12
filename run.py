@@ -74,7 +74,7 @@ def create_account():
     SHEET.worksheet(f"{new_username}-history").update_acell('A1', 'Date & Time')
     SHEET.worksheet(f"{new_username}-history").update_acell('B1', 'Details')
     SHEET.worksheet(f"{new_username}-history").update_acell('A2', str(TIME_NOW))
-    SHEET.worksheet(f"{new_username}-history").update_acell('B2', 'Created new account')
+    SHEET.worksheet(f"{new_username}-history").update_acell('B2', 'New account created')
     print("Your new account has been created\n")
     print("Please restart the program and login.")
 
@@ -124,9 +124,19 @@ def existing_user_log_in():
     
     if validate_existing_login_details(existing_username, existing_password):
         print("Correct Login Details\n")
+
+        #Update user history with action
+        action = "User log in"
+        update_user_history(username, action)
+
         main_menu(existing_username)
     else:
         print("Incorrect Details\n")
+
+        #Update user history with action
+        action = "Attempted log in"
+        update_user_history(username, action)
+
         existing_user_log_in()
 
 
@@ -196,6 +206,10 @@ def show_balance(username):
     existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES, balance in zip(ALL_USERNAMES, ALL_BALANCES)}
     balance = existing_balances.get(username)
 
+    #Update user history with action
+    action = "Viewed account balance"
+    update_user_history(username, action)
+
     print(f"\nYour balance is: £{balance}\n")
     print("***********************")
     print("1. Back")
@@ -206,7 +220,6 @@ def show_balance(username):
         if option == '1':
             main_menu(username)
             break
-
 
 def withdraw_deposit_funds_menu(username):
     """
@@ -238,6 +251,7 @@ def withdraw_deposit_funds_menu(username):
         else: 
             print("Please select a valid option (1-3)\n")
 
+
 def deposit_funds(username):
     """
     Pairs all balances to the correct usernames then shows the balance assosiated with the 
@@ -260,6 +274,10 @@ def deposit_funds(username):
 
     # Updates the users balance on the spreadsheet
     USER_DETAILS_SHEET.update_cell(username_cell.row, 3, new_balance)
+
+    #Update user history with action
+    action = f"Deposited £{deposit_amount} to account. Balance after deposit: £{new_balance}"
+    update_user_history(username, action)
 
     print(f"Deposit complete. Your new balance is £{new_balance}\n")
     print("***********************")
@@ -292,6 +310,10 @@ def withdraw_funds(username):
     
     # Throws message if withdraw amount is more then the available balance and wont allow the action 
     if int(withdraw_amount) > int(balance) or int(balance) == 0:
+
+        action = f"Insufficient funds - Attemped to withdraw £{withdraw_amount} from account."
+        update_user_history(username, action)
+
         print("Insufficient funds for withdrawal, please enter a lower amount\n")
         print("***********************")
         print("1. Try again")
@@ -311,6 +333,10 @@ def withdraw_funds(username):
 
         #Updates users balance on the spreadsheet after withdrawl
         USER_DETAILS_SHEET.update_cell(username_cell.row, 3, new_balance)
+        
+        #Update user history with action
+        action = f"Withdrew £{withdraw_amount} from account. Balance after deposit: £{new_balance}"
+        update_user_history(username, action)
 
         print(f"Withdraw complete. Your new balance is £{new_balance}\n")
         print("***********************")
@@ -357,6 +383,11 @@ def send_money(username):
 
         #Throws a message if the transfer amount is more than available funds
         if int(amount_to_send) > int(balance) or int(balance) == 0:
+
+            #Update user history with action
+            action = f"Attempted to transfer £{amount_to_send} to {user_option}. Insufficient funds"
+            update_user_history(username, action)
+
             print("\nInsufficient funds for transfer, please try again.\n")
             print("***********************")
             print("1. Try again")
@@ -378,6 +409,10 @@ def send_money(username):
             USER_DETAILS_SHEET.update_cell(selected_user_cell.row, 3, transfer_balance)
             USER_DETAILS_SHEET.update_cell(username_cell.row, 3, new_balance)
 
+            #Update user history with action
+            action = f"Transfered £{amount_to_send} to {user_option}"
+            update_user_history(username, action)
+
             print(f"Transfer complete. Your new balance is £{new_balance}\n")
             print("***********************")
             print("1. Back")
@@ -393,8 +428,19 @@ def send_money(username):
         send_money(username)
 
 
-def update_user_history(username):
-    history_worksheet = SHEET.worksheet(f"{new_username}-history")
+def next_available_row(worksheet):
+    #From an external source (Please see README)
+    str_list = list(filter(None, worksheet.col_values(1)))
+    return str(len(str_list)+1)
+
+
+def update_user_history(username, action):
+    history_worksheet = SHEET.worksheet(f"{username}-history")
+    next_row = next_available_row(history_worksheet)
+
+    #From an external source (Please see README)
+    history_worksheet.update_acell("A{}".format(next_row), str(TIME_NOW))
+    history_worksheet.update_acell("B{}".format(next_row), action)
 
 
 def main():
