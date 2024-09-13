@@ -63,7 +63,7 @@ def create_account():
         if validate_new_password(new_password):
             break
 
-    new_user_details = [new_username, new_password, 0, "31-80-90", generate_acct_num()]
+    new_user_details = [new_username, new_password, 0, generate_acct_num(), "31-80-90"]
 
     #Updates worksheet with new username if the username is unqiue
     print("Adding new user details to database...\n")
@@ -189,7 +189,8 @@ def main_menu(username):
         print("3. Send Money")
         print("4. See Account History")
         print("5. Change Password")
-        print("6. Exit")
+        print("6. View Account Info")
+        print("7. Exit")
         print("***********************\n")
         option = input("Please select an option (1-5):\n")
 
@@ -209,6 +210,9 @@ def main_menu(username):
             change_password(username)
             break
         elif option == '6':
+            call_user_acc_details(username)
+            break
+        elif option == '7':
             print("\nThank you for using Bank Of Sem. We hope you have a wonderful day.")
             break
         else: 
@@ -232,7 +236,7 @@ def show_balance(username):
     action = "Viewed account balance"
     update_user_history(username, action)
 
-    print(f"\nYour balance is: £{balance}\n")
+    print(f"\nYour balance is: {balance}\n")
     
     while True:
         print("\n***********************")
@@ -258,7 +262,7 @@ def withdraw_deposit_funds_menu(username):
     existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES, balance in zip(ALL_USERNAMES, all_balances)}
     balance = existing_balances.get(username)
 
-    print(f"\nYour balance is: £{balance}\n")
+    print(f"\nYour balance is: {balance}\n")
 
     while True:
         print("***********************")
@@ -310,10 +314,10 @@ def deposit_funds(username):
     USER_DETAILS_SHEET.update_cell(username_cell.row, 3, new_balance)
 
     #Update user history with action
-    action = f"Deposited £{deposit_amount} to account. Balance after deposit: £{new_balance}"
+    action = f"Deposited £{deposit_amount} to account. Balance after deposit: {new_balance}"
     update_user_history(username, action)
 
-    print(f"Deposit complete. Your new balance is £{new_balance}\n")
+    print(f"Deposit complete. Your new balance is {new_balance}\n")
     
     while True:
         print("***********************")
@@ -354,7 +358,7 @@ def withdraw_funds(username):
     # Throws message if withdraw amount is more then the available balance and wont allow the action 
     if int(withdraw_amount) > int(balance) or int(balance) == 0:
 
-        action = f"Insufficient funds - Attemped to withdraw £{withdraw_amount} from account."
+        action = f"Insufficient funds - Attemped to withdraw {withdraw_amount} from account."
         update_user_history(username, action)
 
         print("Insufficient funds for withdrawal, please enter a lower amount\n")
@@ -382,10 +386,10 @@ def withdraw_funds(username):
         USER_DETAILS_SHEET.update_cell(username_cell.row, 3, new_balance)
         
         #Update user history with action
-        action = f"Withdrew £{withdraw_amount} from account. Balance after deposit: £{new_balance}"
+        action = f"Withdrew £{withdraw_amount} from account. Balance after deposit: {new_balance}"
         update_user_history(username, action)
 
-        print(f"Withdraw complete. Your new balance is £{new_balance}\n")
+        print(f"Withdraw complete. Your new balance is {new_balance}\n")
     
         while True:
             print("***********************")
@@ -473,7 +477,7 @@ def send_money(username):
             action2 = f"Recieved £{amount_to_send} from {username}"
             update_user_history(user_option, action2)
 
-            print(f"Transfer complete. Your new balance is £{new_balance}\n")
+            print(f"Transfer complete. Your new balance is {new_balance}\n")
 
             while True:
                 print("***********************")
@@ -567,6 +571,34 @@ def change_password(username):
     USER_DETAILS_SHEET.update_cell(username_cell.row, 2, new_password)
     print("Password successfully updated\n")
     print("Please restart the program and login.")
+
+
+def call_user_acc_details(username):
+    """
+    Calls and shows the user details data for the logged in user
+    """
+
+    print(f"\nLoading...\n")
+
+    username_cell = USER_DETAILS_SHEET.find(username)
+    row_headings = USER_DETAILS_SHEET.row_values(1)
+    username_row_data = USER_DETAILS_SHEET.row_values(username_cell.row)
+    acc_details_dict = {heading: data for heading, data in zip(row_headings, username_row_data)}
+
+    for heading, data in acc_details_dict.items():
+        print(f'{heading:15}  -  {data}')
+
+    while True:
+        print("\n***********************")
+        print("1. Back")
+        print("***********************\n")
+        option = input("Please select an option:\n")
+
+        if option == '1':
+            main_menu(username)
+            break
+        else: 
+            print("\nPlease select a valid option\n")
 
 
 def main():
