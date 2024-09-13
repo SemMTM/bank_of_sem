@@ -148,10 +148,6 @@ def existing_user_log_in():
     else:
         print("Incorrect Details\n")
 
-        #Update user history with action
-        action = "Attempted log in"
-        update_user_history(existing_username, action)
-
         existing_user_log_in()
 
 
@@ -236,7 +232,7 @@ def show_balance(username):
     action = "Viewed account balance"
     update_user_history(username, action)
 
-    print(f"\nYour balance is: {balance}\n")
+    print(f"\nYour balance is: £{balance}\n")
     
     while True:
         print("\n***********************")
@@ -262,7 +258,7 @@ def withdraw_deposit_funds_menu(username):
     existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES, balance in zip(ALL_USERNAMES, all_balances)}
     balance = existing_balances.get(username)
 
-    print(f"\nYour balance is: {balance}\n")
+    print(f"\nYour balance is: £{balance}\n")
 
     while True:
         print("***********************")
@@ -314,10 +310,10 @@ def deposit_funds(username):
     USER_DETAILS_SHEET.update_cell(username_cell.row, 3, new_balance)
 
     #Update user history with action
-    action = f"Deposited £{deposit_amount} to account. Balance after deposit: {new_balance}"
+    action = f"Deposited £{deposit_amount} to account. Balance after deposit: £{new_balance}"
     update_user_history(username, action)
 
-    print(f"Deposit complete. Your new balance is {new_balance}\n")
+    print(f"Deposit complete. Your new balance is £{new_balance}\n")
     
     while True:
         print("***********************")
@@ -358,7 +354,7 @@ def withdraw_funds(username):
     # Throws message if withdraw amount is more then the available balance and wont allow the action 
     if int(withdraw_amount) > int(balance) or int(balance) == 0:
 
-        action = f"Insufficient funds - Attemped to withdraw {withdraw_amount} from account."
+        action = f"Insufficient funds - Attemped to withdraw £{withdraw_amount} from account."
         update_user_history(username, action)
 
         print("Insufficient funds for withdrawal, please enter a lower amount\n")
@@ -386,10 +382,10 @@ def withdraw_funds(username):
         USER_DETAILS_SHEET.update_cell(username_cell.row, 3, new_balance)
         
         #Update user history with action
-        action = f"Withdrew £{withdraw_amount} from account. Balance after deposit: {new_balance}"
+        action = f"Withdrew £{withdraw_amount} from account. Balance after deposit: £{new_balance}"
         update_user_history(username, action)
 
-        print(f"Withdraw complete. Your new balance is {new_balance}\n")
+        print(f"Withdraw complete. Your new balance is £{new_balance}\n")
     
         while True:
             print("***********************")
@@ -477,7 +473,7 @@ def send_money(username):
             action2 = f"Recieved £{amount_to_send} from {username}"
             update_user_history(user_option, action2)
 
-            print(f"Transfer complete. Your new balance is {new_balance}\n")
+            print(f"Transfer complete. Your new balance is £{new_balance}\n")
 
             while True:
                 print("***********************")
@@ -586,7 +582,12 @@ def call_user_acc_details(username):
     acc_details_dict = {heading: data for heading, data in zip(row_headings, username_row_data)}
 
     for heading, data in acc_details_dict.items():
-        print(f'{heading:15}  -  {data}')
+        if heading == 'Password':
+            print(f'{heading:15}  -  ****')
+        elif heading != 'Balance':
+            print(f'{heading:15}  -  {data}')
+        else:
+            print(f'{heading:15}  -  £{data}')
 
     while True:
         print("\n***********************")
