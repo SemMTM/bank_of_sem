@@ -67,7 +67,7 @@ def create_account():
     while True:
         print("Here are our available account types:")
         print("1. Current Account - A regular account with no limits")
-        print("2. Growth Account - An account with a £15,000 balance limit and interest gained of 0.25% per day")
+        print("2. Growth Account - An account with a £15,000 balance limit and interest gained of 1% per log in")
         account_type_selection = input("\nPlease select an account type:\n")
 
         if account_type_selection == '1':
