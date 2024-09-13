@@ -156,6 +156,8 @@ def existing_user_log_in():
     if validate_existing_login_details(existing_username, existing_password):
         print("Correct Login Details\n")
 
+        print(f"\nLoading account...\n")
+
         #Update user history with action
         action = "User log in"
         update_user_history(existing_username, action)
@@ -321,16 +323,41 @@ def deposit_funds(username):
     # Calculates the new balance after deposit 
     new_balance = int(balance) + int(deposit_amount)
 
-    print("Depositing funds...\n")
+    while True:
+        if check_account_type(username) != 'Growth Account':
+            print("Depositing funds...\n")
 
-    # Updates the users balance on the spreadsheet
-    USER_DETAILS_SHEET.update_cell(username_cell.row, 3, new_balance)
+            # Updates the users balance on the spreadsheet
+            USER_DETAILS_SHEET.update_cell(username_cell.row, 3, new_balance)
 
-    #Update user history with action
-    action = f"Deposited £{deposit_amount} to account. Balance after deposit: £{new_balance}"
-    update_user_history(username, action)
+            #Update user history with action
+            action = f"Deposited £{deposit_amount} to account. Balance after deposit: £{new_balance}"
+            update_user_history(username, action)
 
-    print(f"Deposit complete. Your new balance is £{new_balance}\n")
+            print(f"Deposit complete. Your new balance is £{new_balance}\n")
+            break
+
+        elif int(new_balance) < 15000:
+            print("Depositing funds...\n")
+
+            # Updates the users balance on the spreadsheet
+            USER_DETAILS_SHEET.update_cell(username_cell.row, 3, new_balance)
+
+            #Update user history with action
+            action = f"Deposited £{deposit_amount} to account. Balance after deposit: £{new_balance}"
+            update_user_history(username, action)
+
+            print(f"Deposit complete. Your new balance is £{new_balance}\n")
+            balance_remaining = 15000 - new_balance
+            print(f"Your have £{balance_remaining} remaining of your £15,000 balance limit\n")
+            break
+
+        elif int(new_balance) > 15000:
+            print("This account is a Growth Account and has a balance limit of £15000.")
+            print("This deposit will cause your account to exceed the £15,000 limit.")
+            print(f"Your current balance is: £{balance}. Please deposit a lower amount.\n")
+            break
+
     
     while True:
         print("***********************")
@@ -633,7 +660,7 @@ def add_interest(username, account):
     username_cell = USER_DETAILS_SHEET.find(username)
 
     if account == 'Growth Account':
-        new_balance = int(balance) + (int(balance) * 0.01)
+        new_balance = int(balance) + round((int(balance) * 0.01))
         USER_DETAILS_SHEET.update_cell(username_cell.row, 3, new_balance)
 
         #Update user history with action
