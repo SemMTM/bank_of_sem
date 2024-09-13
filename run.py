@@ -1,6 +1,7 @@
 import gspread
 from google.oauth2.service_account import Credentials
 from datetime import datetime
+from random import randint
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -62,7 +63,7 @@ def create_account():
         if validate_new_password(new_password):
             break
 
-    new_user_details = [new_username, new_password, 0]
+    new_user_details = [new_username, new_password, 0, "31-80-90", generate_acct_num()]
 
     #Updates worksheet with new username if the username is unqiue
     print("Adding new user details to database...\n")
@@ -77,6 +78,20 @@ def create_account():
     SHEET.worksheet(f"{new_username}-history").update_acell('B2', 'New account created')
     print("Your new account has been created\n")
     print("Please restart the program and login.")
+
+
+def generate_acct_num():
+    all_acct_nums = SHEET.worksheet("user-details").col_values(4)
+
+    while True:
+        random_acct_num = randint(10000000, 99999999)
+        existing_acct_num = any(x == random_acct_num for x in ALL_USERNAMES)
+
+        if existing_acct_num == True:
+            break
+        else:
+            return(random_acct_num)
+            break
 
 
 def validate_new_username(username):
