@@ -160,10 +160,11 @@ def existing_user_log_in():
         action = "User log in"
         update_user_history(existing_username, action)
 
+        add_interest(existing_username, check_account_type(existing_username))
+
         main_menu(existing_username)
     else:
         print("Incorrect Details\n")
-
         existing_user_log_in()
 
 
@@ -616,6 +617,30 @@ def call_user_acc_details(username):
             break
         else: 
             print("\nPlease select a valid option\n")
+
+
+def check_account_type(username):
+    username_cell = USER_DETAILS_SHEET.find(username)
+    user_account_type = USER_DETAILS_SHEET.cell(username_cell.row, 6).value
+
+    return user_account_type
+
+
+def add_interest(username, account):
+    all_balances = SHEET.worksheet("user-details").col_values(3)
+    existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES, balance in zip(ALL_USERNAMES, all_balances)}
+    balance = existing_balances.get(username)
+    username_cell = USER_DETAILS_SHEET.find(username)
+
+    if account == 'Growth Account':
+        new_balance = int(balance) + (int(balance) * 0.01)
+        USER_DETAILS_SHEET.update_cell(username_cell.row, 3, new_balance)
+
+        #Update user history with action
+        action = f"1% interest added to balance. Balance after interest gained: £{new_balance}"
+        update_user_history(username, action)
+    else:
+        pass
 
 
 def main():
