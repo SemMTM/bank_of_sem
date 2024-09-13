@@ -46,6 +46,7 @@ def create_account():
     Create a new username and upload data to spreadsheet
     """
     time_now = datetime.now()
+    account_type = ''
 
     while True:
         print("***********************\n")
@@ -63,10 +64,25 @@ def create_account():
         if validate_new_password(new_password):
             break
 
-    new_user_details = [new_username, new_password, 0, generate_acct_num(), "31-80-90"]
+    while True:
+        print("Here are our available account types:")
+        print("1. Current Account - A regular account with no limits")
+        print("2. Growth Account - An account with a £15,000 balance limit and interest gained of 0.25% per day")
+        account_type_selection = input("\nPlease select an account type:\n")
+
+        if account_type_selection == '1':
+            account_type = 'Current Account'
+            break
+        elif account_type_selection == '2':
+            account_type = 'Growth Account' 
+            break
+        else: 
+            print("\nPlease select a valid option (1-2)\n")
+
+    new_user_details = [new_username, new_password, 0, generate_acct_num(), "31-80-90", account_type]
 
     #Updates worksheet with new username if the username is unqiue
-    print("Adding new user details to database...\n")
+    print("\nAdding new user details to database...\n")
     user_worksheet = SHEET.worksheet("user-details")
     user_worksheet.append_row(new_user_details)
 
