@@ -452,7 +452,7 @@ def send_money(username):
             USER_DETAILS_SHEET.update_cell(selected_user_cell.row, 3, transfer_balance)
             USER_DETAILS_SHEET.update_cell(username_cell.row, 3, new_balance)
 
-            #Update user history with action
+            #Update user & selected user history with action
             action = f"Transfered £{amount_to_send} to {user_option}"
             update_user_history(username, action)
             action2 = f"Recieved £{amount_to_send} from {username}"
@@ -510,7 +510,7 @@ def call_user_history(username):
     history_dict = {all_times: history for all_times, history in zip(all_times, all_history)}
 
     for time, history in history_dict.items():
-        print(f'{time:19}  -  {history:19}')
+        print(f'{time:19}  -  {history}')
 
     action = "Viewed account history"
     update_user_history(username, action)
