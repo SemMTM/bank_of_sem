@@ -1,5 +1,7 @@
-# Bank Of Sem
-## A Terminal Based Banking Application
+# ***Bank Of Sem***
+![Welcome](<assets/readme images/Screenshot_36.png>)
+---
+## **A Terminal Based Banking Application**
 A terminal based banking application that is connected to a databased via api and updates the information based on user action. To use the application, a user must create an account with a unique username & 4 digit password, thesse are then pushed to the data base. To log in, the user must use the correct & matching credentials or access to the account will be denied.
 
 The user can do a variety of banking based tasks once logged in, these are:
@@ -31,7 +33,9 @@ List of other users to test transfer feature:
 
 #### Repository: https://github.com/SemMTM/bank_of_sem
 
-## Table of Contents
+---
+
+## **Table of Contents**
 1. UX
 2. Features
 3. Future Features
@@ -41,7 +45,7 @@ List of other users to test transfer feature:
 7. Credits
 8. Deployment
 
-## 1. Pre-project Planning
+# **1. Pre-project Planning**
 The plan for this project was to create a terminal based banking application that would manipulate data stored in a database. All users would have unique usernames and passwords that could be changed by the user. I wanted to imitate a real banking applications features as much as possible. Every action should cause some change in the database. 
 
 The pre planned features were:
@@ -51,7 +55,7 @@ The pre planned features were:
 4. Send money to another user in the database
 5. The ability to see a history of all actions taken on the account
 
-### 1.2. UX Design
+### **1.2. UX Design**
 As I had quite a few features planned and this was a terminial based program, the user needs a way to easily navigate back an forth between all the features. The user would select their options from a predetermined & numbered option list. Each selection will provide the user with some kind of response and relevant sub-options. 
 
 The main structure structure would be as follows:
@@ -68,7 +72,7 @@ The main structure structure would be as follows:
 
 Each main option will then either prompt a user input for data to be submitted to the database or there will be a sub menu to further specify what action they would like to take. After an action has been completed, the user will be prompted with a back option if they wish to continue with more tasks.
 
-### 1.3. User Stories
+### **1.3. User Stories**
 - First Time Visitor Goals
   - As a first time visitor, I want to create an account
   - As a first time visitor, I want to deposit money into my new account
@@ -85,10 +89,12 @@ Each main option will then either prompt a user input for data to be submitted t
   - As a frequent user, I want to be able to see my account activity 
   - As a frequent user, I want to be able to see my account information
 
-### 1.4. Flow Charts
+### **1.4. Flow Charts**
 
-## 2. Features
-### Main Menu
+---
+
+# **2. Features**
+## **Main Menu**
 - Welcomes the user to the Bank Of Sem and introduces the 2 main options.
 - Prompts the user to make a selection.
 
@@ -98,19 +104,19 @@ Each main option will then either prompt a user input for data to be submitted t
 
 ![Wrror message](<assets/readme images/Screenshot_1.png>)
 
-### Create Account
-- Username
+## Create Account
+- **Username**
   - Allows the user to create an account that will be pushed to the database. Each username must be unique or an error will be thrown.
 
 ![Enter username screen](<assets/readme images/Screenshot_4.png>)
 
-- Password
+- **Password**
   - Once a unique username has been selected, the user will be promted to input a 4 digit password.
   - The password must be 4 numbers or an error will be thrown.
 
 ![Enter password error message](<assets/readme images/Screenshot_5.png>)
 
-- Account Type
+- **Account Type**
   - After a valid password has been chosen, the user will be prompted to select an account type.
   - Each account may only be 1 account type. Certain account types have different benefit & restrictions.
   - Current accounts function like a regular bank account and have no restrictions.
@@ -118,7 +124,7 @@ Each main option will then either prompt a user input for data to be submitted t
 
 ![Account type selection](<assets/readme images/Screenshot_6.png>)
 
-- Account creation in database
+- **Account creation in database**
   - Once all options have been selected, the new user details will then be pushed to the database.
   - The user will be prompted while this happens.
   - Validation will be done against these details for future log ins and the account type will have an effect on the functions of the account.
@@ -135,7 +141,7 @@ Each main option will then either prompt a user input for data to be submitted t
 
 ![New user history](<assets/readme images/Screenshot_10.png>)
 
-### Log In
+## **Log In**
 - To log in, the details provided must match the details in the database or access will be denied.
 - Usernames and passwords are paired and if the entered details do not match a pair, then an error will be thrown.
 
@@ -147,26 +153,26 @@ Each main option will then either prompt a user input for data to be submitted t
 
 ![Correct log in details](<assets/readme images/Screenshot_12.png>)
 
-### Main Menu
+## **Main Menu**
 - The main menu shows the user all of the actions that can be taken on their account.
 - If an invalid option is selected, then an error message is thrown.
 
 ![Main Menu](<assets/readme images/Screenshot_13.png>)
 
-### Show Balance
+## **Show Balance**
 - This option extracts the logged in users balance from the list of users in the spreadsheet and displays it in the terminal.
 
 ![User balance in speadsheet](<assets/readme images/Screenshot_14.png>)
 
 ![User balance in terminal](<assets/readme images/Screenshot_15.png>)
 
-### Withdraw/Deposit Funds
+## **Withdraw/Deposit Funds**
 - A user is able to withdraw/deposit funds from their account.
 - The user is also shown their available balance.
 
 ![Withdraw/deposit funds menu](<assets/readme images/Screenshot_33.png>)
 
-- Deposit funds
+- **Deposit funds**
   - The amount a user can deposit depends on their account type.
   - A current account has an unlimited deposit limit.
   - A growth account has a max deposit of £15,000.
@@ -180,7 +186,7 @@ Each main option will then either prompt a user input for data to be submitted t
 
   ![spreadsheet updated with deposit amount](<assets/readme images/Screenshot_20.png>)
 
-- Withdraw funds
+- **Withdraw funds**
   - The user can't withdraw more money then they have in their account.
 
   ![insufficient funds for withdrawl message](<assets/readme images/Screenshot_18.png>)
@@ -193,7 +199,7 @@ Each main option will then either prompt a user input for data to be submitted t
 
   ![Successful withdrawl update in spreadsheet](<assets/readme images/Screenshot_22.png>)
 
-### Send Money To Another User
+## **Send Money To Another User**
 - A user must exist to be able to send money. If a non-existant user to selected then an error message will be thrown.
 
 ![Non existant user error message](<assets/readme images/Screenshot_23.png>)
@@ -214,7 +220,7 @@ Each main option will then either prompt a user input for data to be submitted t
 
 ![Message when trying to transfer more than available funds](<assets/readme images/Screenshot_27.png>)
 
-### See Account History
+## **See Account History**
 - Every action on a logged in users account is saved and time stamped in the users "history" tab.
 - These actions are pushed to the database and can be called & displayed in the terminal.
 - The data has been formatted to be more readable for the user.
@@ -223,7 +229,7 @@ Each main option will then either prompt a user input for data to be submitted t
 
 ![View account history in database](<assets/readme images/Screenshot_29.png>)
 
-### Change Password
+## **Change Password**
 - The logged in user can change the password associated with their account.
 - The changing password follows the same validation as creating one at log in. It must be 4 numbers only and will throw an error if not.
 
@@ -235,7 +241,7 @@ Each main option will then either prompt a user input for data to be submitted t
 
 ![Change password updated in database](<assets/readme images/Screenshot_32.png>)
 
-### View Account Info  
+## **View Account Info**
 - This feature works similarly to the "See Acount History" feature.
 - It allows the logged in user to see all of their key account information.
 - The data has been formatted to be more readable for the user and the password is hidden.
@@ -244,17 +250,21 @@ Each main option will then either prompt a user input for data to be submitted t
 
 ![View account info](<assets/readme images/Screenshot_35.png>)
 
-## 3. Future Features
+---
+
+# **3. Future Features**
 - Hash passwords for further security.
 - Add interest daily on growth accounts rather then per log in.
 - Ability to log in via email and recieve account information directly to email address.
 - A front end GUI instead of a terminal based UI.
 
-## 4. Technology Used
-### Languages
+---
+
+# **4. Technology Used**
+### **Languages**
 - Python
 
-### Frameworks, Libraries, Programs Used & APIs
+### **Frameworks, Libraries, Programs Used & APIs**
 - Git:
   - Used for version control by utilising VSCode terminal to commit to Git and push to GitHub.
 - GitHub: 
@@ -272,22 +282,30 @@ Each main option will then either prompt a user input for data to be submitted t
 - Google Drive API: 
   - Used to create and manage the bank of sem spreadsheet.
 
-## 5. Testing
+---
+
+# **5. Testing**
 For all testing please refer to the TESTING.md file.
 
-## 6. Bugs
-### 6.1. Fixed Bugs
+---
 
-### 6.2. Unfixed Bugs
+# **6. Bugs**
+### **6.1. Fixed Bugs**
 
-## 7. Credits
+### **6.2. Unfixed Bugs**
 
-### 7.1. Content & Resources
+---
+
+# **7. Credits**
+
+### **7.1. Content & Resources**
 - How to use any() to check if an element exists in a list: https://www.analyticsvidhya.com/blog/2024/02/check-if-element-exists-in-list-in-python/#:~:text=Using%20the%20%27any()%27%20Function,-The%20%27any()&text=You%20can%20determine%20if%20it,"Element%20not%20found."%20)&text=Element%20found!,-Using%20the%20%27count
 - Used validate_data function from the Love Sandwiches project
 - How to populate the next empty cell in a col with a specifed value: https://stackoverflow.com/questions/40781295/how-to-find-the-first-empty-row-of-a-google-spread-sheet-using-python-gspread
 - How to generate a random number of digits: https://stackoverflow.com/questions/2673385/how-to-generate-a-random-number-with-a-specific-amount-of-digits
 
-### 7.3. Acknowledgements
+### **7.3. Acknowledgements**
 
-## 8. Deployemnt
+---
+
+# **8. Deployemnt**
