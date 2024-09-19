@@ -1,6 +1,6 @@
 # Bank Of Sem
 ## A Terminal Based Banking Application
-A terminal based banking application that is connected to a databased via api and updates the inforation based on user action. To use the application, a user must create an account with a unique username & 4 digit password that is then pushed to the data base. To log in, the user must use the correct & matching credentials or access to the account will be denied.
+A terminal based banking application that is connected to a databased via api and updates the information based on user action. To use the application, a user must create an account with a unique username & 4 digit password, thesse are then pushed to the data base. To log in, the user must use the correct & matching credentials or access to the account will be denied.
 
 The user can do a variety of banking based tasks once logged in, these are:
 1. Show Balance
@@ -8,7 +8,8 @@ The user can do a variety of banking based tasks once logged in, these are:
 3. Send Money To Another User
 4. See Account History
 5. Change Password
-6. Exit
+6. View Account Info
+7. Exit
 
 Every action will be pushed to the database and updated.
 
