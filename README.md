@@ -183,9 +183,12 @@ Each main option will then either prompt a user input for data to be submitted t
   ![insufficient funds for withdrawl message](<assets/readme images/Screenshot_18.png>)
 
   - After a successful withdrawl, the user is shown a message with their new balance and the spreadsheet is updated.
+
   ![Successful withdrawl](<assets/readme images/Screenshot_21.png>)
 
   ![Successful withdrawl update in spreadsheet](<assets/readme images/Screenshot_22.png>)
+
+### Send Money To Another User
   
 
 ## 3. Future Features

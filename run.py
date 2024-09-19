@@ -454,9 +454,12 @@ def send_money(username):
     print(f"\nLoading...\n")
 
     all_balances = SHEET.worksheet("user-details").col_values(3)
+    all_account_types = SHEET.worksheet("user-details").col_values(6)
     #Gets all exisiting usernames and pairs them to the correct balances in a dictionary
     existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES, balance in zip(ALL_USERNAMES, all_balances)}
+    existing_account_types = {ALL_USERNAMES: account_type for ALL_USERNAMES, account_type in zip(ALL_USERNAMES, all_account_types)}
     balance = existing_balances.get(username)
+    account_type = existing_account_types.get(username)
 
     #Gets the location of the cell that matches the username 
     username_cell = USER_DETAILS_SHEET.find(username)
@@ -468,8 +471,32 @@ def send_money(username):
     selected_user_cell = USER_DETAILS_SHEET.find(user_option)
     existing_username = any(x == user_option for x in ALL_USERNAMES)
 
+    selected_user_account_type = existing_account_types.get(user_option)
+
     #Checks if requested user exists in the spreadsheet
     if existing_username == True:
+
+        #Checks if their account type
+        if selected_user_account_type == "Growth Account":
+            print("The selected users account is a Growth Account. Growth accounts are not able to transfer or recieve funds.")
+            print("Please select another user.\n")
+
+            while True:
+                print("***********************")
+                print("1. Try again")
+                print("2. Back to main menu")
+                print("***********************\n")
+                option = input("Please select an option:\n")
+
+                if option == '1':
+                    send_money(username)
+                    break
+                elif option == '2':
+                    main_menu(username)
+                    break
+                else:
+                    print("\nPlease select a valid option (1-2)\n")
+
         amount_to_send = input("User found. How much would you like to transfer?\n£")
         
         #Calculates logged in users balance after withdraw amount has been selected
