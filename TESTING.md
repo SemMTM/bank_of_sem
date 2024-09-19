@@ -25,22 +25,21 @@
 |  | A random account & unique number has been generated and assigned to the user | Check user "Test2" details in the database and see if account number has been generated and is unqiue | Account number is unique and has been assigned to the correct user | Pass
 |  | The new users details have appended under the last created users details | Check user "Test2" details have not overwritten another users details" | Details have appended correctly | Pass
 | **Main Menu** |  |  |  | 
-|  | Option "1. Show Balance" opens relevant sub menu |  |  |
-|  | Option "2 Withdraw/Deposit Funds" opens relevant sub menu |  |  |
-|  | Option "3. Send Money" opens relevant sub menu |  |  |
-|  | Option "4. See Account History" opens relevant sub menu |  |  |
-|  | Option "5. Change Password" opens relevant sub menu |  |  |
-|  | Option "6. View Account Info" opens relevant sub menu |  |  |
-|  | Option "7. Exit" opens relevant sub menu |  |  |
+|  | Option "1. Show Balance" opens relevant sub menu | Select option 1. | User is shown their available balance | Pass
+|  | Option "2 Withdraw/Deposit Funds" opens relevant sub menu | Select option 2. | User is showns withdraw/deposit sub menu | Pass
+|  | Option "3. Send Money" opens relevant sub menu | Select option 3. | Ask user who they want to send money to | Pass
+|  | Option "4. See Account History" opens relevant sub menu | Select option 4. | Loads users account history with times | Pass
+|  | Option "5. Change Password" opens relevant sub menu | Select option 5. | Prompts user to enter new password | Pass
+|  | Option "6. View Account Info" opens relevant sub menu | Select option 6. | Displays correct users account info | Pass
+|  | Option "7. Exit" displays goodbye message and closes app | Select option 7. |  | Pass
 |  | Error message is thrown if invalid option selected | Type a number of different characters != 1 or 2 | Error message is thrown and user is promted to select another option | Pass
 | **Show Balance** |  |  |  | 
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
+|  | The user is shown their balance | Press option 1. in the main menu | A Balance that matches the logged in users balance in the spreadsheet is displayed | Pass
+|  | The "Back" option operates as expected | After balance is shown, select option 1. | The "Back" option takes the user back to main menu | Pass
+|  | Error thrown when user option != 1 in back menu selection | Enter number 2 | Error message is thrown and user is prompted to reselect an option | Pass
 | **Withdraw/Deposit Funds** |  |  |  | 
-|  |  |  |  |
-|  |  |  |  |
+|  | Users balance is displayed above menu selection | Check the balance shown against users detail in the spreadsheet matches balance displayed | Both balances match (in the spreadsheet and shown above menu) | Pass
+|  | User is promted to add deposit amount | Press option 1. in the sub-menu | User is promted to add deposit amount | Pass
 |  |  |  |  |
 |  |  |  |  |
 | **Send Money** |  |  |  | 

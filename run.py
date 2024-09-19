@@ -324,7 +324,11 @@ def deposit_funds(username):
     new_balance = int(balance) + int(deposit_amount)
 
     while True:
-        if check_account_type(username) != 'Growth Account':
+        if int(deposit_amount) > 25000:
+                print("There is a deposit limit of £25,000 per transaction. Please enter a lower deposit amount.\n")
+                break
+        
+        elif check_account_type(username) != 'Growth Account':
             print("Depositing funds...\n")
 
             # Updates the users balance on the spreadsheet
@@ -358,7 +362,6 @@ def deposit_funds(username):
             print(f"Your current balance is: £{balance}. Please deposit a lower amount.\n")
             break
 
-    
     while True:
         print("***********************")
         print("1. Back")
