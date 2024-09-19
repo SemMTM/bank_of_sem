@@ -349,7 +349,7 @@ def deposit_funds(username):
 
             print(f"Deposit complete. Your new balance is £{new_balance}\n")
             balance_remaining = 15000 - new_balance
-            print(f"Your have £{balance_remaining} remaining of your £15,000 balance limit\n")
+            print(f"You have £{balance_remaining} remaining of your £15,000 balance limit\n")
             break
 
         elif int(new_balance) > 15000:

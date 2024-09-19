@@ -141,10 +141,52 @@ Each main option will then either prompt a user input for data to be submitted t
 
 - Once the correct details are entered, the user will be shown a "loading account..." message and be taken to a main menu.
 
+![Log in details in spreadsheet](<assets/readme images/Screenshot_14.png>)
+
 ![Correct log in details](<assets/readme images/Screenshot_12.png>)
 
 ### Main Menu
+- The main menu shows the user all of the actions that can be taken on their account.
+- If an invalid option is selected, then an error message is thrown.
 
+![Main Menu](<assets/readme images/Screenshot_13.png>)
+
+### Show Balance
+- This option extracts the logged in users balance from the list of users in the spreadsheet and displays it in the terminal.
+
+![User balance in speadsheet](<assets/readme images/Screenshot_14.png>)
+
+![User balance in terminal](<assets/readme images/Screenshot_15.png>)
+
+### Withdraw/Deposit Funds
+- A user is able to withdraw/deposit funds from their account.
+
+![Withdraw/deposit funds menu](<assets/readme images/Screenshot_16.png>)
+
+- Deposit funds
+  - The amount a user can deposit depends on their account type.
+  - A current account has an unlimited deposit limit.
+  - A growth account has a max deposit of £15,000.
+
+  ![Deposit limit for growth accounts](<assets/readme images/Screenshot_17.png>)
+
+  - Upon a successful deposit, a message with the new account balance will be displayed to the user and the amount will be added to the balance on the spreadsheet.
+  - If the account is a growth account then a message telling them their remaining deposit amount of their £15,000 limit.
+
+  ![successful deposit](<assets/readme images/Screenshot_19.png>)
+
+  ![spreadsheet updated with deposit amount](<assets/readme images/Screenshot_20.png>)
+
+- Withdraw funds
+  - The user can't withdraw more money then they have in their account.
+
+  ![insufficient funds for withdrawl message](<assets/readme images/Screenshot_18.png>)
+
+  - After a successful withdrawl, the user is shown a message with their new balance and the spreadsheet is updated.
+  ![Successful withdrawl](<assets/readme images/Screenshot_21.png>)
+
+  ![Successful withdrawl update in spreadsheet](<assets/readme images/Screenshot_22.png>)
+  
 
 ## 3. Future Features
 
