@@ -207,7 +207,7 @@ def main_menu(username):
         print("6. View Account Info")
         print("7. Exit")
         print("***********************\n")
-        option = input("Please select an option (1-5):\n")
+        option = input("Please select an option (1-7):\n")
 
         if option == '1':
             show_balance(username)
