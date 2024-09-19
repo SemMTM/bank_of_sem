@@ -94,7 +94,7 @@ Each main option will then either prompt a user input for data to be submitted t
 
 ![Main menu](<assets/readme images/Screenshot_2.png>)
 
-- Throws and error if an invalid option is selected.
+- Throws an error if an invalid option is selected.
 
 ![Wrror message](<assets/readme images/Screenshot_1.png>)
 
@@ -162,8 +162,9 @@ Each main option will then either prompt a user input for data to be submitted t
 
 ### Withdraw/Deposit Funds
 - A user is able to withdraw/deposit funds from their account.
+- The user is also shown their available balance.
 
-![Withdraw/deposit funds menu](<assets/readme images/Screenshot_16.png>)
+![Withdraw/deposit funds menu](<assets/readme images/Screenshot_33.png>)
 
 - Deposit funds
   - The amount a user can deposit depends on their account type.
@@ -184,6 +185,8 @@ Each main option will then either prompt a user input for data to be submitted t
 
   ![insufficient funds for withdrawl message](<assets/readme images/Screenshot_18.png>)
 
+  - The user is prompted with the amount they would like to withdraw. After a valid amount has been specified, the withdraw amount is taken 
+    away from their balance.
   - After a successful withdrawl, the user is shown a message with their new balance and the spreadsheet is updated.
 
   ![Successful withdrawl](<assets/readme images/Screenshot_21.png>)
@@ -231,7 +234,15 @@ Each main option will then either prompt a user input for data to be submitted t
 ![Change password updated](<assets/readme images/Screenshot_31.png>)
 
 ![Change password updated in database](<assets/readme images/Screenshot_32.png>)
-  
+
+### View Account Info  
+- This feature works similarly to the "See Acount History" feature.
+- It allows the logged in user to see all of their key account information.
+- The data has been formatted to be more readable for the user and the password is hidden.
+
+![View account info](<assets/readme images/Screenshot_34.png>)
+
+![View account info](<assets/readme images/Screenshot_35.png>)
 
 ## 3. Future Features
 
