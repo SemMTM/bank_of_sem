@@ -13,15 +13,26 @@
 |  | Log in will be unsuccessful if details do not match an existing username & password pair in the database | Enter an exisiting username with a different usernames password | "incorrect Details" message is thrown and user is prompted to re-enter details | Pass
 |  | Log in will be unsuccessful if no information is entered | Enter no information | "incorrect Details" message is thrown and user is prompted to re-enter details | Pass
 | **Create Account** |  |  |  | 
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
+|  | Entered username must be unique | Enter username "Test" as this username already exists within the database | Error message is thrown and user is prompted to enter a new username | Pass
+|  | An accepted username allows user to continue account creation | Enter username "Test2" as this username is unique | User is allowed to enter a new password | Pass
+|  | Password must only be 4 numbers | Enter 3 numbers | Error message is thrown and user is prompted to enter a new password | Pass
+|  | Password must only be 4 numbers | Enter 4 letters | Error message is thrown and user is prompted to enter a new password | Pass
+|  | Error thrown when user option != 1 or 2 in account type selection | Enter number 4 | Error message is thrown and user is prompted to reselect account type | Pass
+|  | Error thrown when user option != 1 or 2 in account type selection | Enter letter a | Error message is thrown and user is prompted to reselect account type | Pass
+|  | New account details are pushed to database | Enter username "Test2" as this username is unique, password "1234", account type 1 | Database updates with new details and user is promted to restart the program | Pass
+|  | User can log in with new details after program restart | Log in with the following details: Username: Test2 Password: 1234 | User is taken to main menu | Pass
+|  | A new user history tab has been created with the new users name | Check database for a worksheet with the name "Test2-history" | Tab "Test2-history" has been created | Pass
+|  | A random account & unique number has been generated and assigned to the user | Check user "Test2" details in the database and see if account number has been generated and is unqiue | Account number is unique and has been assigned to the correct user | Pass
+|  | The new users details have appended under the last created users details | Check user "Test2" details have not overwritten another users details" | Details have appended correctly | Pass
 | **Main Menu** |  |  |  | 
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
+|  | Option "1. Show Balance" opens relevant sub menu |  |  |
+|  | Option "2 Withdraw/Deposit Funds" opens relevant sub menu |  |  |
+|  | Option "3. Send Money" opens relevant sub menu |  |  |
+|  | Option "4. See Account History" opens relevant sub menu |  |  |
+|  | Option "5. Change Password" opens relevant sub menu |  |  |
+|  | Option "6. View Account Info" opens relevant sub menu |  |  |
+|  | Option "7. Exit" opens relevant sub menu |  |  |
+|  | Error message is thrown if invalid option selected | Type a number of different characters != 1 or 2 | Error message is thrown and user is promted to select another option | Pass
 | **Show Balance** |  |  |  | 
 |  |  |  |  |
 |  |  |  |  |

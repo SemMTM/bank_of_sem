@@ -231,7 +231,7 @@ def main_menu(username):
             print("\nThank you for using Bank Of Sem. We hope you have a wonderful day.")
             break
         else: 
-            print("\nPlease select a valid option (1-6)\n")
+            print("\nPlease select a valid option (1-7)\n")
 
 
 def show_balance(username):
