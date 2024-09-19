@@ -189,6 +189,25 @@ Each main option will then either prompt a user input for data to be submitted t
   ![Successful withdrawl update in spreadsheet](<assets/readme images/Screenshot_22.png>)
 
 ### Send Money To Another User
+- A user must exist to be able to send money. If a non-existant user to selected then an error message will be thrown.
+
+![Non existant user error message](<assets/readme images/Screenshot_23.png>)
+
+- Once an existing user is selected, the user will recieve a "user found" message. The transfer will start and the specifed amount will be taken from the logged in users balance and added to the selected users balance. A message is shown to display the logged in users balance after the transfer.
+
+![successful transfer](<assets/readme images/Screenshot_24.png>)
+
+- The logged in users and selected users balances are updated in the spreadsheet.
+
+![successful transfer updated in spreadsheet](<assets/readme images/Screenshot_25.png>)
+
+- Funds cannot be sent to Growth Accounts. An error message will be displayed if the logged in user tries to send money to a user with a growth account.
+
+![Message when trying to transfer to growth account](<assets/readme images/Screenshot_26.png>)
+
+- A user cannnot send more money then their available funds. If they try to do this, an error message will be thrown.
+
+![Message when trying to transfer more than available funds](<assets/readme images/Screenshot_27.png>)
   
 
 ## 3. Future Features

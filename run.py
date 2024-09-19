@@ -596,7 +596,7 @@ def call_user_history(username):
     history_dict = {all_times: history for all_times, history in zip(all_times, all_history)}
 
     for time, history in history_dict.items():
-        print(f'{time:19}  -  {history}')
+        print(f'{time:19}  -  {history:40}')
 
     action = "Viewed account history"
     update_user_history(username, action)
