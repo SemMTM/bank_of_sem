@@ -245,11 +245,32 @@ Each main option will then either prompt a user input for data to be submitted t
 ![View account info](<assets/readme images/Screenshot_35.png>)
 
 ## 3. Future Features
+- Hash passwords for further security.
+- Add interest daily on growth accounts rather then per log in.
+- Ability to log in via email and recieve account information directly to email address.
+- A front end GUI instead of a terminal based UI.
 
 ## 4. Technology Used
-### Python
+### Languages
+- Python
 
-### Gspread
+### Frameworks, Libraries, Programs Used & APIs
+- Git:
+  - Used for version control by utilising VSCode terminal to commit to Git and push to GitHub.
+- GitHub: 
+  - Used to store the projects code after being pushed from Git.
+- Heroku: 
+  - Used to deploy the project in a mock terminal so users can interact with the project.
+- Google Cloud Services: 
+  - Used to generate API credentials so the program can access the database.
+- Gspread Library:
+  - A library used to manipulate the google sheet.
+- Google Drive: 
+  - Used to store the google sheet used by the application.
+- Google Sheets API: 
+  - Used to read and write Google Sheets data.
+- Google Drive API: 
+  - Used to create and manage the bank of sem spreadsheet.
 
 ## 5. Testing
 For all testing please refer to the TESTING.md file.
