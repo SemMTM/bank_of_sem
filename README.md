@@ -113,6 +113,8 @@ Each main option will then either prompt a user input for data to be submitted t
 - Account Type
   - After a valid password has been chosen, the user will be prompted to select an account type.
   - Each account may only be 1 account type. Certain account types have different benefit & restrictions.
+  - Current accounts function like a regular bank account and have no restrictions.
+  - Growth accounts have a £15,000 deposit limit, can't be sent money and gain 1% interest on every log in. This interest is pushed to the database after it is calculated.
 
 ![Account type selection](<assets/readme images/Screenshot_6.png>)
 
@@ -208,6 +210,27 @@ Each main option will then either prompt a user input for data to be submitted t
 - A user cannnot send more money then their available funds. If they try to do this, an error message will be thrown.
 
 ![Message when trying to transfer more than available funds](<assets/readme images/Screenshot_27.png>)
+
+### See Account History
+- Every action on a logged in users account is saved and time stamped in the users "history" tab.
+- These actions are pushed to the database and can be called & displayed in the terminal.
+- The data has been formatted to be more readable for the user.
+
+![View account history in terminal](<assets/readme images/Screenshot_28.png>)
+
+![View account history in database](<assets/readme images/Screenshot_29.png>)
+
+### Change Password
+- The logged in user can change the password associated with their account.
+- The changing password follows the same validation as creating one at log in. It must be 4 numbers only and will throw an error if not.
+
+![Change password error](<assets/readme images/Screenshot_30.png>)
+
+- After the new password is created, the database will be updated and the user must use this new password to log in to their account in the future.
+
+![Change password updated](<assets/readme images/Screenshot_31.png>)
+
+![Change password updated in database](<assets/readme images/Screenshot_32.png>)
   
 
 ## 3. Future Features

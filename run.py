@@ -627,6 +627,9 @@ def change_password(username):
     username_cell = USER_DETAILS_SHEET.find(username)
     existing_credentials = get_existing_login_details()
 
+    action = "Password changed."
+    update_user_history(username, action)
+
     while True:
         print("***********************\n")
         new_password = input("Please enter in a new password. It must be 4 numbers:\n")
@@ -660,6 +663,9 @@ def call_user_acc_details(username):
         else:
             print(f'{heading:15}  -  £{data}')
 
+    action = "Account information viewed."
+    update_user_history(username, action)
+
     while True:
         print("\n***********************")
         print("1. Back")
@@ -674,6 +680,9 @@ def call_user_acc_details(username):
 
 
 def check_account_type(username):
+    """
+    Checks and returns the users account type.
+    """
     username_cell = USER_DETAILS_SHEET.find(username)
     user_account_type = USER_DETAILS_SHEET.cell(username_cell.row, 6).value
 
@@ -681,6 +690,9 @@ def check_account_type(username):
 
 
 def add_interest(username, account):
+    """
+    Adds 1% interest to the users balance and updates the spreadsheet
+    """
     all_balances = SHEET.worksheet("user-details").col_values(3)
     existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES, balance in zip(ALL_USERNAMES, all_balances)}
     balance = existing_balances.get(username)
