@@ -99,3 +99,11 @@
 ## **5.2. User Tests**
 
 ## **5.3. Validator Testing**
+- Code in the run.py file has been validated using the Code Institute Python Linter: https://pep8ci.herokuapp.com/
+- Results before running through validator:
+  - Multiple errors in regards to visual rules (white space, long lines etc)
+
+![Linter errors](<assets/readme images/Screenshot_37.png>)
+- Results after fixing errors:
+
+![Linter no errors](<assets/readme images/Screenshot_38.png>)
