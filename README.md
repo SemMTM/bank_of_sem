@@ -293,7 +293,7 @@ For all testing please refer to the TESTING.md file.
 ### **6.1. Fixed Bugs**
 | Bug | Solution |
 |--|--|
-| When entering anything other then a number in "Deposit Amount", a ValueError is thrown. | |
+| When entering anything other then a number in "Deposit Amount", a ValueError is thrown | Used a while True loop to loop the input if an invalid answer is given. Used a Try, Except statement to handle the error if input cannot be converted to an integer |
 
 ### **6.2. Unfixed Bugs**
 
@@ -306,6 +306,7 @@ For all testing please refer to the TESTING.md file.
 - Used validate_data function from the Love Sandwiches project
 - How to populate the next empty cell in a col with a specifed value: https://stackoverflow.com/questions/40781295/how-to-find-the-first-empty-row-of-a-google-spread-sheet-using-python-gspread
 - How to generate a random number of digits: https://stackoverflow.com/questions/2673385/how-to-generate-a-random-number-with-a-specific-amount-of-digits
+- How to verify if the input can be converted into an integer: https://stackoverflow.com/questions/56202563/how-can-i-restart-a-function-if-the-argument-isnt-numeric
 
 ### **7.3. Acknowledgements**
 

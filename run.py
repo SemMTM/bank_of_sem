@@ -325,6 +325,8 @@ def deposit_funds(username):
         try:
             if int(deposit_amount) > 25000:
                 print("There is a deposit limit of £25,000 per transaction. Please enter a lower deposit amount.\n")
+            elif int(deposit_amount) < 25000:
+                break
         except ValueError:
             print(f"Only numbers are accepted. Please try again.\n")
 
@@ -404,6 +406,8 @@ def withdraw_funds(username):
         try:
             if int(withdraw_amount) > 25000:
                 print("There is a withdrawl limit of £25,000 per transaction. Please enter a lower withdraw amount.\n")
+            elif int(withdraw_amount) < 25000:
+                break
         except ValueError:
             print(f"Only numbers are accepted. Please try again.\n")
 

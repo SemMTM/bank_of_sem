@@ -12,6 +12,7 @@
 |  | Log in can only be successful if details match an existing username & password pair in the database | Enter an exisiting username and password pair | Successful log in | Pass
 |  | Log in will be unsuccessful if details do not match an existing username & password pair in the database | Enter an exisiting username with a different usernames password | "incorrect Details" message is thrown and user is prompted to re-enter details | Pass
 |  | Log in will be unsuccessful if no information is entered | Enter no information | "incorrect Details" message is thrown and user is prompted to re-enter details | Pass
+|  | Users history updated with log in details after successful log in| Log in to Test user | Test users history tab has been updated with log in time | Pass
 | **Create Account** |  |  |  | 
 |  | Entered username must be unique | Enter username "Test" as this username already exists within the database | Error message is thrown and user is prompted to enter a new username | Pass
 |  | An accepted username allows user to continue account creation | Enter username "Test2" as this username is unique | User is allowed to enter a new password | Pass
@@ -37,13 +38,26 @@
 |  | The user is shown their balance | Press option 1. in the main menu | A Balance that matches the logged in users balance in the spreadsheet is displayed | Pass
 |  | The "Back" option operates as expected | After balance is shown, select option 1. | The "Back" option takes the user back to main menu | Pass
 |  | Error thrown when user option != 1 in back menu selection | Enter number 2 | Error message is thrown and user is prompted to reselect an option | Pass
+|  | Users history tab updated with show balance details after balance is viewed | View balance | Logged in users history tab is updated with the time balance was viewed | Pass
 | **Withdraw/Deposit Funds** |  |  |  | 
+| *Deposit Function* |  |  |  | 
 |  | Users balance is displayed above menu selection | Check the balance shown against users detail in the spreadsheet matches balance displayed | Both balances match (in the spreadsheet and shown above menu) | Pass
 |  | User is promted to add deposit amount | Press option 1. in the sub-menu | User is promted to add deposit amount | Pass
 |  | Users can add funds to their balance | Add a deposit amount of 500 | Balance is incremented by 500 | Pass
 |  | New balance is pushed to spreadsheet | Add a deposit amount of 500 | Users balance on spreadsheet matches new balance specified in terminal after deposit | Pass
 |  | A user cannot deposit more than 25000 per transaction | Add a deposit amount of 30000 | Error message is thrown and user is prompted to re-enter an amount | Pass
 |  | A growth account cannot be deposited more than their £15,000 limit | Log in with a growth account, deposit more then their remaining available limit | Error message is thrown and user is prompted to re-enter an amount | Pass
+|  | Only numbers can be entered as a valid deposit amount | Enter the letter 'a' as deposit amount | Error message is thrown and user is prompted to re-enter an amount | Pass
+|  | Users history updated with deposit details after successful transaction | Deposit £399 | Logged in users history tab is updated with deposit time and amount | Pass
+|  | The "Back" option operates as expected | After deposit, select option 1. | The "Back" option takes the user back to sub menu | Pass
+| *Withdraw Function* |  |  |  | 
+|  |  |  |  |
+|  |  |  |  |
+|  |  |  |  |
+|  |  |  |  |
+|  |  |  |  |
+|  |  |  |  |
+|  |  |  |  |
 | **Send Money** |  |  |  | 
 |  |  |  |  |
 |  |  |  |  |
