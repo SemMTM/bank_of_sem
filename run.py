@@ -527,7 +527,6 @@ def send_money(username):
                     print("You cannnot withdraw funds from another users account. Please try again.\n")
                 elif int(amount_to_send) > 25000:
                     print("There is a withdrawl limit of £25,000 per transaction. Please enter a lower withdraw amount.\n")
-                    break
                 elif int(amount_to_send) < 25000:
                     break
             except ValueError:

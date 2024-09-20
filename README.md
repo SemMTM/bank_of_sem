@@ -257,6 +257,8 @@ Each main option will then either prompt a user input for data to be submitted t
 - Add interest daily on growth accounts rather then per log in.
 - Ability to log in via email and recieve account information directly to email address.
 - A front end GUI instead of a terminal based UI.
+- See all transactions
+- See account history by filter option
 
 ---
 

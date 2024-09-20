@@ -45,6 +45,7 @@
 |  | User is promted to add deposit amount | Press option 1. in the sub-menu | User is promted to add deposit amount | Pass
 |  | Users can add funds to their balance | Add a deposit amount of 500 | Balance is incremented by 500 | Pass
 |  | New balance is pushed to spreadsheet | Add a deposit amount of 500 | Users balance on spreadsheet matches new balance specified in terminal after deposit | Pass
+|  | Deposit amount cannot be left blank | leave deposit amount blank | Error message is thrown and user is prompted to re-enter an amount | Pass
 |  | Balance shown in terminal after deposit is accurate | Set test user balance to 1000. Deposit 500. | Balance shown in terminal should be 1500 | Pass
 |  | A user cannot deposit more than 25000 per transaction | Add a deposit amount of 30000 | Error message is thrown and user is prompted to re-enter an amount | Pass
 |  | A growth account cannot be deposited more than their £15,000 limit | Log in with a growth account, deposit more then their remaining available limit | Error message is thrown and user is prompted to re-enter an amount | Pass
@@ -56,6 +57,7 @@
 |  | Users can withdraw funds from their available balance | Withdraw 500 | Balance is reduced by 500 | Pass
 |  | New balance is pushed to spreadsheet | Withdraw 500 | Users balance on spreadsheet matches new balance specified in terminal after withdrawl | Pass
 |  | Balance shown in terminal after withdrawl is accurate | Set test users balance to 1000. withdraw 500. | Balance shown in terminal should be 500 | Pass
+|  | Withdraw amount cannot be left blank | Leave withdraw amount blank | Error message is thrown and user is prompted to re-enter an amount | Pass
 |  | A user cannot withdraw more than 25000 per transaction | Attempt to withdraw 30000 | Error message is thrown and user is prompted to re-enter an amount | Pass
 |  | A user cannot withdraw more than their available balance | Attempt to withdraw more than logged in users available balance | Insufficient funds error message is thrown and user is prompted to re-enter an amount | Pass
 |  | Only numbers can be entered as a valid withdrawl amount | Enter the letter 'a' as withdrawl amount | Error message is thrown and user is prompted to re-enter an amount | Pass
@@ -72,6 +74,9 @@
 |  | Users history tab updated with transfer details after successful transaction | Transfer 400 to User2 | Logged in users history tab is updated with transfer details | Pass
 |  | Transferred to user's history tab updated with transfer details after successful transaction | Transfer 400 to User2 | Logged in users history tab is updated with transfer details | Pass
 |  | User cannot enter negative amount for transfer | Attempt to transfer -100 to another user | Error message is thrown and user is prompted to try again | Pass
+|  | A user cannot transfer more than 25000 per transaction | Attempt to transfer 30000 | Error message is thrown and user is prompted to re-enter an amount | Pass
+|  | The "Back" option operates as expected | After transfer, select option 1. | The "Back" option takes the user back to main menu | Pass
+|  | Transfer amount cannot be left blank | Leave transfer amount blank | Error message is thrown and user is prompted to re-enter an amount | Pass
 | **See Account History** |  |  |  | 
 |  |  |  |  |
 |  |  |  |  |
