@@ -287,7 +287,7 @@ Each main option will then either prompt a user input for data to be submitted t
 ---
 
 # **5. Testing**
-For all testing please refer to the TESTING.md file.
+For all testing please refer to the [TESTING](TESTING.md) file.
 
 ---
 
