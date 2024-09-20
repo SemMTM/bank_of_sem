@@ -323,7 +323,9 @@ def deposit_funds(username):
         print("\n***********************")
         
         try:
-            if int(deposit_amount) > 25000:
+            if int(deposit_amount) < 0:
+                print("Please enter a positive figure.\n")
+            elif int(deposit_amount) > 25000:
                 print("There is a deposit limit of £25,000 per transaction. Please enter a lower deposit amount.\n")
             elif int(deposit_amount) < 25000:
                 break
@@ -404,7 +406,9 @@ def withdraw_funds(username):
         print("***********************\n")
         
         try:
-            if int(withdraw_amount) > 25000:
+            if int(withdraw_amount) < 0:
+                print("Please enter a positive figure.\n")
+            elif int(withdraw_amount) > 25000:
                 print("There is a withdrawl limit of £25,000 per transaction. Please enter a lower withdraw amount.\n")
             elif int(withdraw_amount) < 25000:
                 break
@@ -519,8 +523,11 @@ def send_money(username):
             amount_to_send = input("User found. How much would you like to transfer?\n£")
         
             try:
-                if int(amount_to_send) > 25000:
+                if int(amount_to_send) < 0:
+                    print("You cannnot withdraw funds from another users account. Please try again.\n")
+                elif int(amount_to_send) > 25000:
                     print("There is a withdrawl limit of £25,000 per transaction. Please enter a lower withdraw amount.\n")
+                    break
                 elif int(amount_to_send) < 25000:
                     break
             except ValueError:

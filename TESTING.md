@@ -69,6 +69,9 @@
 |  | A user cannot transfer more then their available balance | Attempt to send more than available balance to a user | Insufficient funds error message is thrown and user is prompted to re-enter an amount | Pass
 |  | A Growth Account cannot be transfered to | Attempt to send money to a user with a Growth Account | Error message is thrown and user is prompted to re-enter an amount | Pass
 |  | Only numbers can be entered as a valid transfer amount | Enter the letter 'a' as transfer amount | Error message is thrown and user is prompted to re-enter an amount | Pass
+|  | Users history tab updated with transfer details after successful transaction | Transfer 400 to User2 | Logged in users history tab is updated with transfer details | Pass
+|  | Transferred to user's history tab updated with transfer details after successful transaction | Transfer 400 to User2 | Logged in users history tab is updated with transfer details | Pass
+|  | User cannot enter negative amount for transfer | Attempt to transfer -100 to another user | Error message is thrown and user is prompted to try again | Pass
 | **See Account History** |  |  |  | 
 |  |  |  |  |
 |  |  |  |  |

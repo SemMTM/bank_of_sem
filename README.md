@@ -296,6 +296,7 @@ For all testing please refer to the TESTING.md file.
 | When entering anything other then a number in "Deposit Amount", a ValueError is thrown | Used a while True loop to loop the input if an invalid answer is given. Used a Try, Except statement to handle the error if input cannot be converted to an integer |
 | When entering anything other then a number in "Withdraw Amount", a ValueError is thrown | Used a while True loop to loop the input if an invalid answer is given. Used a Try, Except statement to handle the error if input cannot be converted to an integer |
 | When entering anything other then a number in "Transfer Amount", a ValueError is thrown | Used a while True loop to loop the input if an invalid answer is given. Used a Try, Except statement to handle the error if input cannot be converted to an integer |
+| User can enter negative amount in "Send Money" function and can reduce another users balance while increasing their own | Added "if int(amount_to_send) < 0:" to elif statment for validation of input |
 
 ### **6.2. Unfixed Bugs**
 
