@@ -78,28 +78,24 @@
 |  | The "Back" option operates as expected | After transfer, select option 1. | The "Back" option takes the user back to main menu | Pass
 |  | Transfer amount cannot be left blank | Leave transfer amount blank | Error message is thrown and user is prompted to re-enter an amount | Pass
 | **See Account History** |  |  |  | 
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
+|  | Account actions are published with the correct date and time | Select "See Account History" and compare what is shown in termal to users history tab in database | All user hisotry times and dates match database | Pass
+|  | Account history is formatted as expected | Select "See Account History" | Account history is formatted as expected | Pass
+|  | Users account history pulled from database with the correct information | Select "See Account History" and compare what is shown in termal to users history tab in database | Information pulled up in termal matches history tab for logged in user | Pass
+|  | The "Back" option operates as expected | After viewed account history, select option 1. | The "Back" option takes the user back to main menu | Pass
+|  | Error message is thrown if invalid option selected after view history | Type a number of different characters != 1 | Error message is thrown and user is promted to select another option | Pass
 | **Change Password** |  |  |  | 
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
+|  | New password must only be 4 numbers | Enter 3 numbers | Error message is thrown and user is prompted to enter a new password | Pass
+|  | New password must only be 4 numbers | Enter 4 letters | Error message is thrown and user is prompted to enter a new password | Pass
+|  | Logged in users password is updated in database after submission | Submit a new password | Password for logged in user is changed | Pass
+|  | User can log in with new password | Attempt to log in with new password | User can log in successfully | Pass
 | **View Account Info** |  |  |  | 
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
+|  | Account info on terminal matches account info in database | Click "view account info" | Account info matches database | Pass
+|  | The "Back" option operates as expected | After viewed account info, select option 1. | The "Back" option takes the user back to main menu | Pass
+|  | Password is hidden | View account info and look at password | Password is hidden | Pass
+|  | Information for the logged in user is pulled up, not another user | Log in as SemMTM and view account info in terminal | Correct account information is shown | Pass
 | **Exit** |  |  |  | 
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
+|  | Exit message is shown and program is closed down | Select option 7 in main menu | Exit message is shown and program is closed down | Pass
 
-## **5.2. Peer Code Review**
+## **5.2. User Tests**
 
-## **5.3. User Tests**
-
-## **5.4. Validator Testing**
+## **5.3. Validator Testing**
