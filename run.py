@@ -299,17 +299,6 @@ def withdraw_deposit_funds_menu(username):
             break
         else: 
             print("\nPlease select a valid option (1-3)\n")
-    
-
-def validate_input(input):
-    """
-    Validates users password. Checks if it is 4 numbers.
-    """
-    while True:
-        try:
-            return int(deposit_amount = input("How much would you like to deposit?\n£"))
-        except ValueError:
-            print("Please try again")
 
 
 def deposit_funds(username):
@@ -407,9 +396,16 @@ def withdraw_funds(username):
     balance = existing_balances.get(username)
     username_cell = USER_DETAILS_SHEET.find(username)
 
-    print("\n***********************")
-    withdraw_amount = input("How much would you like to withdraw?\n£")
-    print("***********************\n")
+    while True:
+        print("\n***********************")
+        withdraw_amount = input("How much would you like to withdraw?\n£")
+        print("***********************\n")
+        
+        try:
+            if int(withdraw_amount) > 25000:
+                print("There is a withdrawl limit of £25,000 per transaction. Please enter a lower withdraw amount.\n")
+        except ValueError:
+            print(f"Only numbers are accepted. Please try again.\n")
 
     new_balance = int(balance) - int(withdraw_amount)
     
