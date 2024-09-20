@@ -301,6 +301,17 @@ def withdraw_deposit_funds_menu(username):
             print("\nPlease select a valid option (1-3)\n")
     
 
+def validate_input(input):
+    """
+    Validates users password. Checks if it is 4 numbers.
+    """
+    while True:
+        try:
+            return int(deposit_amount = input("How much would you like to deposit?\n£"))
+        except ValueError:
+            print("Please try again")
+
+
 def deposit_funds(username):
     """
     Pairs all balances to the correct usernames then shows the balance assosiated with the 
@@ -316,19 +327,23 @@ def deposit_funds(username):
     balance = existing_balances.get(username)
     username_cell = USER_DETAILS_SHEET.find(username)
 
-    print("\n***********************")
-    deposit_amount = input("How much would you like to deposit?\n£")
-    print("\n***********************")
+    
+    while True:
+        print("\n***********************")
+        deposit_amount = input("How much would you like to deposit?\n£")
+        print("\n***********************")
+        
+        try:
+            if int(deposit_amount) > 25000:
+                print("There is a deposit limit of £25,000 per transaction. Please enter a lower deposit amount.\n")
+        except ValueError:
+            print(f"Only numbers are accepted. Please try again.\n")
 
     # Calculates the new balance after deposit 
     new_balance = int(balance) + int(deposit_amount)
 
     while True:
-        if int(deposit_amount) > 25000:
-                print("There is a deposit limit of £25,000 per transaction. Please enter a lower deposit amount.\n")
-                break
-        
-        elif check_account_type(username) != 'Growth Account':
+        if check_account_type(username) != 'Growth Account':
             print("Depositing funds...\n")
 
             # Updates the users balance on the spreadsheet

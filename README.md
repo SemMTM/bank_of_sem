@@ -291,6 +291,9 @@ For all testing please refer to the TESTING.md file.
 
 # **6. Bugs**
 ### **6.1. Fixed Bugs**
+| Bug | Solution |
+|--|--|
+| When entering anything other then a number in "Deposit Amount", a ValueError is thrown. | |
 
 ### **6.2. Unfixed Bugs**
 

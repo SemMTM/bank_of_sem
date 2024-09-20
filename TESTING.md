@@ -40,8 +40,10 @@
 | **Withdraw/Deposit Funds** |  |  |  | 
 |  | Users balance is displayed above menu selection | Check the balance shown against users detail in the spreadsheet matches balance displayed | Both balances match (in the spreadsheet and shown above menu) | Pass
 |  | User is promted to add deposit amount | Press option 1. in the sub-menu | User is promted to add deposit amount | Pass
-|  |  |  |  |
-|  |  |  |  |
+|  | Users can add funds to their balance | Add a deposit amount of 500 | Balance is incremented by 500 | Pass
+|  | New balance is pushed to spreadsheet | Add a deposit amount of 500 | Users balance on spreadsheet matches new balance specified in terminal after deposit | Pass
+|  | A user cannot deposit more than 25000 per transaction | Add a deposit amount of 30000 | Error message is thrown and user is prompted to re-enter an amount | Pass
+|  | A growth account cannot be deposited more than their £15,000 limit | Log in with a growth account, deposit more then their remaining available limit | Error message is thrown and user is prompted to re-enter an amount | Pass
 | **Send Money** |  |  |  | 
 |  |  |  |  |
 |  |  |  |  |
