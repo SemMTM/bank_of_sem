@@ -45,24 +45,30 @@
 |  | User is promted to add deposit amount | Press option 1. in the sub-menu | User is promted to add deposit amount | Pass
 |  | Users can add funds to their balance | Add a deposit amount of 500 | Balance is incremented by 500 | Pass
 |  | New balance is pushed to spreadsheet | Add a deposit amount of 500 | Users balance on spreadsheet matches new balance specified in terminal after deposit | Pass
+|  | Balance shown in terminal after deposit is accurate | Set test user balance to 1000. Deposit 500. | Balance shown in terminal should be 1500 | Pass
 |  | A user cannot deposit more than 25000 per transaction | Add a deposit amount of 30000 | Error message is thrown and user is prompted to re-enter an amount | Pass
 |  | A growth account cannot be deposited more than their £15,000 limit | Log in with a growth account, deposit more then their remaining available limit | Error message is thrown and user is prompted to re-enter an amount | Pass
 |  | Only numbers can be entered as a valid deposit amount | Enter the letter 'a' as deposit amount | Error message is thrown and user is prompted to re-enter an amount | Pass
-|  | Users history updated with deposit details after successful transaction | Deposit £399 | Logged in users history tab is updated with deposit time and amount | Pass
-|  | The "Back" option operates as expected | After deposit, select option 1. | The "Back" option takes the user back to sub menu | Pass
+|  | Users history tab updated with deposit details after successful transaction | Deposit £399 | Logged in users history tab is updated with deposit time and amount | Pass
+|  | The "Back" option operates as expected | After deposit, select option 1. | The "Back" option takes the user back to main menu | Pass
 | *Withdraw Function* |  |  |  | 
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
+|  | User is promted to type a withdraw amount | Press option 2. in the sub-menu | User can type a withdraw amount | Pass
+|  | Users can withdraw funds from their available balance | Withdraw 500 | Balance is reduced by 500 | Pass
+|  | New balance is pushed to spreadsheet | Withdraw 500 | Users balance on spreadsheet matches new balance specified in terminal after withdrawl | Pass
+|  | Balance shown in terminal after withdrawl is accurate | Set test users balance to 1000. withdraw 500. | Balance shown in terminal should be 500 | Pass
+|  | A user cannot withdraw more than 25000 per transaction | Attempt to withdraw 30000 | Error message is thrown and user is prompted to re-enter an amount | Pass
+|  | A user cannot withdraw more than their available balance | Attempt to withdraw more than logged in users available balance | Insufficient funds error message is thrown and user is prompted to re-enter an amount | Pass
+|  | Only numbers can be entered as a valid withdrawl amount | Enter the letter 'a' as withdrawl amount | Error message is thrown and user is prompted to re-enter an amount | Pass
+|  | Users history tab updated with withdrawl details after successful transaction | Withdraw £399 | Logged in users history tab is updated with withdraw time and amount | Pass
+|  | The "Back" option operates as expected | After withdrawl, select option 1. | The "Back" option takes the user back to main menu | Pass
 | **Send Money** |  |  |  | 
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
-|  |  |  |  |
+|  | User is prompted to input a username to send money to | Press option 3. from the main menu | User is propmted to type a username | Pass
+|  | Username validation for exisiting users functions as expected | Enter a non-existant username | Error message "User does not exist" is thrown and user is prompted to re-enter a name | Pass
+|  | Exisiting users are found by the program & paired to the correct balance | Type user "SemMTM" and send user 10  | User found message is thown and SemMTMs balance in spreadhseet is increased by 10 |
+|  | Transfer amount is subtracted from logged users balance and added to selected users balance | Send 10 to a selected user | Logged in users balance decreased by 10, selected users balance increased by 10 in the database |
+|  | A user cannot transfer more then their available balance | Attempt to send more than available balance to a user | Insufficient funds error message is thrown and user is prompted to re-enter an amount | Pass
+|  | A Growth Account cannot be transfered to | Attempt to send money to a user with a Growth Account | Error message is thrown and user is prompted to re-enter an amount | Pass
+|  | Only numbers can be entered as a valid transfer amount | Enter the letter 'a' as transfer amount | Error message is thrown and user is prompted to re-enter an amount | Pass
 | **See Account History** |  |  |  | 
 |  |  |  |  |
 |  |  |  |  |

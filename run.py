@@ -515,7 +515,16 @@ def send_money(username):
                 else:
                     print("\nPlease select a valid option (1-2)\n")
 
-        amount_to_send = input("User found. How much would you like to transfer?\n£")
+        while True:
+            amount_to_send = input("User found. How much would you like to transfer?\n£")
+        
+            try:
+                if int(amount_to_send) > 25000:
+                    print("There is a withdrawl limit of £25,000 per transaction. Please enter a lower withdraw amount.\n")
+                elif int(amount_to_send) < 25000:
+                    break
+            except ValueError:
+                print(f"Only numbers are accepted. Please try again.\n")
         
         #Calculates logged in users balance after withdraw amount has been selected
         new_balance = int(balance) - int(amount_to_send)
