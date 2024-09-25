@@ -349,27 +349,37 @@ As this project was entirely Python & terminal based, it was deployed on [Heroku
 
 The steps taken to deploy this project are as follows:
 1. Create a list of dependencies for the project to run properly on Heroku. To do this:
-    - Create a blank requirements.txt file.
-    - Open the file and in the terminal type "pip3 freeze > requirements.txt".
-    - The file name must be exactly the same as Heroku searches for this file during deployment.
-    - The file will be updated with all necessary dependencies.
-2. Create an account on [Heroku](https://id.heroku.com/login).
-3. Add billing information and purchase platform credits.
-4. On the dashboard click "Create new app".
-5. Name the app and select a location, each app name on Heroku needs to be unique.
-6. Click "Create app".
-7. Once in your app dashboard, click on the "Settings" tab. It is important to get the settings set up before attemping to deploy the app.
+    1. Create a blank requirements.txt file
+    2. Open the file and in the terminal type "pip3 freeze > requirements.txt"
+    3. The file name must be exactly the same as Heroku searches for this file during deployment
+    4. The file will be updated with all necessary dependencies
+2. Create an account on [Heroku](https://id.heroku.com/login)
+3. Add billing information and purchase platform credits
+4. On the dashboard click "Create new app"
+5. Name the app and select a location, each app name on Heroku needs to be unique
+6. Click "Create app"
+7. Once in your app dashboard, click on the "Settings" tab. It is important to get the settings set up before attemping to deploy the app
 8. Set up app settings. To do this:
     1. Navigate to the "Config Vars" section and click "Reveal config vars"
-    2. In the "KEY" field, enter "CREDS" in all capital letters.
-    3. Go to your Github project and navigate to your creds.json file and copy its contents.
-    4. In the "VALUE" field, paste your entire creds.json file contents and click "add".
+    2. In the "KEY" field, enter "CREDS" in all capital letters
+    3. Go to your Github project and navigate to your creds.json file and copy its contents
+    4. In the "VALUE" field, paste your entire creds.json file contents and click "add"
 9. Navigate to the "Buildpacks" section and click "Add buildpack"
-    - Add the Python buildpack and the Nodejs buildpack.
-    - The Pyhton buildpack must be above the Nodejs buildpack.
-10. Navigate to the "Deploy" tab and select "GitHub".
-11. Click "Connect to Github" and log in to your GitHub account.
-12. Search for your GitHub repository in the "Connect to GitHub section".
-13. Once found click "connect" then click "Enable Automatic Deploy.
-    - Automatic deploy will redploy your project eveytime new changes are pushed to GitHub.
-14. Once deployment is complete, click "View" to see your deployed project.
+    - Add the Python buildpack and the Nodejs buildpack
+    - The Pyhton buildpack must be above the Nodejs buildpack
+10. Navigate to the "Deploy" tab and select "GitHub"
+11. Click "Connect to Github" and log in to your GitHub account
+12. Search for your GitHub repository in the "Connect to GitHub section"
+13. Once found click "connect" then click "Enable Automatic Deploy
+    - Automatic deploy will redploy your project eveytime new changes are pushed to GitHub
+14. Once deployment is complete, click "View" to see your deployed project
+
+### Cloning
+To clone this Repository:
+1. Go to the [repository](https://github.com/SemMTM/bank_of_sem)
+2. Click the "Code" button above the list of files
+3. Select how you would prefer to clone the repo, using HTTPS, SSH or GitHub CLI
+4. Click the "Copy" button to copy the URL to your clipboard
+5. Open Git Bash or Terminal
+6. Change the current working directory to where you want the cloned directory 
+7. In your IDE Terminal, type the following command to clone the repository 

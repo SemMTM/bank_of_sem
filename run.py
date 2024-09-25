@@ -99,7 +99,9 @@ def create_account():
                                                             'New account '
                                                             'created')
     print("Your new account has been created\n")
-    print("Please restart the program and login.")
+    
+    main()
+    # print("Please restart the program and login.")
 
 
 def generate_acct_num():
@@ -480,7 +482,7 @@ def withdraw_funds(username):
         USER_DETAILS_SHEET.update_cell(username_cell.row, 3, new_balance)
 
         # Update user history with action
-        action = "Withdrew £{withdraw_amount} from account. "
+        action = f"Withdrew £{withdraw_amount} from account. "
         f"Balance after deposit: £{new_balance}"
         update_user_history(username, action)
 
@@ -797,10 +799,17 @@ def add_interest(username, account):
         pass
 
 
+def reload_sheet():
+    USER_DETAILS_SHEET = SHEET.worksheet("user-details")
+    ALL_USERNAMES = SHEET.worksheet("user-details").col_values(1)
+    ALL_PASSWORDS = SHEET.worksheet("user-details").col_values(2)
+
+
 def main():
     """
     Run all program functions.
     """
+    reload_sheet()
     user_log_in()
 
 
