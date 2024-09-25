@@ -90,6 +90,25 @@ Each main option will then either prompt a user input for data to be submitted t
   - As a frequent user, I want to be able to see my account information
 
 ### **1.4. Flow Charts**
+These flow charts demonstrate the logic for each feature in the Bank of Sem app.
+
+#### ***Log In***
+ 
+#### ***Create Account***
+
+#### ***Show Balance***
+
+#### ***Withdraw/Deposit Funds***
+
+#### ***See Account History***
+
+#### ***Send Money***
+
+#### ***Change Password***
+
+#### ***View Account Info***
+
+#### ***Exit***
 
 ---
 
@@ -105,35 +124,35 @@ Each main option will then either prompt a user input for data to be submitted t
 ![Wrror message](<assets/readme images/Screenshot_1.png>)
 
 ## Create Account
-- **Username**
-  - Allows the user to create an account that will be pushed to the database. Each username must be unique or an error will be thrown.
+**Username**
+- Allows the user to create an account that will be pushed to the database. Each username must be unique or an error will be thrown.
 
 ![Enter username screen](<assets/readme images/Screenshot_4.png>)
 
-- **Password**
-  - Once a unique username has been selected, the user will be promted to input a 4 digit password.
-  - The password must be 4 numbers or an error will be thrown.
+**Password**
+- Once a unique username has been selected, the user will be promted to input a 4 digit password.
+- The password must be 4 numbers or an error will be thrown.
 
 ![Enter password error message](<assets/readme images/Screenshot_5.png>)
 
-- **Account Type**
-  - After a valid password has been chosen, the user will be prompted to select an account type.
-  - Each account may only be 1 account type. Certain account types have different benefit & restrictions.
-  - Current accounts function like a regular bank account and have no restrictions.
-  - Growth accounts have a £15,000 deposit limit, can't be sent money and gain 1% interest on every log in. This interest is pushed to the database after it is calculated.
+**Account Type**
+- After a valid password has been chosen, the user will be prompted to select an account type.
+- Each account may only be 1 account type. Certain account types have different benefit & restrictions.
+- Current accounts function like a regular bank account and have no restrictions.
+- Growth accounts have a £15,000 deposit limit, can't be sent money and gain 1% interest on every log in. This interest is pushed to the database after it is calculated.
 
 ![Account type selection](<assets/readme images/Screenshot_6.png>)
 
-- **Account creation in database**
-  - Once all options have been selected, the new user details will then be pushed to the database.
-  - The user will be prompted while this happens.
-  - Validation will be done against these details for future log ins and the account type will have an effect on the functions of the account.
+**Account creation in database**
+- Once all options have been selected, the new user details will then be pushed to the database.
+- The user will be prompted while this happens.
+- Validation will be done against these details for future log ins and the account type will have an effect on the functions of the account.
 
 ![New user being created](<assets/readme images/Screenshot_7.png>)
 
-  - Once an account is created the username, password and account type are pushed to the database.
-  - A random account number is generated, a sortcode and a balance of £0.
-  - A user history page is also created. This page logs all future actions of the user once logged in.
+- Once an account is created the username, password and account type are pushed to the database.
+- A random account number is generated, a sortcode and a balance of £0.
+- A user history page is also created. This page logs all future actions of the user once logged in.
 
 ![New user in datavase](<assets/readme images/Screenshot_8.png>)
 
@@ -172,32 +191,32 @@ Each main option will then either prompt a user input for data to be submitted t
 
 ![Withdraw/deposit funds menu](<assets/readme images/Screenshot_33.png>)
 
-- **Deposit funds**
-  - The amount a user can deposit depends on their account type.
-  - A current account has an unlimited deposit limit.
-  - A growth account has a max deposit of £15,000.
+**Deposit funds**
+- The amount a user can deposit depends on their account type.
+- A current account has an unlimited deposit limit.
+- A growth account has a max deposit of £15,000.
 
-  ![Deposit limit for growth accounts](<assets/readme images/Screenshot_17.png>)
+![Deposit limit for growth accounts](<assets/readme images/Screenshot_17.png>)
 
-  - Upon a successful deposit, a message with the new account balance will be displayed to the user and the amount will be added to the balance on the spreadsheet.
-  - If the account is a growth account then a message telling them their remaining deposit amount of their £15,000 limit.
+- Upon a successful deposit, a message with the new account balance will be displayed to the user and the amount will be added to the balance on the spreadsheet.
+- If the account is a growth account then a message telling them their remaining deposit amount of their £15,000 limit.
 
-  ![successful deposit](<assets/readme images/Screenshot_19.png>)
+![successful deposit](<assets/readme images/Screenshot_19.png>)
 
-  ![spreadsheet updated with deposit amount](<assets/readme images/Screenshot_20.png>)
+![spreadsheet updated with deposit amount](<assets/readme images/Screenshot_20.png>)
 
-- **Withdraw funds**
-  - The user can't withdraw more money then they have in their account.
+**Withdraw funds**
+- The user can't withdraw more money then they have in their account.
 
-  ![insufficient funds for withdrawl message](<assets/readme images/Screenshot_18.png>)
+![insufficient funds for withdrawl message](<assets/readme images/Screenshot_18.png>)
 
-  - The user is prompted with the amount they would like to withdraw. After a valid amount has been specified, the withdraw amount is taken 
+- The user is prompted with the amount they would like to withdraw. After a valid amount has been specified, the withdraw amount is taken 
     away from their balance.
-  - After a successful withdrawl, the user is shown a message with their new balance and the spreadsheet is updated.
+- After a successful withdrawl, the user is shown a message with their new balance and the spreadsheet is updated.
 
-  ![Successful withdrawl](<assets/readme images/Screenshot_21.png>)
+![Successful withdrawl](<assets/readme images/Screenshot_21.png>)
 
-  ![Successful withdrawl update in spreadsheet](<assets/readme images/Screenshot_22.png>)
+![Successful withdrawl update in spreadsheet](<assets/readme images/Screenshot_22.png>)
 
 ## **Send Money To Another User**
 - A user must exist to be able to send money. If a non-existant user to selected then an error message will be thrown.
@@ -283,6 +302,8 @@ Each main option will then either prompt a user input for data to be submitted t
   - Used to read and write Google Sheets data.
 - Google Drive API: 
   - Used to create and manage the bank of sem spreadsheet.
+- Google Auth
+  - Uses the creds.json file to set up authentication needed to access the google cloud project.
 
 ---
 
@@ -293,6 +314,8 @@ For all testing please refer to the [TESTING](TESTING.md) file.
 
 # **6. Bugs**
 ### **6.1. Fixed Bugs**
+Throughout testing, multiple bugs were discovered. All discovered bugs were fixed and documented below.
+
 | Bug | Solution |
 |--|--|
 | When entering anything other then a number in "Deposit Amount", a ValueError is thrown | Used a while True loop to loop the input if an invalid answer is given. Used a Try, Except statement to handle the error if input cannot be converted to an integer |
@@ -301,6 +324,7 @@ For all testing please refer to the [TESTING](TESTING.md) file.
 | User can enter negative amount in "Send Money" function and can reduce another users balance while increasing their own | Added "if int(amount_to_send) < 0:" to elif statment for validation of input |
 
 ### **6.2. Unfixed Bugs**
+There are no known unfixed bugs as of 25.09.2024.
 
 ---
 
@@ -318,3 +342,23 @@ For all testing please refer to the [TESTING](TESTING.md) file.
 ---
 
 # **8. Deployemnt**
+As this project was entirely Python & terminal based, it was deployed on [Heroku](https://id.heroku.com/login) which enables deployments of dynamic websites that don't use just front-end languages. The deployed project uses a mock terminal so that users can interact with it through a web browser. This was set up by the Code Institute Engineering team in the template used for this project; which provided the files and code needed to properly deploy the project on Heroku.
+
+The steps taken to deploy this project are as follows:
+1. Create a list of dependencies for the project to run properly on Heroku. To do this:
+    - Create a blank requirements.txt file.
+    - Open the file and in the terminal type "pip3 freeze > requirements.txt".
+    - The file name must be exactly the same as Heroku searches for this file during deployment.
+    - The file will be updated with all necessary dependencies.
+2. Create an account on [Heroku](https://id.heroku.com/login).
+3. Add billing information and purchase platform credits.
+4. On the dashboard click "Create new app".
+5. Name the app and select a location, each app name on Heroku needs to be unique.
+6. Click "Create app".
+7. Once in your app dashboard, click on the "Settings" tab. It is important to get the settings set up before attemping to deploy the app.
+8. Set up app settings. To do this:
+    1. Navigate to the "Config Vars" section and click "Reveal config vars"
+    2. In the "KEY" field, enter "CREDS" in all capital letters.
+    3. Go to your Github project and navigate to your creds.json file and copy its contents.
+    4. In the "VALUE" field, paste your entire creds.json file contents and click "add".
+9. Navigate to the "Buildpacks" section and click "Add buildpack"
