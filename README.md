@@ -21,7 +21,10 @@ The purpose of this application is to allow a user to securely create & manage t
 #### Target Audience:
 The target audience for this app would be anyone who needs a secure way to store & manage their finances.
 
-#### Live site: https://bank-of-sem-cd1ad5a802b4.herokuapp.com
+#### [LIVE SITE](https://bank-of-sem-cd1ad5a802b4.herokuapp.com)
+Here is the [googlesheet link](https://docs.google.com/spreadsheets/d/1DUad-T36YiIOkYjsPI-yY75BABECObcZSVzKC5_VO6M/edit?usp=sharing) so you can see what changes are being made per user action.
+#### [REPOSITORY](https://github.com/SemMTM/bank_of_sem)
+
 Please use the following log in details to use the app:
 - Username: User2
 - Password: 9999
@@ -30,8 +33,6 @@ List of other users to test transfer feature:
 - SemMTM
 - User3
 - User4
-
-#### Repository: https://github.com/SemMTM/bank_of_sem
 
 ---
 
@@ -333,13 +334,11 @@ There are no known unfixed bugs as of 25.09.2024.
 # **7. Credits**
 
 ### **7.1. Content & Resources**
-- How to use any() to check if an element exists in a list: https://www.analyticsvidhya.com/blog/2024/02/check-if-element-exists-in-list-in-python/#:~:text=Using%20the%20%27any()%27%20Function,-The%20%27any()&text=You%20can%20determine%20if%20it,"Element%20not%20found."%20)&text=Element%20found!,-Using%20the%20%27count
+- How to use any() to check if an element exists in a list: https://www.analyticsvidhya.com/blog/2024/02/check-if-element-exists-in-list-in-python/#:~:text=Using%20the%20%27any()%27%20Function,-The%20%27any()&text=You%20can%20determine%20if%20it,"Element%20not%20found."%20
 - Used validate_data function from the Love Sandwiches project
 - How to populate the next empty cell in a col with a specifed value: https://stackoverflow.com/questions/40781295/how-to-find-the-first-empty-row-of-a-google-spread-sheet-using-python-gspread
 - How to generate a random number of digits: https://stackoverflow.com/questions/2673385/how-to-generate-a-random-number-with-a-specific-amount-of-digits
 - How to verify if the input can be converted into an integer: https://stackoverflow.com/questions/56202563/how-can-i-restart-a-function-if-the-argument-isnt-numeric
-
-### **7.3. Acknowledgements**
 
 ---
 
