@@ -3,6 +3,8 @@ from google.oauth2.service_account import Credentials
 from datetime import datetime
 from random import randint
 from colorama import Fore, init
+import os
+import pwinput
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -60,7 +62,7 @@ def create_account():
 
     while True:
         print("Your password must be a 4 digit number")
-        new_password = input("Please enter a password: \n")
+        new_password = pwinput.pwinput(prompt="Please enter a password: \n")
         print("***********************\n")
 
         if validate_new_password(new_password):
@@ -161,7 +163,7 @@ def existing_user_log_in():
     print("\n***********************")
     print("Please enter your log in details\n")
     existing_username = input("Enter your username:\n")
-    existing_password = input("\nEnter your password:\n")
+    existing_password = pwinput.pwinput(prompt="\nEnter your password:\n")
     print("\n***********************")
 
     if validate_existing_login_details(existing_username, existing_password):
@@ -209,6 +211,7 @@ def main_menu(username):
     """
     Main menu selection.
     """
+    os.system('clear')
     while True:
         print("\n***********************")
         print("Please select an option\n")
@@ -699,7 +702,7 @@ def change_password(username):
 
     while True:
         print("***********************\n")
-        new_password = input("Please enter in a new password. "
+        new_password = pwinput.pwinput(prompt="Please enter in a new password. "
                              "It must be 4 numbers:\n")
 
         if validate_new_password(new_password):
