@@ -265,18 +265,15 @@ def show_balance(username):
     action = "Viewed account balance"
     update_user_history(username, action)
 
-    print(f"\nYour balance is: £{balance}\n")
+    print("\n***********************")
+    print(f"Your balance is: £{balance}\n")
+    print("***********************\n")
 
     while True:
-        print("\n***********************")
-        print("1. Back")
-        print("***********************\n")
-        option = input("Please select an option:\n")
-        if option == '1':
+        option = input("Press any key to continue:\n")
+        if option == option:
             main_menu(username)
             break
-        else:
-            print("\nPlease select a valid option\n")
 
 
 def withdraw_deposit_funds_menu(username):
@@ -395,16 +392,11 @@ def deposit_funds(username):
             break
 
     while True:
-        print("***********************")
-        print("1. Back")
-        print("***********************\n")
-        option = input("Please select an option:\n")
+        option = input("\nPress any key to continue:\n")
 
         if option == '1':
             withdraw_deposit_funds_menu(username)
             break
-        else:
-            print("\nPlease select a valid option\n")
 
     all_balances = SHEET.worksheet("user-details").col_values(3)
 
@@ -487,16 +479,11 @@ def withdraw_funds(username):
         print(f"Withdraw complete. Your new balance is £{new_balance}\n")
 
         while True:
-            print("***********************")
-            print("1. Back")
-            print("***********************\n")
-            option = input("Please select an option:\n")
+            option = input("\nPress any key to continue:\n")
 
-            if option == '1':
+            if option == option:
                 main_menu(username)
                 break
-            else:
-                print("\nPlease select a valid option\n")
 
     all_balances = SHEET.worksheet("user-details").col_values(3)
 
@@ -629,16 +616,11 @@ def send_money(username):
             print(f"Transfer complete. Your new balance is £{new_balance}\n")
 
             while True:
-                print("***********************")
-                print("1. Back")
-                print("***********************\n")
-                option = input("Please select an option:\n")
+                option = input("\nPress any key to continue:\n")
 
-                if option == '1':
+                if option == option:
                     main_menu(username)
                     break
-                else:
-                    print("\nPlease select a valid option\n")
     else:
         print("User does not exist. Please try again.\n")
         send_money(username)
@@ -686,16 +668,11 @@ def call_user_history(username):
     update_user_history(username, action)
 
     while True:
-        print("\n***********************")
-        print("1. Back")
-        print("***********************\n")
-        option = input("Please select an option:\n")
+        option = input("\nPress any key to continue:\n")
 
-        if option == '1':
+        if option == option:
             main_menu(username)
             break
-        else:
-            print("\nPlease select a valid option\n")
 
 
 def change_password(username):
@@ -753,16 +730,11 @@ def call_user_acc_details(username):
     update_user_history(username, action)
 
     while True:
-        print("\n***********************")
-        print("1. Back")
-        print("***********************\n")
-        option = input("Please select an option:\n")
+        option = input("\nPress any key to continue:\n")
 
-        if option == '1':
+        if option == option:
             main_menu(username)
             break
-        else:
-            print("\nPlease select a valid option\n")
 
 
 def check_account_type(username):

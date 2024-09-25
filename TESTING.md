@@ -36,8 +36,7 @@
 |  | Error message is thrown if invalid option selected | Type a number of different characters != 1 or 2 | Error message is thrown and user is promted to select another option | Pass
 | **Show Balance** |  |  |  | 
 |  | The user is shown their balance | Press option 1. in the main menu | A Balance that matches the logged in users balance in the spreadsheet is displayed | Pass
-|  | The "Back" option operates as expected | After balance is shown, select option 1. | The "Back" option takes the user back to main menu | Pass
-|  | Error thrown when user option != 1 in back menu selection | Enter number 2 | Error message is thrown and user is prompted to reselect an option | Pass
+|  | "Press any key to continue" operates as expected | After balance is shown, type any key. Test with multiple different keys. | Key press takes the user back to main menu | Pass on every key tested
 |  | Users history tab updated with show balance details after balance is viewed | View balance | Logged in users history tab is updated with the time balance was viewed | Pass
 | **Withdraw/Deposit Funds** |  |  |  | 
 | *Deposit Function* |  |  |  | 
@@ -51,7 +50,7 @@
 |  | A growth account cannot be deposited more than their £15,000 limit | Log in with a growth account, deposit more then their remaining available limit | Error message is thrown and user is prompted to re-enter an amount | Pass
 |  | Only numbers can be entered as a valid deposit amount | Enter the letter 'a' as deposit amount | Error message is thrown and user is prompted to re-enter an amount | Pass
 |  | Users history tab updated with deposit details after successful transaction | Deposit £399 | Logged in users history tab is updated with deposit time and amount | Pass
-|  | The "Back" option operates as expected | After deposit, select option 1. | The "Back" option takes the user back to main menu | Pass
+|  | "Press any key to continue" operates as expected | After deposit, type any key. Test with multiple different keys. | Key press takes the user back to main menu | Pass on every key tested
 | *Withdraw Function* |  |  |  | 
 |  | User is promted to type a withdraw amount | Press option 2. in the sub-menu | User can type a withdraw amount | Pass
 |  | Users can withdraw funds from their available balance | Withdraw 500 | Balance is reduced by 500 | Pass
@@ -62,7 +61,7 @@
 |  | A user cannot withdraw more than their available balance | Attempt to withdraw more than logged in users available balance | Insufficient funds error message is thrown and user is prompted to re-enter an amount | Pass
 |  | Only numbers can be entered as a valid withdrawl amount | Enter the letter 'a' as withdrawl amount | Error message is thrown and user is prompted to re-enter an amount | Pass
 |  | Users history tab updated with withdrawl details after successful transaction | Withdraw £399 | Logged in users history tab is updated with withdraw time and amount | Pass
-|  | The "Back" option operates as expected | After withdrawl, select option 1. | The "Back" option takes the user back to main menu | Pass
+|  | "Press any key to continue" operates as expected | After withdraw, type any key. Test with multiple different keys. | Key press takes the user back to main menu | Pass on every key tested
 | **Send Money** |  |  |  | 
 |  | User is prompted to input a username to send money to | Press option 3. from the main menu | User is propmted to type a username | Pass
 |  | Username validation for exisiting users functions as expected | Enter a non-existant username | Error message "User does not exist" is thrown and user is prompted to re-enter a name | Pass
@@ -75,13 +74,13 @@
 |  | Transferred to user's history tab updated with transfer details after successful transaction | Transfer 400 to User2 | Logged in users history tab is updated with transfer details | Pass
 |  | User cannot enter negative amount for transfer | Attempt to transfer -100 to another user | Error message is thrown and user is prompted to try again | Pass
 |  | A user cannot transfer more than 25000 per transaction | Attempt to transfer 30000 | Error message is thrown and user is prompted to re-enter an amount | Pass
-|  | The "Back" option operates as expected | After transfer, select option 1. | The "Back" option takes the user back to main menu | Pass
+|  | "Press any key to continue" operates as expected | After transfer, type any key. Test with multiple different keys. | Key press takes the user back to main menu | Pass on every key tested
 |  | Transfer amount cannot be left blank | Leave transfer amount blank | Error message is thrown and user is prompted to re-enter an amount | Pass
 | **See Account History** |  |  |  | 
 |  | Account actions are published with the correct date and time | Select "See Account History" and compare what is shown in termal to users history tab in database | All user hisotry times and dates match database | Pass
 |  | Account history is formatted as expected | Select "See Account History" | Account history is formatted as expected | Pass
 |  | Users account history pulled from database with the correct information | Select "See Account History" and compare what is shown in termal to users history tab in database | Information pulled up in termal matches history tab for logged in user | Pass
-|  | The "Back" option operates as expected | After viewed account history, select option 1. | The "Back" option takes the user back to main menu | Pass
+|  | "Press any key to continue" operates as expected | After account history is shown, type any key. Test with multiple different keys. | Key press takes the user back to main menu | Pass on every key tested
 |  | Error message is thrown if invalid option selected after view history | Type a number of different characters != 1 | Error message is thrown and user is promted to select another option | Pass
 | **Change Password** |  |  |  | 
 |  | New password must only be 4 numbers | Enter 3 numbers | Error message is thrown and user is prompted to enter a new password | Pass
@@ -90,7 +89,7 @@
 |  | User can log in with new password | Attempt to log in with new password | User can log in successfully | Pass
 | **View Account Info** |  |  |  | 
 |  | Account info on terminal matches account info in database | Click "view account info" | Account info matches database | Pass
-|  | The "Back" option operates as expected | After viewed account info, select option 1. | The "Back" option takes the user back to main menu | Pass
+|  | "Press any key to continue" operates as expected | After account info is shown, type any key. Test with multiple different keys. | Key press takes the user back to main menu | Pass on every key tested
 |  | Password is hidden | View account info and look at password | Password is hidden | Pass
 |  | Information for the logged in user is pulled up, not another user | Log in as SemMTM and view account info in terminal | Correct account information is shown | Pass
 | **Exit** |  |  |  | 
