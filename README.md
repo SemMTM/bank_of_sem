@@ -304,6 +304,8 @@ These flow charts demonstrate the logic for each feature in the Bank of Sem app.
   - Used to create and manage the bank of sem spreadsheet.
 - Google Auth
   - Uses the creds.json file to set up authentication needed to access the google cloud project.
+- Nodejs
+  - Used to handle the mock terminal code provided by Code Institute in the project template.
 
 ---
 
@@ -344,6 +346,8 @@ There are no known unfixed bugs as of 25.09.2024.
 # **8. Deployemnt**
 As this project was entirely Python & terminal based, it was deployed on [Heroku](https://id.heroku.com/login) which enables deployments of dynamic websites that don't use just front-end languages. The deployed project uses a mock terminal so that users can interact with it through a web browser. This was set up by the Code Institute Engineering team in the template used for this project; which provided the files and code needed to properly deploy the project on Heroku.
 
+[Bank of Sem Live Site](https://bank-of-sem-cd1ad5a802b4.herokuapp.com)
+
 The steps taken to deploy this project are as follows:
 1. Create a list of dependencies for the project to run properly on Heroku. To do this:
     - Create a blank requirements.txt file.
@@ -362,3 +366,11 @@ The steps taken to deploy this project are as follows:
     3. Go to your Github project and navigate to your creds.json file and copy its contents.
     4. In the "VALUE" field, paste your entire creds.json file contents and click "add".
 9. Navigate to the "Buildpacks" section and click "Add buildpack"
+    - Add the Python buildpack and the Nodejs buildpack.
+    - The Pyhton buildpack must be above the Nodejs buildpack.
+10. Navigate to the "Deploy" tab and select "GitHub".
+11. Click "Connect to Github" and log in to your GitHub account.
+12. Search for your GitHub repository in the "Connect to GitHub section".
+13. Once found click "connect" then click "Enable Automatic Deploy.
+    - Automatic deploy will redploy your project eveytime new changes are pushed to GitHub.
+14. Once deployment is complete, click "View" to see your deployed project.
