@@ -2,6 +2,7 @@ import gspread
 from google.oauth2.service_account import Credentials
 from datetime import datetime
 from random import randint
+from colorama import Fore, init
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -17,6 +18,7 @@ USER_DETAILS_SHEET = SHEET.worksheet("user-details")
 ALL_USERNAMES = SHEET.worksheet("user-details").col_values(1)
 ALL_PASSWORDS = SHEET.worksheet("user-details").col_values(2)
 
+init(autoreset=True)
 
 def user_log_in():
     """
@@ -38,7 +40,7 @@ def user_log_in():
             create_account()
             break
         else:
-            print("\nPlease select a valid option\n")
+            print(Fore.RED + "\nPlease select a valid option\n")
 
 
 def create_account():
@@ -78,7 +80,7 @@ def create_account():
             account_type = 'Growth Account'
             break
         else:
-            print("\nPlease select a valid option (1-2)\n")
+            print(Fore.RED + "\nPlease select a valid option (1-2)\n")
 
     new_user_details = [new_username, new_password, 0,
                         generate_acct_num(), "31-80-90", account_type]
@@ -124,7 +126,7 @@ def validate_new_username(username):
     existing_username = any(x == username for x in ALL_USERNAMES)
 
     if existing_username is True:
-        print("\nUsername already exists. Please enter a new username\n")
+        print(Fore.RED + "\nUsername already exists. Please enter a new username\n")
         create_account()
     else:
         print("New username created\n")
@@ -138,13 +140,13 @@ def validate_new_password(password):
     try:
         int(password)
         if len(password) != 4:
-            print("Invalid password. Password must be 4 numbers, you entered"
+            print(Fore.RED + "Invalid password. Password must be 4 numbers, you entered"
                   f" {len(password)}, please try again. \n")
             return False
 
     # Throws error is password is not numbers
     except ValueError:
-        print("Invalid password. Password must be 4 numbers, "
+        print(Fore.RED + "Invalid password. Password must be 4 numbers, "
               "please try again. \n")
         return False
 
@@ -175,7 +177,7 @@ def existing_user_log_in():
 
         main_menu(existing_username)
     else:
-        print("Incorrect Details\n")
+        print(Fore.RED + "Incorrect Details\n")
         existing_user_log_in()
 
 
@@ -243,7 +245,7 @@ def main_menu(username):
                   "wonderful day.")
             break
         else:
-            print("\nPlease select a valid option (1-7)\n")
+            print(Fore.RED + "\nPlease select a valid option (1-7)\n")
 
 
 def show_balance(username):
@@ -311,7 +313,7 @@ def withdraw_deposit_funds_menu(username):
             main_menu(username)
             break
         else:
-            print("\nPlease select a valid option (1-3)\n")
+            print(Fore.RED + "\nPlease select a valid option (1-3)\n")
 
 
 def deposit_funds(username):
@@ -338,14 +340,14 @@ def deposit_funds(username):
 
         try:
             if int(deposit_amount) < 0:
-                print("Please enter a positive figure.\n")
+                print(Fore.RED + "Please enter a positive figure.\n")
             elif int(deposit_amount) > 25000:
-                print("There is a deposit limit of £25,000 per transaction. "
+                print(Fore.RED + "There is a deposit limit of £25,000 per transaction. "
                       "Please enter a lower deposit amount.\n")
             elif int(deposit_amount) < 25000:
                 break
         except ValueError:
-            print(f"Only numbers are accepted. Please try again.\n")
+            print(Fore.RED + f"Only numbers are accepted. Please try again.\n")
 
     # Calculates the new balance after deposit
     new_balance = int(balance) + int(deposit_amount)
@@ -383,11 +385,11 @@ def deposit_funds(username):
             break
 
         elif int(new_balance) > 15000:
-            print("This account is a Growth Account and has a balance limit "
+            print(Fore.RED + "This account is a Growth Account and has a balance limit "
                   "of £15000.")
-            print("This deposit will cause your account to exceed the "
+            print(Fore.RED + "This deposit will cause your account to exceed the "
                   "£15,000 limit.")
-            print(f"Your current balance is: £{balance}. "
+            print(Fore.RED + f"Your current balance is: £{balance}. "
                   "Please deposit a lower amount.\n")
             break
 
@@ -427,14 +429,14 @@ def withdraw_funds(username):
 
         try:
             if int(withdraw_amount) < 0:
-                print("Please enter a positive figure.\n")
+                print(Fore.RED + "Please enter a positive figure.\n")
             elif int(withdraw_amount) > 25000:
-                print("There is a withdrawl limit of £25,000 per transaction. "
+                print(Fore.RED + "There is a withdrawl limit of £25,000 per transaction. "
                       "Please enter a lower withdraw amount.\n")
             elif int(withdraw_amount) < 25000:
                 break
         except ValueError:
-            print(f"Only numbers are accepted. Please try again.\n")
+            print(Fore.RED + f"Only numbers are accepted. Please try again.\n")
 
     new_balance = int(balance) - int(withdraw_amount)
 
@@ -446,7 +448,7 @@ def withdraw_funds(username):
         f"£{withdraw_amount} from account."
         update_user_history(username, action)
 
-        print("Insufficient funds for withdrawal, "
+        print(Fore.RED + "Insufficient funds for withdrawal, "
               "please enter a lower amount\n")
 
         while True:
@@ -463,7 +465,7 @@ def withdraw_funds(username):
                 main_menu(username)
                 break
             else:
-                print("\nPlease select a valid option (1-2)\n")
+                print(Fore.RED + "\nPlease select a valid option (1-2)\n")
 
     else:
         print("Withdrawing funds...\n")
@@ -545,7 +547,7 @@ def send_money(username):
                     main_menu(username)
                     break
                 else:
-                    print("\nPlease select a valid option (1-2)\n")
+                    print(Fore.RED + "\nPlease select a valid option (1-2)\n")
 
         while True:
             amount_to_send = input("User found. How much would "
@@ -553,16 +555,16 @@ def send_money(username):
 
             try:
                 if int(amount_to_send) < 0:
-                    print("You cannnot withdraw funds from another "
+                    print(Fore.RED + "You cannnot withdraw funds from another "
                           "users account. Please try again.\n")
                 elif int(amount_to_send) > 25000:
-                    print("There is a withdrawl limit of £25,000 "
+                    print(Fore.RED + "There is a withdrawl limit of £25,000 "
                           "per transaction. Please enter a lower "
                           "withdraw amount.\n")
                 elif int(amount_to_send) < 25000:
                     break
             except ValueError:
-                print(f"Only numbers are accepted. Please try again.\n")
+                print(Fore.RED + f"Only numbers are accepted. Please try again.\n")
 
         # Calculates logged in users balance after withdraw amount has
         # been selected
@@ -580,7 +582,7 @@ def send_money(username):
             f"to {user_option}. Insufficient funds"
             update_user_history(username, action)
 
-            print("\nInsufficient funds for transfer, please try again.\n")
+            print(Fore.RED + "\nInsufficient funds for transfer, please try again.\n")
 
             while True:
                 print("***********************")
@@ -596,7 +598,7 @@ def send_money(username):
                     main_menu(username)
                     break
                 else:
-                    print("\nPlease select a valid option (1-2)\n")
+                    print(Fore.RED + "\nPlease select a valid option (1-2)\n")
 
         else:
             print("\nTransfering funds...\n")
@@ -622,7 +624,7 @@ def send_money(username):
                     main_menu(username)
                     break
     else:
-        print("User does not exist. Please try again.\n")
+        print(Fore.RED + "User does not exist. Please try again.\n")
         send_money(username)
 
     all_balances = SHEET.worksheet("user-details").col_values(3)

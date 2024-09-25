@@ -307,6 +307,8 @@ These flow charts demonstrate the logic for each feature in the Bank of Sem app.
   - Uses the creds.json file to set up authentication needed to access the google cloud project.
 - Nodejs
   - Used to handle the mock terminal code provided by Code Institute in the project template.
+- Colorama Library
+  - Used to colour success and error messages for better user experience.
 
 ---
 
