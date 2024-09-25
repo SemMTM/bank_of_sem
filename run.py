@@ -100,7 +100,7 @@ def create_account():
     SHEET.worksheet(f"{new_username}-history").update_acell('B2',
                                                             'New account '
                                                             'created')
-    print("Your new account has been created\n")
+    print(Fore.GREEN + "Your new account has been created\n")
     print("Please restart the program and login.")
 
 
@@ -129,7 +129,7 @@ def validate_new_username(username):
         print(Fore.RED + "\nUsername already exists. Please enter a new username\n")
         create_account()
     else:
-        print("New username created\n")
+        print(Fore.GREEN + "New username created\n")
         return True
 
 
@@ -165,7 +165,7 @@ def existing_user_log_in():
     print("\n***********************")
 
     if validate_existing_login_details(existing_username, existing_password):
-        print("Correct Login Details\n")
+        print(Fore.GREEN + "Correct Login Details\n")
 
         print(f"\nLoading account...\n")
 
@@ -364,7 +364,8 @@ def deposit_funds(username):
             f"Balance after deposit: £{new_balance}"
             update_user_history(username, action)
 
-            print(f"Deposit complete. Your new balance is £{new_balance}\n")
+            print(Fore.GREEN + "Deposit complete.")
+            print(f"Your new balance is £{new_balance}.\n")
             break
 
         elif int(new_balance) < 15000:
@@ -378,7 +379,8 @@ def deposit_funds(username):
             f"Balance after deposit: £{new_balance}"
             update_user_history(username, action)
 
-            print(f"Deposit complete. Your new balance is £{new_balance}\n")
+            print(Fore.GREEN + "Deposit complete.")
+            print(f"Your new balance is £{new_balance}.\n")
             balance_remaining = 15000 - new_balance
             print(f"You have £{balance_remaining} remaining of "
                   "your £15,000 balance limit\n")
@@ -396,7 +398,7 @@ def deposit_funds(username):
     while True:
         option = input("\nPress any key to continue:\n")
 
-        if option == '1':
+        if option == option:
             withdraw_deposit_funds_menu(username)
             break
 
@@ -478,7 +480,8 @@ def withdraw_funds(username):
         f"Balance after deposit: £{new_balance}"
         update_user_history(username, action)
 
-        print(f"Withdraw complete. Your new balance is £{new_balance}\n")
+        print(Fore.GREEN + "Withdraw complete.\n")
+        print(f"Your new balance is £{new_balance}.\n")
 
         while True:
             option = input("\nPress any key to continue:\n")
@@ -558,7 +561,7 @@ def send_money(username):
                     print(Fore.RED + "You cannnot withdraw funds from another "
                           "users account. Please try again.\n")
                 elif int(amount_to_send) > 25000:
-                    print(Fore.RED + "There is a withdrawl limit of £25,000 "
+                    print(Fore.RED + "There is a transfer limit of £25,000 "
                           "per transaction. Please enter a lower "
                           "withdraw amount.\n")
                 elif int(amount_to_send) < 25000:
@@ -615,7 +618,8 @@ def send_money(username):
             action2 = f"Recieved £{amount_to_send} from {username}"
             update_user_history(user_option, action2)
 
-            print(f"Transfer complete. Your new balance is £{new_balance}\n")
+            print(Fore.GREEN + "Transfer complete.")
+            print(f"Your new balance is £{new_balance}\n")
 
             while True:
                 option = input("\nPress any key to continue:\n")
@@ -703,7 +707,7 @@ def change_password(username):
 
     print("\nUpdating your password...\n")
     USER_DETAILS_SHEET.update_cell(username_cell.row, 2, new_password)
-    print("Password successfully updated\n")
+    print(Fore.GREEN + "Password successfully updated\n")
     print("Please restart the program and login.")
 
 
