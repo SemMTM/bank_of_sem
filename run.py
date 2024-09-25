@@ -99,9 +99,7 @@ def create_account():
                                                             'New account '
                                                             'created')
     print("Your new account has been created\n")
-    
-    main()
-    # print("Please restart the program and login.")
+    print("Please restart the program and login.")
 
 
 def generate_acct_num():
@@ -799,17 +797,10 @@ def add_interest(username, account):
         pass
 
 
-def reload_sheet():
-    USER_DETAILS_SHEET = SHEET.worksheet("user-details")
-    ALL_USERNAMES = SHEET.worksheet("user-details").col_values(1)
-    ALL_PASSWORDS = SHEET.worksheet("user-details").col_values(2)
-
-
 def main():
     """
     Run all program functions.
     """
-    reload_sheet()
     user_log_in()
 
 
