@@ -326,6 +326,7 @@ There are no known unfixed bugs as of 25.09.2024.
 - How to populate the next empty cell in a col with a specifed value: https://stackoverflow.com/questions/40781295/how-to-find-the-first-empty-row-of-a-google-spread-sheet-using-python-gspread
 - How to generate a random number of digits: https://stackoverflow.com/questions/2673385/how-to-generate-a-random-number-with-a-specific-amount-of-digits
 - How to verify if the input can be converted into an integer: https://stackoverflow.com/questions/56202563/how-can-i-restart-a-function-if-the-argument-isnt-numeric
+- Help with use on classes: https://realpython.com/python-classes/#:~:text=Encapsulate%20related%20data%20and%20behaviors,even%20reuse%20across%20multiple%20projects
 
 ---
 

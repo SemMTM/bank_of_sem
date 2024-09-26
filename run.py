@@ -24,6 +24,36 @@ ALL_PASSWORDS = SHEET.worksheet("user-details").col_values(2)
 init(autoreset=True)
 
 
+class Customer_Account:
+    def __init__(self, username, password, account_type):
+        self.username = username
+        self.password = password
+        self.account_type = account_type
+
+    def account_create(self):
+        time_now = datetime.now()
+        new_user_details = [self.username, self.password, 0,
+                        generate_acct_num(), "31-80-90", self.account_type]
+
+        # Updates worksheet with new username if the username is unqiue
+        print("\nAdding new user details to database...\n")
+        user_worksheet = SHEET.worksheet("user-details")
+        user_worksheet.append_row(new_user_details)
+
+        # Creates new history worksheet for new user
+        SHEET.add_worksheet(title=f"{self.username}-history", rows=100, cols=20)
+        SHEET.worksheet(f"{self.username}-history").update_acell('A1',
+                                                                'Date & Time')
+        SHEET.worksheet(f"{self.username}-history").update_acell('B1', 'Details')
+        SHEET.worksheet(f"{self.username}-history").update_acell('A2',
+                                                                str(time_now))
+        SHEET.worksheet(f"{self.username}-history").update_acell('B2',
+                                                                'New account '
+                                                                'created')
+        print(Fore.GREEN + "Your new account has been created\n")
+        print("Please restart the program and login.")
+
+
 def user_log_in():
     """
     Ask user to log in
@@ -51,7 +81,6 @@ def create_account():
     """
     Create a new username and upload data to spreadsheet
     """
-    time_now = datetime.now()
     account_type = ''
 
     while True:
@@ -86,26 +115,8 @@ def create_account():
         else:
             print(Fore.RED + "\nPlease select a valid option (1-2)\n")
 
-    new_user_details = [new_username, new_password, 0,
-                        generate_acct_num(), "31-80-90", account_type]
-
-    # Updates worksheet with new username if the username is unqiue
-    print("\nAdding new user details to database...\n")
-    user_worksheet = SHEET.worksheet("user-details")
-    user_worksheet.append_row(new_user_details)
-
-    # Creates new history worksheet for new user
-    SHEET.add_worksheet(title=f"{new_username}-history", rows=100, cols=20)
-    SHEET.worksheet(f"{new_username}-history").update_acell('A1',
-                                                            'Date & Time')
-    SHEET.worksheet(f"{new_username}-history").update_acell('B1', 'Details')
-    SHEET.worksheet(f"{new_username}-history").update_acell('A2',
-                                                            str(time_now))
-    SHEET.worksheet(f"{new_username}-history").update_acell('B2',
-                                                            'New account '
-                                                            'created')
-    print(Fore.GREEN + "Your new account has been created\n")
-    print("Please restart the program and login.")
+    new_details = Customer_Account(new_username, new_password, account_type)
+    new_details.account_create()
 
 
 def generate_acct_num():
