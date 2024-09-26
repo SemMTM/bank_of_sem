@@ -97,11 +97,11 @@
 
 ## **5.2. User Tests**
 3 Users were asked to create an account and use all features within the application. They were asked to provide comments on the useability of the app and any potential feedback.
-| User | Features Used | User Comments |
-|--|--|--|
-| User 1 | 100% | All features work well and the app is easy to use. Ability to change username would be a good feature to add. |
-| User 2 | 100% | Everything work great, I had no issues. |
-| User 3 | 100% | Very user friendly considering it is just text based. I dont really have any suggestions. |
+| User | Features Used | User Comments | Applied Changes |
+|--|--|--|--|
+| User 1 | 100% | All features work well and the app is easy to use. Ability to change username would be a good feature to add. | N/A |
+| User 2 | 100% | Everything work great, but the error messages could be made more noticable. | Made error message text red and success message text green |
+| User 3 | 100% | Lots of cool features but having to press "back" after every action is annoying. | Changed "back" to "press any key to continue" after actions completed |
 
 ## **5.3. Validator Testing**
 - Code in the run.py file has been validated using the Code Institute Python Linter: https://pep8ci.herokuapp.com/
