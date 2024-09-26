@@ -25,13 +25,14 @@ init(autoreset=True)
 
 
 class Customer_Account:
-    def __init__(self, username, password, account_type):
+    time_now = datetime.now()
+
+    def __init__(self, username):
         self.username = username
+
+    def account_create(self, account_type, password):
         self.password = password
         self.account_type = account_type
-
-    def account_create(self):
-        time_now = datetime.now()
         new_user_details = [self.username, self.password, 0,
                         generate_acct_num(), "31-80-90", self.account_type]
 
@@ -46,12 +47,46 @@ class Customer_Account:
                                                                 'Date & Time')
         SHEET.worksheet(f"{self.username}-history").update_acell('B1', 'Details')
         SHEET.worksheet(f"{self.username}-history").update_acell('A2',
-                                                                str(time_now))
+                                                                str(self.time_now))
         SHEET.worksheet(f"{self.username}-history").update_acell('B2',
                                                                 'New account '
                                                                 'created')
         print(Fore.GREEN + "Your new account has been created\n")
         print("Please restart the program and login.")
+
+
+    def exisiting_log_in(self, password):
+        self.password = password
+
+        if validate_existing_login_details(self.username, self.password):
+            print(Fore.GREEN + "Correct Login Details\n")
+
+            print(f"\nLoading account...\n")
+
+            # Update user history with action
+            action = "User log in"
+            Customer_Account(self.username).update_user_history(action)
+
+            add_interest(self.username, check_account_type(self.username))
+
+            main_menu(self.username)
+        else:
+            print(Fore.RED + "Incorrect Details\n")
+            existing_user_log_in()
+
+    
+    def update_user_history(self, action):
+        self.action = action
+
+        """
+        Updates the logged in users history workseet with the last completed action
+        """
+        history_worksheet = SHEET.worksheet(f"{self.username}-history")
+        next_row = next_available_row(history_worksheet)
+
+        # From an external source (Please see README)
+        history_worksheet.update_acell("A{}".format(next_row), str(self.time_now))
+        history_worksheet.update_acell("B{}".format(next_row), action)
 
 
 def user_log_in():
@@ -115,8 +150,8 @@ def create_account():
         else:
             print(Fore.RED + "\nPlease select a valid option (1-2)\n")
 
-    new_details = Customer_Account(new_username, new_password, account_type)
-    new_details.account_create()
+    new_details = Customer_Account(new_username)
+    new_details.account_create(new_password, account_type)
 
 
 def generate_acct_num():
@@ -181,21 +216,8 @@ def existing_user_log_in():
     existing_password = pwinput.pwinput(prompt="\nEnter your password:\n")
     print("\n***********************")
 
-    if validate_existing_login_details(existing_username, existing_password):
-        print(Fore.GREEN + "Correct Login Details\n")
-
-        print(f"\nLoading account...\n")
-
-        # Update user history with action
-        action = "User log in"
-        update_user_history(existing_username, action)
-
-        add_interest(existing_username, check_account_type(existing_username))
-
-        main_menu(existing_username)
-    else:
-        print(Fore.RED + "Incorrect Details\n")
-        existing_user_log_in()
+    log_in_details = Customer_Account(existing_username)
+    log_in_details.exisiting_log_in(existing_password)
 
 
 def get_existing_login_details():
@@ -283,7 +305,7 @@ def show_balance(username):
 
     # Update user history with action
     action = "Viewed account balance"
-    update_user_history(username, action)
+    Customer_Account(username).update_user_history(action)
 
     print("\n***********************")
     print(f"Your balance is: £{balance}\n")
@@ -381,7 +403,7 @@ def deposit_funds(username):
             # Update user history with action
             action = f"Deposited £{deposit_amount} to account. "
             f"Balance after deposit: £{new_balance}"
-            update_user_history(username, action)
+            Customer_Account(username).update_user_history(action)
 
             print(Fore.GREEN + "Deposit complete.")
             print(f"Your new balance is £{new_balance}.\n")
@@ -396,7 +418,7 @@ def deposit_funds(username):
             # Update user history with action
             action = f"Deposited £{deposit_amount} to account. "
             f"Balance after deposit: £{new_balance}"
-            update_user_history(username, action)
+            Customer_Account(username).update_user_history(action)
 
             print(Fore.GREEN + "Deposit complete.")
             print(f"Your new balance is £{new_balance}.\n")
@@ -467,7 +489,7 @@ def withdraw_funds(username):
 
         action = "Insufficient funds - Attemped to withdraw "
         f"£{withdraw_amount} from account."
-        update_user_history(username, action)
+        Customer_Account(username).update_user_history(action)
 
         print(Fore.RED + "Insufficient funds for withdrawal, "
               "please enter a lower amount\n")
@@ -497,7 +519,7 @@ def withdraw_funds(username):
         # Update user history with action
         action = f"Withdrew £{withdraw_amount} from account. "
         f"Balance after deposit: £{new_balance}"
-        update_user_history(username, action)
+        Customer_Account(username).update_user_history(action)
 
         print(Fore.GREEN + "Withdraw complete.\n")
         print(f"Your new balance is £{new_balance}.\n")
@@ -603,7 +625,7 @@ def send_money(username):
             # Update user history with action
             action = f"Attempted to transfer £{amount_to_send} "
             f"to {user_option}. Insufficient funds"
-            update_user_history(username, action)
+            Customer_Account(username).update_user_history(action)
 
             print(Fore.RED + "\nInsufficient funds for transfer, "
                              "please try again.\n")
@@ -635,9 +657,9 @@ def send_money(username):
 
             # Update user & selected user history with action
             action = f"Transfered £{amount_to_send} to {user_option}"
-            update_user_history(username, action)
+            Customer_Account(username).update_user_history(action)
             action2 = f"Recieved £{amount_to_send} from {username}"
-            update_user_history(user_option, action2)
+            Customer_Account(username).update_user_history(action2)
 
             print(Fore.GREEN + "Transfer complete.")
             print(f"Your new balance is £{new_balance}\n")
@@ -661,19 +683,6 @@ def next_available_row(worksheet):
     return str(len(str_list)+1)
 
 
-def update_user_history(username, action):
-    """
-    Updates the logged in users history workseet with the last completed action
-    """
-    time_now = datetime.now()
-    history_worksheet = SHEET.worksheet(f"{username}-history")
-    next_row = next_available_row(history_worksheet)
-
-    # From an external source (Please see README)
-    history_worksheet.update_acell("A{}".format(next_row), str(time_now))
-    history_worksheet.update_acell("B{}".format(next_row), action)
-
-
 def call_user_history(username):
     """
     Calls the data in the logged in users history worksheet and returns
@@ -692,7 +701,7 @@ def call_user_history(username):
         print(f'{time:19}  -  {history:40}')
 
     action = "Viewed account history"
-    update_user_history(username, action)
+    Customer_Account(username).update_user_history(action)
 
     while True:
         option = input("\nPress any key to continue:\n")
@@ -716,7 +725,7 @@ def change_password(username):
     existing_credentials = get_existing_login_details()
 
     action = "Password changed."
-    update_user_history(username, action)
+    Customer_Account(username).update_user_history(action)
 
     while True:
         print("***********************\n")
@@ -754,7 +763,7 @@ def call_user_acc_details(username):
             print(f'{heading:15}  -  £{data}')
 
     action = "Account information viewed."
-    update_user_history(username, action)
+    Customer_Account(username).update_user_history(action)
 
     while True:
         option = input("\nPress any key to continue:\n")
@@ -791,7 +800,7 @@ def add_interest(username, account):
         # Update user history with action
         action = "1% interest added to balance. Balance "
         f"after interest gained: £{new_balance}"
-        update_user_history(username, action)
+        Customer_Account(username).update_user_history(action)
     else:
         pass
 
