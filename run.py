@@ -33,7 +33,8 @@ class Customer_Account:
     def account_create(self, password, account_type):
         self.password = password
         self.account_type = account_type
-        new_user_details = [self.username, self.password, 0, generate_acct_num(), '31-80-90', self.account_type]
+        new_user_details = [self.username, self.password, 0, generate_acct_num()
+                            , '31-80-90', self.account_type]
 
         # Updates worksheet with new username if the username is unqiue
         print("\nAdding new user details to database...\n")
@@ -631,8 +632,8 @@ def send_money(username):
                           "users account. Please try again.\n")
                 elif int(amount_to_send) > 25000:
                     print(Fore.RED + "There is a transfer limit of £25,000 "
-                          "per transaction. Please enter a lower "
-                          "withdraw amount.\n")
+                          "per transaction.")
+                    print(Fore.RED + "Please enter a lower withdraw amount.\n")
                 elif int(amount_to_send) < 25000:
                     break
             except ValueError:

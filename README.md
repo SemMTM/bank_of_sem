@@ -115,7 +115,7 @@ Each main option will then either prompt a user input for data to be submitted t
 **Password**
 - Once a unique username has been selected, the user will be promted to input a 4 digit password.
 - The password must be 4 numbers or an error will be thrown.
-- Password input is hidden
+- Password input is hidden.
 
 ![Enter password error message](<assets/readme images/Screenshot_5.png>)
 
@@ -188,7 +188,7 @@ Each main option will then either prompt a user input for data to be submitted t
 
 ![successful deposit](<assets/readme images/Screenshot_19.png>)
 
-![spreadsheet updated with deposit amount](<assets/readme images/Screenshot_20.png>)
+![spreadsheet updated with deposit amount](<assets/readme images/Screenshot_41.png>)
 
 **Withdraw funds**
 - The user can't withdraw more money then they have in their account.
