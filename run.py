@@ -118,7 +118,7 @@ class Customer_Account:
         print("Please restart the program and login.")
 
 
-def user_log_in():
+def start_menu():
     """
     Ask user to log in
     """
@@ -707,7 +707,7 @@ def send_money(username):
 
 
 def next_available_row(worksheet):
-    # From an external source (Please see README)
+    # From an external source (See README)
     str_list = list(filter(None, worksheet.col_values(1)))
     return str(len(str_list)+1)
 
@@ -808,7 +808,7 @@ def main():
     """
     Run all program functions.
     """
-    user_log_in()
+    start_menu()
 
 
 main()
