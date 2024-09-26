@@ -88,6 +88,35 @@ class Customer_Account:
         history_worksheet.update_acell("A{}".format(next_row), str(self.time_now))
         history_worksheet.update_acell("B{}".format(next_row), action)
 
+    
+    def password_change(self):
+        """
+        Change the exisiting password to a new one for the logged in user.
+        Then updates the password in the database
+        """
+
+        print(f"\nLoading...\n")
+
+        get_existing_login_details()
+
+        username_cell = USER_DETAILS_SHEET.find(self.username)
+        existing_credentials = get_existing_login_details()
+
+        action = "Password changed."
+        Customer_Account(self.username).update_user_history(action)    
+
+        while True:
+            print("***********************\n")
+            new_password = pwinput.pwinput(prompt="Please enter in a new "
+                                           "password. It must be 4 numbers:\n")
+            if validate_new_password(new_password):
+                break
+
+        print("\nUpdating your password...\n")
+        USER_DETAILS_SHEET.update_cell(username_cell.row, 2, new_password)
+        print(Fore.GREEN + "Password successfully updated\n")
+        print("Please restart the program and login.")
+
 
 def user_log_in():
     """
@@ -275,7 +304,7 @@ def main_menu(username):
             call_user_history(username)
             break
         elif option == '5':
-            change_password(username)
+            Customer_Account(username).password_change()
             break
         elif option == '6':
             call_user_acc_details(username)
@@ -659,7 +688,7 @@ def send_money(username):
             action = f"Transfered £{amount_to_send} to {user_option}"
             Customer_Account(username).update_user_history(action)
             action2 = f"Recieved £{amount_to_send} from {username}"
-            Customer_Account(username).update_user_history(action2)
+            Customer_Account(user_option).update_user_history(action2)
 
             print(Fore.GREEN + "Transfer complete.")
             print(f"Your new balance is £{new_balance}\n")
@@ -709,36 +738,6 @@ def call_user_history(username):
         if option == option:
             main_menu(username)
             break
-
-
-def change_password(username):
-    """
-    Change the exisiting password to a new one for the logged in user.
-    Then updates the password in the database
-    """
-
-    print(f"\nLoading...\n")
-
-    get_existing_login_details()
-
-    username_cell = USER_DETAILS_SHEET.find(username)
-    existing_credentials = get_existing_login_details()
-
-    action = "Password changed."
-    Customer_Account(username).update_user_history(action)
-
-    while True:
-        print("***********************\n")
-        new_password = pwinput.pwinput(prompt="Please enter in a new "
-                                       "password. It must be 4 numbers:\n")
-
-        if validate_new_password(new_password):
-            break
-
-    print("\nUpdating your password...\n")
-    USER_DETAILS_SHEET.update_cell(username_cell.row, 2, new_password)
-    print(Fore.GREEN + "Password successfully updated\n")
-    print("Please restart the program and login.")
 
 
 def call_user_acc_details(username):
