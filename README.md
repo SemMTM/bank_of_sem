@@ -115,6 +115,7 @@ Each main option will then either prompt a user input for data to be submitted t
 **Password**
 - Once a unique username has been selected, the user will be promted to input a 4 digit password.
 - The password must be 4 numbers or an error will be thrown.
+- Password input is hidden
 
 ![Enter password error message](<assets/readme images/Screenshot_5.png>)
 

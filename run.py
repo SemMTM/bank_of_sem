@@ -30,11 +30,10 @@ class Customer_Account:
     def __init__(self, username):
         self.username = username
 
-    def account_create(self, account_type, password):
+    def account_create(self, password, account_type):
         self.password = password
         self.account_type = account_type
-        new_user_details = [self.username, self.password, 0,
-                        generate_acct_num(), "31-80-90", self.account_type]
+        new_user_details = [self.username, self.password, 0, generate_acct_num(), '31-80-90', self.account_type]
 
         # Updates worksheet with new username if the username is unqiue
         print("\nAdding new user details to database...\n")
