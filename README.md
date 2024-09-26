@@ -376,4 +376,12 @@ To clone this Repository:
 4. Click the "Copy" button to copy the URL to your clipboard
 5. Open Git Bash or Terminal
 6. Change the current working directory to where you want the cloned directory 
-7. In your IDE Terminal, type the following command to clone the repository 
+7. In your IDE Terminal, type the following command to clone the repository:
+  - `git clone https://https://github.com/SemMTM/bank_of_sem.git`
+8. Press enter to create your local clone
+
+### Forking
+You can fork this repository using the following steps:
+1. Log in to GibHub and locate the repo. Link [here.](https://github.com/SemMTM/bank_of_sem)
+2. Locate & press the "Fork" button, just below the search bar on the top right of the page.
+3. You should now have a copy of the original repository in your own GitHub account.
