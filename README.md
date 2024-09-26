@@ -220,9 +220,11 @@ Each main option will then either prompt a user input for data to be submitted t
 
 ![Message when trying to transfer to growth account](<assets/readme images/Screenshot_26.png>)
 
-- A user cannnot send more money then their available funds. If they try to do this, an error message will be thrown.
+- A user cannnot send more money then their available funds or more than the £25,000 transfer limit. If they try to do this, an error message will be thrown.
 
 ![Message when trying to transfer more than available funds](<assets/readme images/Screenshot_27.png>)
+
+![Transfer limit error message](<assets/readme images/Screenshot_42.png>)
 
 ## **See Account History**
 - Every action on a logged in users account is saved and time stamped in the users "history" tab.
