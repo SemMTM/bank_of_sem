@@ -158,7 +158,7 @@ def create_account():
     while True:
         print("Your password must be a 4 digit number")
         new_password = pwinput.pwinput(prompt="Please enter a password: \n")
-        print("***********************\n")
+        print("\n***********************\n")
 
         if validate_new_password(new_password):
             break

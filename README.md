@@ -2,7 +2,7 @@
 ![Welcome](<assets/readme images/Screenshot_36.png>)
 ---
 ## **A Terminal Based Banking Application**
-A terminal based banking application that is connected to a databased via api and updates the information based on user action. To use the application, a user must create an account with a unique username & 4 digit password, thesse are then pushed to the data base. To log in, the user must use the correct & matching credentials or access to the account will be denied.
+A terminal based banking application that is connected to a database via API and updates the information based on user action. To use the application, a user must create an account with a unique username & 4 digit password, these are then pushed to the data base. To log in, the user must use the correct & matching credentials or access to the account will be denied.
 
 The user can do a variety of banking based tasks once logged in, these are:
 1. Show Balance
@@ -327,6 +327,9 @@ There are no known unfixed bugs as of 25.09.2024.
 - How to generate a random number of digits: https://stackoverflow.com/questions/2673385/how-to-generate-a-random-number-with-a-specific-amount-of-digits
 - How to verify if the input can be converted into an integer: https://stackoverflow.com/questions/56202563/how-can-i-restart-a-function-if-the-argument-isnt-numeric
 - Help with use on classes: https://realpython.com/python-classes/#:~:text=Encapsulate%20related%20data%20and%20behaviors,even%20reuse%20across%20multiple%20projects
+
+### **7.2 Acknowledgements**
+- I would like to thank my Code Institute mentor Gareth Mc Girr for providing valuable feedback and great suggestions that helped me greatly improve this project.
 
 ---
 
