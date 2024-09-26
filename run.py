@@ -20,6 +20,7 @@ USER_DETAILS_SHEET = SHEET.worksheet("user-details")
 ALL_USERNAMES = SHEET.worksheet("user-details").col_values(1)
 ALL_PASSWORDS = SHEET.worksheet("user-details").col_values(2)
 
+# Resets message text colors after message has been shown
 init(autoreset=True)
 
 def user_log_in():

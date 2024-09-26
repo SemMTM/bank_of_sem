@@ -91,25 +91,7 @@ Each main option will then either prompt a user input for data to be submitted t
   - As a frequent user, I want to be able to see my account information
 
 ### **1.4. Flow Charts**
-These flow charts demonstrate the logic for each feature in the Bank of Sem app.
-
-#### ***Log In***
- 
-#### ***Create Account***
-
-#### ***Show Balance***
-
-#### ***Withdraw/Deposit Funds***
-
-#### ***See Account History***
-
-#### ***Send Money***
-
-#### ***Change Password***
-
-#### ***View Account Info***
-
-#### ***Exit***
+![Flow chart](<assets/readme images/Screenshot_40.png>)
 
 ---
 
