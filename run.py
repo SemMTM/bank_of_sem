@@ -23,6 +23,7 @@ ALL_PASSWORDS = SHEET.worksheet("user-details").col_values(2)
 # Resets message text colors after message has been shown
 init(autoreset=True)
 
+
 def user_log_in():
     """
     Ask user to log in
@@ -129,7 +130,8 @@ def validate_new_username(username):
     existing_username = any(x == username for x in ALL_USERNAMES)
 
     if existing_username is True:
-        print(Fore.RED + "\nUsername already exists. Please enter a new username\n")
+        print(Fore.RED + "\nUsername already exists. "
+                         "Please enter a new username\n")
         create_account()
     else:
         print(Fore.GREEN + "New username created\n")
@@ -143,7 +145,8 @@ def validate_new_password(password):
     try:
         int(password)
         if len(password) != 4:
-            print(Fore.RED + "Invalid password. Password must be 4 numbers, you entered"
+            print(Fore.RED + "Invalid password. "
+                  "Password must be 4 numbers, you entered"
                   f" {len(password)}, please try again. \n")
             return False
 
@@ -346,7 +349,8 @@ def deposit_funds(username):
             if int(deposit_amount) < 0:
                 print(Fore.RED + "Please enter a positive figure.\n")
             elif int(deposit_amount) > 25000:
-                print(Fore.RED + "There is a deposit limit of £25,000 per transaction. "
+                print(Fore.RED + "There is a deposit limit of £25,000 "
+                      "per transaction. "
                       "Please enter a lower deposit amount.\n")
             elif int(deposit_amount) < 25000:
                 break
@@ -391,10 +395,10 @@ def deposit_funds(username):
             break
 
         elif int(new_balance) > 15000:
-            print(Fore.RED + "This account is a Growth Account and has a balance limit "
-                  "of £15000.")
-            print(Fore.RED + "This deposit will cause your account to exceed the "
-                  "£15,000 limit.")
+            print(Fore.RED + "This account is a Growth Account and has a "
+                  "balance limit of £15000.")
+            print(Fore.RED + "This deposit will cause your account "
+                  "to exceed the £15,000 limit.")
             print(Fore.RED + f"Your current balance is: £{balance}. "
                   "Please deposit a lower amount.\n")
             break
@@ -420,7 +424,7 @@ def withdraw_funds(username):
     print(f"\nLoading...\n")
 
     all_balances = SHEET.worksheet("user-details").col_values(3)
-    
+
     # Gets all exisiting usernames and pairs them to the correct balances in
     # a dictionary
     existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES,
@@ -437,8 +441,8 @@ def withdraw_funds(username):
             if int(withdraw_amount) < 0:
                 print(Fore.RED + "Please enter a positive figure.\n")
             elif int(withdraw_amount) > 25000:
-                print(Fore.RED + "There is a withdrawl limit of £25,000 per transaction. "
-                      "Please enter a lower withdraw amount.\n")
+                print(Fore.RED + "There is a withdrawl limit of £25,000 per "
+                      "transaction. Please enter a lower withdraw amount.\n")
             elif int(withdraw_amount) < 25000:
                 break
         except ValueError:
@@ -571,7 +575,8 @@ def send_money(username):
                 elif int(amount_to_send) < 25000:
                     break
             except ValueError:
-                print(Fore.RED + f"Only numbers are accepted. Please try again.\n")
+                print(Fore.RED + f"Only numbers are accepted. "
+                                 "Please try again.\n")
 
         # Calculates logged in users balance after withdraw amount has
         # been selected
@@ -589,7 +594,8 @@ def send_money(username):
             f"to {user_option}. Insufficient funds"
             update_user_history(username, action)
 
-            print(Fore.RED + "\nInsufficient funds for transfer, please try again.\n")
+            print(Fore.RED + "\nInsufficient funds for transfer, "
+                             "please try again.\n")
 
             while True:
                 print("***********************")
@@ -703,8 +709,8 @@ def change_password(username):
 
     while True:
         print("***********************\n")
-        new_password = pwinput.pwinput(prompt="Please enter in a new password. "
-                             "It must be 4 numbers:\n")
+        new_password = pwinput.pwinput(prompt="Please enter in a new "
+                                       "password. It must be 4 numbers:\n")
 
         if validate_new_password(new_password):
             break
