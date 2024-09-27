@@ -115,6 +115,210 @@ class Customer_Account:
         print("Please restart the program and login.")
 
 
+class Bank_Account:
+    def __init__(self, username):
+        self.username = username
+
+    def show_balance(self):
+        """
+        Pairs all balances to the correct usernames then shows the balance
+        assosiated with the username used to log in.
+        """
+        print(f"\nLoading...\n")
+
+        # Gets all exisiting usernames and pairs them to the correct
+        # balances in a dictionary
+        all_balances = SHEET.worksheet("user-details").col_values(3)
+        existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES,
+                            balance in zip(ALL_USERNAMES, all_balances)}
+        balance = existing_balances.get(self.username)
+
+        print("\n***********************")
+        print(f"Your balance is: £{balance}\n")
+        print("***********************\n")
+
+        # Update user history with action
+        action = "Viewed account balance"
+        Customer_Account(self.username).update_user_history(action)
+
+        while True:
+            option = input("Press any key to continue:\n")
+            if option == option:
+                main_menu(self.username)
+                break
+
+    def deposit_funds(self):
+        """
+        Pairs all balances to the correct usernames then shows the balance
+        assosiated with the username used to log in. Allows the user to
+        then add an amount to that balance and update the spreadsheet.
+        """
+        print(f"\nLoading...\n")
+
+        # Gets all exisiting usernames and pairs them to the
+        # correct balances in a dictionary
+        all_balances = SHEET.worksheet("user-details").col_values(3)
+        existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES,
+                            balance in zip(ALL_USERNAMES, all_balances)}
+        balance = existing_balances.get(self.username)
+        username_cell = USER_DETAILS_SHEET.find(self.username)
+
+        while True:
+            print("\n***********************")
+            deposit_amount = input("How much would you like to deposit?\n£")
+            print("\n***********************")
+
+            try:
+                if int(deposit_amount) < 0:
+                    print(Fore.RED + "Please enter a positive figure.\n")
+                elif int(deposit_amount) > 25000:
+                    print(Fore.RED + "There is a deposit limit of £25,000 "
+                        "per transaction. "
+                        "Please enter a lower deposit amount.\n")
+                elif int(deposit_amount) < 25000:
+                    break
+            except ValueError:
+                print(Fore.RED + f"Only numbers are accepted. Please try again.\n")
+
+        # Calculates the new balance after deposit
+        new_balance = int(balance) + int(deposit_amount)
+
+        while True:
+            if check_account_type(self.username) != 'Growth Account':
+                print("Depositing funds...\n")
+
+                # Updates the users balance on the spreadsheet
+                USER_DETAILS_SHEET.update_cell(username_cell.row, 3, new_balance)
+
+                # Update user history with action
+                action = f"Deposited £{deposit_amount} to account. "
+                f"Balance after deposit: £{new_balance}"
+                Customer_Account(self.username).update_user_history(action)
+
+                print(Fore.GREEN + "Deposit complete.")
+                print(f"Your new balance is £{new_balance}.\n")
+                break
+
+            elif int(new_balance) < 15000:
+                print("Depositing funds...\n")
+
+                # Updates the users balance on the spreadsheet
+                USER_DETAILS_SHEET.update_cell(username_cell.row, 3, new_balance)
+
+                # Update user history with action
+                action = f"Deposited £{deposit_amount} to account. "
+                f"Balance after deposit: £{new_balance}"
+                Customer_Account(self.username).update_user_history(action)
+
+                print(Fore.GREEN + "Deposit complete.")
+                print(f"Your new balance is £{new_balance}.\n")
+                balance_remaining = 15000 - new_balance
+                print(f"You have £{balance_remaining} remaining of "
+                    "your £15,000 balance limit\n")
+                break
+
+            elif int(new_balance) > 15000:
+                print(Fore.RED + "This account is a Growth Account and has a "
+                    "balance limit of £15000.")
+                print(Fore.RED + "This deposit will cause your account "
+                    "to exceed the £15,000 limit.")
+                print(Fore.RED + f"Your current balance is: £{balance}. "
+                    "Please deposit a lower amount.\n")
+                break
+
+        while True:
+            option = input("\nPress any key to continue:\n")
+
+            if option == option:
+                withdraw_deposit_funds_menu(self.username)
+                break
+
+    
+    def withdraw_funds(self):
+        """
+        Pairs all balances to the correct usernames then shows the balance
+        assosiated with the username used to log in. Allows the user to then
+        withdraw an amount from that balance and update the spreadsheet.
+        Wont allow more then the value of their exisiting balance to be withdrawn.
+        """
+        print(f"\nLoading...\n")
+
+        all_balances = SHEET.worksheet("user-details").col_values(3)
+
+        # Gets all exisiting usernames and pairs them to the correct balances in
+        # a dictionary
+        existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES,
+                            balance in zip(ALL_USERNAMES, all_balances)}
+        balance = existing_balances.get(self.username)
+        username_cell = USER_DETAILS_SHEET.find(self.username)
+
+        while True:
+            print("\n***********************")
+            withdraw_amount = input("How much would you like to withdraw?\n£")
+            print("***********************\n")
+
+            try:
+                if int(withdraw_amount) < 0:
+                    print(Fore.RED + "Please enter a positive figure.\n")
+                elif int(withdraw_amount) > 25000:
+                    print(Fore.RED + "There is a withdrawl limit of £25,000 per "
+                        "transaction. Please enter a lower withdraw amount.\n")
+                elif int(withdraw_amount) < 25000:
+                    break
+            except ValueError:
+                print(Fore.RED + f"Only numbers are accepted. Please try again.\n")
+
+        new_balance = int(balance) - int(withdraw_amount)
+
+        # Throws message if withdraw amount is more then the available balance
+        # and wont allow the action
+        if int(withdraw_amount) > int(balance) or int(balance) == 0:
+
+            action = "Insufficient funds - Attemped to withdraw "
+            f"£{withdraw_amount} from account."
+            Customer_Account(self.username).update_user_history(action)
+
+            print(Fore.RED + "Insufficient funds for withdrawal, "
+                "please enter a lower amount\n")
+
+            while True:
+                print("***********************")
+                print("1. Try again")
+                print("2. Back")
+                print("***********************")
+                option = input("\nPlease select an option:\n")
+
+                if option == '1':
+                    withdraw_funds(self.username)
+                    break
+                elif option == '2':
+                    main_menu(self.username)
+                    break
+                else:
+                    print(Fore.RED + "\nPlease select a valid option (1-2)\n")
+
+        else:
+            print("Withdrawing funds...\n")
+
+            # Updates users balance on the spreadsheet after withdrawl
+            USER_DETAILS_SHEET.update_cell(username_cell.row, 3, new_balance)
+
+            # Update user history with action
+            action = f"Withdrew £{withdraw_amount} from account. "
+            f"Balance after deposit: £{new_balance}"
+            Customer_Account(self.username).update_user_history(action)
+
+            print(Fore.GREEN + "Withdraw complete.\n")
+            print(f"Your new balance is £{new_balance}.\n")
+
+            while True:
+                option = input("\nPress any key to continue:\n")
+
+                if option == option:
+                    withdraw_deposit_funds_menu(self.username)
+                    break
+
+
 def start_menu():
     """
     Ask user to log in
@@ -288,7 +492,7 @@ def main_menu(username):
         option = input("Please select an option (1-7):\n")
 
         if option == '1':
-            show_balance(username)
+            Bank_Account(username).show_balance()
             break
         elif option == '2':
             withdraw_deposit_funds_menu(username)
@@ -311,35 +515,6 @@ def main_menu(username):
             break
         else:
             print(Fore.RED + "\nPlease select a valid option (1-7)\n")
-
-
-def show_balance(username):
-    """
-    Pairs all balances to the correct usernames then shows the balance
-    assosiated with the username used to log in.
-    """
-    print(f"\nLoading...\n")
-
-    # Gets all exisiting usernames and pairs them to the correct
-    # balances in a dictionary
-    all_balances = SHEET.worksheet("user-details").col_values(3)
-    existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES,
-                         balance in zip(ALL_USERNAMES, all_balances)}
-    balance = existing_balances.get(username)
-
-    print("\n***********************")
-    print(f"Your balance is: £{balance}\n")
-    print("***********************\n")
-
-    # Update user history with action
-    action = "Viewed account balance"
-    Customer_Account(username).update_user_history(action)
-
-    while True:
-        option = input("Press any key to continue:\n")
-        if option == option:
-            main_menu(username)
-            break
 
 
 def withdraw_deposit_funds_menu(username):
@@ -367,7 +542,7 @@ def withdraw_deposit_funds_menu(username):
         option = input("Please select an option (1-3):\n")
 
         if option == '1':
-            deposit_funds(username)
+            Bank_Account(username).deposit_funds()
             break
         elif option == '2':
             withdraw_funds(username)
@@ -377,93 +552,6 @@ def withdraw_deposit_funds_menu(username):
             break
         else:
             print(Fore.RED + "\nPlease select a valid option (1-3)\n")
-
-
-def deposit_funds(username):
-    """
-    Pairs all balances to the correct usernames then shows the balance
-    assosiated with the username used to log in. Allows the user to
-    then add an amount to that balance and update the spreadsheet.
-    """
-    print(f"\nLoading...\n")
-
-    # Gets all exisiting usernames and pairs them to the
-    # correct balances in a dictionary
-    all_balances = SHEET.worksheet("user-details").col_values(3)
-    existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES,
-                         balance in zip(ALL_USERNAMES, all_balances)}
-    balance = existing_balances.get(username)
-    username_cell = USER_DETAILS_SHEET.find(username)
-
-    while True:
-        print("\n***********************")
-        deposit_amount = input("How much would you like to deposit?\n£")
-        print("\n***********************")
-
-        try:
-            if int(deposit_amount) < 0:
-                print(Fore.RED + "Please enter a positive figure.\n")
-            elif int(deposit_amount) > 25000:
-                print(Fore.RED + "There is a deposit limit of £25,000 "
-                      "per transaction. "
-                      "Please enter a lower deposit amount.\n")
-            elif int(deposit_amount) < 25000:
-                break
-        except ValueError:
-            print(Fore.RED + f"Only numbers are accepted. Please try again.\n")
-
-    # Calculates the new balance after deposit
-    new_balance = int(balance) + int(deposit_amount)
-
-    while True:
-        if check_account_type(username) != 'Growth Account':
-            print("Depositing funds...\n")
-
-            # Updates the users balance on the spreadsheet
-            USER_DETAILS_SHEET.update_cell(username_cell.row, 3, new_balance)
-
-            # Update user history with action
-            action = f"Deposited £{deposit_amount} to account. "
-            f"Balance after deposit: £{new_balance}"
-            Customer_Account(username).update_user_history(action)
-
-            print(Fore.GREEN + "Deposit complete.")
-            print(f"Your new balance is £{new_balance}.\n")
-            break
-
-        elif int(new_balance) < 15000:
-            print("Depositing funds...\n")
-
-            # Updates the users balance on the spreadsheet
-            USER_DETAILS_SHEET.update_cell(username_cell.row, 3, new_balance)
-
-            # Update user history with action
-            action = f"Deposited £{deposit_amount} to account. "
-            f"Balance after deposit: £{new_balance}"
-            Customer_Account(username).update_user_history(action)
-
-            print(Fore.GREEN + "Deposit complete.")
-            print(f"Your new balance is £{new_balance}.\n")
-            balance_remaining = 15000 - new_balance
-            print(f"You have £{balance_remaining} remaining of "
-                  "your £15,000 balance limit\n")
-            break
-
-        elif int(new_balance) > 15000:
-            print(Fore.RED + "This account is a Growth Account and has a "
-                  "balance limit of £15000.")
-            print(Fore.RED + "This deposit will cause your account "
-                  "to exceed the £15,000 limit.")
-            print(Fore.RED + f"Your current balance is: £{balance}. "
-                  "Please deposit a lower amount.\n")
-            break
-
-    while True:
-        option = input("\nPress any key to continue:\n")
-
-        if option == option:
-            withdraw_deposit_funds_menu(username)
-            break
 
 
 def withdraw_funds(username):
