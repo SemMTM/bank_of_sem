@@ -1,6 +1,6 @@
 import gspread
 from google.oauth2.service_account import Credentials
-from datetime import datetime
+from datetime import datetime, timedelta
 from random import randint
 from colorama import Fore, init
 import os
@@ -25,7 +25,7 @@ init(autoreset=True)
 
 
 class Customer_Account:
-    time_now = datetime.now()
+    time_now = datetime.now() + timedelta(hours=1)
 
     def __init__(self, username):
         self.username = username
