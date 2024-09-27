@@ -185,12 +185,8 @@ class Bank_Account:
         """
         print(f"\nLoading...\n")
 
-        # Gets all exisiting usernames and pairs them to the correct
-        # balances in a dictionary
-        all_balances = SHEET.worksheet("user-details").col_values(3)
-        existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES,
-                             balance in zip(ALL_USERNAMES, all_balances)}
-        balance = existing_balances.get(self.username)
+        username_cell = USER_DETAILS_SHEET.find(self.username)
+        balance = USER_DETAILS_SHEET.cell(username_cell.row, 3).value
 
         print("\n***********************")
         print(f"Your balance is: £{balance}\n")
@@ -214,13 +210,8 @@ class Bank_Account:
         """
         print(f"\nLoading...\n")
 
-        # Gets all exisiting usernames and pairs them to the
-        # correct balances in a dictionary
-        all_balances = SHEET.worksheet("user-details").col_values(3)
-        existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES,
-                             balance in zip(ALL_USERNAMES, all_balances)}
-        balance = existing_balances.get(self.username)
         username_cell = USER_DETAILS_SHEET.find(self.username)
+        balance = USER_DETAILS_SHEET.cell(username_cell.row, 3).value
 
         while True:
             print("\n***********************")
@@ -305,14 +296,8 @@ class Bank_Account:
         """
         print(f"\nLoading...\n")
 
-        all_balances = SHEET.worksheet("user-details").col_values(3)
-
-        # Gets all exisiting usernames and pairs them
-        # to the correct balances in a dictionary
-        existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES,
-                             balance in zip(ALL_USERNAMES, all_balances)}
-        balance = existing_balances.get(self.username)
         username_cell = USER_DETAILS_SHEET.find(self.username)
+        balance = USER_DETAILS_SHEET.cell(username_cell.row, 3).value
 
         while True:
             print("\n***********************")
@@ -389,21 +374,9 @@ class Bank_Account:
         """
         print(f"\nLoading...\n")
 
-        all_balances = SHEET.worksheet("user-details").col_values(3)
-        all_account_types = SHEET.worksheet("user-details").col_values(6)
-
-        # Gets all exisiting usernames and pairs them to the correct balances
-        # in a dictionary
-        existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES,
-                             balance in zip(ALL_USERNAMES, all_balances)}
-        existing_account_types = {ALL_USERNAMES: account_type for
-                                  ALL_USERNAMES, account_type in
-                                  zip(ALL_USERNAMES, all_account_types)}
-        balance = existing_balances.get(self.username)
-        account_type = existing_account_types.get(self.username)
-
-        # Gets the location of the cell that matches the username
         username_cell = USER_DETAILS_SHEET.find(self.username)
+        balance = USER_DETAILS_SHEET.cell(username_cell.row, 3).value
+        account_type = USER_DETAILS_SHEET.cell(username_cell.row, 6).value
 
         user_option = input("Which user would you like to transfer to?\n")
         print("\nLocating user...\n")
@@ -412,10 +385,10 @@ class Bank_Account:
         # transfer to
         selected_user_cell = USER_DETAILS_SHEET.find(user_option)
         existing_username = any(x == user_option for x in ALL_USERNAMES)
-        selected_user_account_type = existing_account_types.get(user_option)
 
         # Checks if requested user exists in the spreadsheet
         if existing_username is True:
+            selected_user_account_type = USER_DETAILS_SHEET.cell(selected_user_cell.row, 6).value
 
             # Checks if their account type
             if selected_user_account_type == "Growth Account":
@@ -463,7 +436,7 @@ class Bank_Account:
             new_balance = int(balance) - int(amount_to_send)
 
             # Gets the selected users balance before transfer & after transfer
-            selected_user_balance = existing_balances.get(user_option)
+            selected_user_balance = USER_DETAILS_SHEET.cell(selected_user_cell.row, 3).value
             transfer_balance = int(selected_user_balance) + int(amount_to_send)
 
             # Throws a message if the transfer amount is more
@@ -511,7 +484,7 @@ class Bank_Account:
                 action2 = f"Recieved £{amount_to_send} from {self.username}"
                 Customer_Account(user_option).update_user_history(action2)
 
-                print(Fore.GREEN + "Transfer complete.")
+                print(Fore.GREEN + "Transfer complete.\n")
                 print(f"Your new balance is £{new_balance}\n")
 
                 while True:
@@ -729,12 +702,8 @@ def withdraw_deposit_funds_menu(username):
     """
     print(f"\nLoading...\n")
 
-    # Gets all exisiting usernames and pairs them to the
-    # correct balances in a dictionary
-    all_balances = SHEET.worksheet("user-details").col_values(3)
-    existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES,
-                         balance in zip(ALL_USERNAMES, all_balances)}
-    balance = existing_balances.get(username)
+    username_cell = USER_DETAILS_SHEET.find(username)
+    balance = USER_DETAILS_SHEET.cell(username_cell.row, 3).value
 
     print(f"\nYour balance is: £{balance}\n")
 
@@ -780,11 +749,8 @@ def add_interest(username, account):
     """
     Adds 1% interest to the users balance and updates the spreadsheet
     """
-    all_balances = SHEET.worksheet("user-details").col_values(3)
-    existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES,
-                         balance in zip(ALL_USERNAMES, all_balances)}
-    balance = existing_balances.get(username)
     username_cell = USER_DETAILS_SHEET.find(username)
+    balance = USER_DETAILS_SHEET.cell(username_cell.row, 3).value
 
     if account == 'Growth Account':
         new_balance = int(balance) + round((int(balance) * 0.01))
