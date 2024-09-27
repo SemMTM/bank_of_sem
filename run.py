@@ -237,7 +237,7 @@ class Bank_Account:
                 elif int(deposit_amount) < 25000:
                     break
             except ValueError:
-                print(Fore.RED + f"Only numbers are accepted.
+                print(Fore.RED + f"Only numbers are accepted. "
                       "Please try again.\n")
 
         # Calculates the new balance after deposit
