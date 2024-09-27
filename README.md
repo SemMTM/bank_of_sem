@@ -122,9 +122,9 @@ Every user input will be validated for the correct type of data and the user wil
 
 **Account Type**
 - After a valid password has been chosen, the user will be prompted to select an account type.
-- Each account may only be 1 account type. Certain account types have different benefit & restrictions.
+- Each account may be only 1 type. Certain account types have different benefit & restrictions.
 - Current accounts function like a regular bank account and have no restrictions.
-- Growth accounts have a £15,000 deposit limit, can't be sent money and gain 1% interest on every log in. This interest is pushed to the database after it is calculated.
+- Growth accounts have a £15,000 balance limit, can't be sent money and gain 1% interest on every log in. This interest is pushed to the database after it is calculated.
 
 ![Account type selection](<assets/readme images/Screenshot_6.png>)
 
@@ -180,7 +180,8 @@ Every user input will be validated for the correct type of data and the user wil
 **Deposit funds**
 - The amount a user can deposit depends on their account type.
 - A current account has an unlimited deposit limit.
-- A growth account has a max deposit of £15,000.
+- A growth account has maximum balance of £15,000.
+- A user can not deposit more than £25,000 in one transaction.
 
 ![Deposit limit for growth accounts](<assets/readme images/Screenshot_17.png>)
 
