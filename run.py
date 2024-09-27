@@ -65,7 +65,7 @@ class Customer_Account:
 
             # Update user history with action
             action = "User log in"
-            Customer_Account(self.username).update_user_history(action)
+            self.update_user_history(action)
 
             add_interest(self.username, check_account_type(self.username))
 
@@ -97,23 +97,20 @@ class Customer_Account:
 
         print(f"\nLoading...\n")
 
-        get_existing_login_details()
-
         username_cell = USER_DETAILS_SHEET.find(self.username)
-        existing_credentials = get_existing_login_details()
 
         action = "Password changed."
-        Customer_Account(self.username).update_user_history(action)    
 
         while True:
             print("***********************\n")
             new_password = pwinput.pwinput(prompt="Please enter in a new "
                                            "password. It must be 4 numbers:\n")
             if validate_new_password(new_password):
-                break
+                break  
 
         print("\nUpdating your password...\n")
         USER_DETAILS_SHEET.update_cell(username_cell.row, 2, new_password)
+        self.update_user_history(action)  
         print(Fore.GREEN + "Password successfully updated\n")
         print("Please restart the program and login.")
 
@@ -245,8 +242,7 @@ def existing_user_log_in():
     existing_password = pwinput.pwinput(prompt="\nEnter your password:\n")
     print("\n***********************")
 
-    log_in_details = Customer_Account(existing_username)
-    log_in_details.exisiting_log_in(existing_password)
+    Customer_Account(existing_username).exisiting_log_in(existing_password)
 
 
 def get_existing_login_details():
@@ -322,7 +318,6 @@ def show_balance(username):
     Pairs all balances to the correct usernames then shows the balance
     assosiated with the username used to log in.
     """
-
     print(f"\nLoading...\n")
 
     # Gets all exisiting usernames and pairs them to the correct
@@ -332,13 +327,13 @@ def show_balance(username):
                          balance in zip(ALL_USERNAMES, all_balances)}
     balance = existing_balances.get(username)
 
-    # Update user history with action
-    action = "Viewed account balance"
-    Customer_Account(username).update_user_history(action)
-
     print("\n***********************")
     print(f"Your balance is: £{balance}\n")
     print("***********************\n")
+
+    # Update user history with action
+    action = "Viewed account balance"
+    Customer_Account(username).update_user_history(action)
 
     while True:
         option = input("Press any key to continue:\n")
@@ -351,7 +346,6 @@ def withdraw_deposit_funds_menu(username):
     """
     Withdraw/Deposit funds menu.
     """
-
     print(f"\nLoading...\n")
 
     # Gets all exisiting usernames and pairs them to the
@@ -391,7 +385,6 @@ def deposit_funds(username):
     assosiated with the username used to log in. Allows the user to
     then add an amount to that balance and update the spreadsheet.
     """
-
     print(f"\nLoading...\n")
 
     # Gets all exisiting usernames and pairs them to the
@@ -472,8 +465,6 @@ def deposit_funds(username):
             withdraw_deposit_funds_menu(username)
             break
 
-    all_balances = SHEET.worksheet("user-details").col_values(3)
-
 
 def withdraw_funds(username):
     """
@@ -482,7 +473,6 @@ def withdraw_funds(username):
     withdraw an amount from that balance and update the spreadsheet.
     Wont allow more then the value of their exisiting balance to be withdrawn.
     """
-
     print(f"\nLoading...\n")
 
     all_balances = SHEET.worksheet("user-details").col_values(3)
@@ -560,15 +550,12 @@ def withdraw_funds(username):
                 main_menu(username)
                 break
 
-    all_balances = SHEET.worksheet("user-details").col_values(3)
-
 
 def send_money(username):
     """
     Allows the user to withdraw money from their balance and
     deposit to another users.
     """
-
     print(f"\nLoading...\n")
 
     all_balances = SHEET.worksheet("user-details").col_values(3)
@@ -587,15 +574,14 @@ def send_money(username):
     # Gets the location of the cell that matches the username
     username_cell = USER_DETAILS_SHEET.find(username)
 
-    user_option = input("Which user would you like to transfer to?\n")
-    print("\nLocating user...\n")
-
     # Gets the location of the cell that matches the user they wish to
     # transfer to
     selected_user_cell = USER_DETAILS_SHEET.find(user_option)
     existing_username = any(x == user_option for x in ALL_USERNAMES)
-
     selected_user_account_type = existing_account_types.get(user_option)
+
+    user_option = input("Which user would you like to transfer to?\n")
+    print("\nLocating user...\n")
 
     # Checks if requested user exists in the spreadsheet
     if existing_username is True:
@@ -625,7 +611,6 @@ def send_money(username):
         while True:
             amount_to_send = input("User found. How much would "
                                    "you like to transfer?\n£")
-
             try:
                 if int(amount_to_send) < 0:
                     print(Fore.RED + "You cannnot withdraw funds from another "
@@ -640,8 +625,6 @@ def send_money(username):
                 print(Fore.RED + f"Only numbers are accepted. "
                                  "Please try again.\n")
 
-        # Calculates logged in users balance after withdraw amount has
-        # been selected
         new_balance = int(balance) - int(amount_to_send)
 
         # Gets the selected users balance before transfer & after transfer
@@ -703,8 +686,6 @@ def send_money(username):
         print(Fore.RED + "User does not exist. Please try again.\n")
         send_money(username)
 
-    all_balances = SHEET.worksheet("user-details").col_values(3)
-
 
 def next_available_row(worksheet):
     # From an external source (See README)
@@ -717,7 +698,6 @@ def call_user_history(username):
     Calls the data in the logged in users history worksheet and returns
     it as a readable table
     """
-
     print(f"\nLoading...\n")
 
     history_worksheet = SHEET.worksheet(f"{username}-history")
@@ -744,7 +724,6 @@ def call_user_acc_details(username):
     """
     Calls and shows the user details data for the logged in user
     """
-
     print(f"\nLoading...\n")
 
     username_cell = USER_DETAILS_SHEET.find(username)
