@@ -47,7 +47,7 @@ List of other users to test transfer feature:
 8. Deployment
 
 # **1. Pre-project Planning**
-The plan for this project was to create a terminal based banking application that would manipulate data stored in a database. All users would have unique usernames and passwords that could be changed by the user. I wanted to imitate a real banking applications features as much as possible. Every action should cause some change in the database. 
+The plan for this project was to create a terminal based banking application that would manipulate data stored in a database. All users would have unique usernames (that can't be changed) and passwords that could be changed by the user. I wanted to imitate a real banking applications features as much as possible. Every action should cause some change in the database. 
 
 The pre planned features were:
 1. Change password
@@ -71,7 +71,8 @@ The main structure structure would be as follows:
   - Option 4
   - Exit
 
-Each main option will then either prompt a user input for data to be submitted to the database or there will be a sub menu to further specify what action they would like to take. After an action has been completed, the user will be prompted with a back option if they wish to continue with more tasks.
+Each main option will then either prompt a user input for data to be submitted to the database or there will be a sub menu to further specify what action they would like to take. After an action has been completed, the user will be prompted to enter any key to continue.
+Every user input will be validated for the correct type of data and the user will be notified of any input errors.
 
 ### **1.3. User Stories**
 - First Time Visitor Goals

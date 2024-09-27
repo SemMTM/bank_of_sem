@@ -135,7 +135,7 @@ class Customer_Account:
         self.update_user_history(action)
 
         while True:
-            option = input("\nPress any key to continue:\n")
+            option = input("\nPress enter to continue:\n")
 
             if option == option:
                 main_menu(self.username)
@@ -166,7 +166,7 @@ class Customer_Account:
         self.update_user_history(action)
 
         while True:
-            option = input("\nPress any key to continue:\n")
+            option = input("\nPress enter to continue:\n")
 
             if option == option:
                 main_menu(self.username)
@@ -201,7 +201,7 @@ class Bank_Account:
         Customer_Account(self.username).update_user_history(action)
 
         while True:
-            option = input("Press any key to continue:\n")
+            option = input("Press enter to continue:\n")
             if option == option:
                 main_menu(self.username)
                 break
@@ -287,7 +287,7 @@ class Bank_Account:
                 break
 
         while True:
-            option = input("\nPress any key to continue:\n")
+            option = input("\nPress enter to continue:\n")
 
             if option == option:
                 withdraw_deposit_funds_menu(self.username)
@@ -372,7 +372,7 @@ class Bank_Account:
             print(f"Your new balance is £{new_balance}.\n")
 
             while True:
-                option = input("\nPress any key to continue:\n")
+                option = input("\nPress enter to continue:\n")
 
                 if option == option:
                     withdraw_deposit_funds_menu(self.username)
@@ -505,7 +505,7 @@ class Bank_Account:
                 print(f"Your new balance is £{new_balance}\n")
 
                 while True:
-                    option = input("\nPress any key to continue:\n")
+                    option = input("\nPress enter to continue:\n")
 
                     if option == option:
                         main_menu(self.username)
@@ -793,6 +793,5 @@ def main():
     Run all program functions.
     """
     start_menu()
-
 
 main()
