@@ -114,10 +114,69 @@ class Customer_Account:
         print(Fore.GREEN + "Password successfully updated\n")
         print("Please restart the program and login.")
 
+    
+    def call_user_history(self):
+        """
+        Calls the data in the logged in users history worksheet and returns
+        it as a readable table
+        """
+        print(f"\nLoading...\n")
+
+        history_worksheet = SHEET.worksheet(f"{self.username}-history")
+        all_times = history_worksheet.col_values(1)
+        all_history = history_worksheet.col_values(2)
+        history_dict = {all_times: history for all_times,
+                        history in zip(all_times, all_history)}
+
+        for time, history in history_dict.items():
+            print(f'{time:19}  -  {history:40}')
+
+        action = "Viewed account history"
+        self.update_user_history(action)
+
+        while True:
+            option = input("\nPress any key to continue:\n")
+
+            if option == option:
+                main_menu(self.username)
+                break
+
+    
+    def call_user_acc_details(self):
+        """
+        Calls and shows the user details data for the logged in user
+        """
+        print(f"\nLoading...\n")
+
+        username_cell = USER_DETAILS_SHEET.find(self.username)
+        row_headings = USER_DETAILS_SHEET.row_values(1)
+        username_row_data = USER_DETAILS_SHEET.row_values(username_cell.row)
+        acc_details_dict = {heading: data for heading,
+                            data in zip(row_headings, username_row_data)}
+
+        for heading, data in acc_details_dict.items():
+            if heading == 'Password':
+                print(f'{heading:15}  -  ****')
+            elif heading != 'Balance':
+                print(f'{heading:15}  -  {data}')
+            else:
+                print(f'{heading:15}  -  £{data}')
+
+        action = "Account information viewed."
+        self.update_user_history(action)
+
+        while True:
+            option = input("\nPress any key to continue:\n")
+
+            if option == option:
+                main_menu(self.username)
+                break
+
 
 class Bank_Account:
     def __init__(self, username):
         self.username = username
+
 
     def show_balance(self):
         """
@@ -146,6 +205,7 @@ class Bank_Account:
             if option == option:
                 main_menu(self.username)
                 break
+
 
     def deposit_funds(self):
         """
@@ -317,6 +377,142 @@ class Bank_Account:
                 if option == option:
                     withdraw_deposit_funds_menu(self.username)
                     break
+
+    
+    def send_money(self):
+        """
+        Allows the user to withdraw money from their balance and
+        deposit to another users.
+        """
+        print(f"\nLoading...\n")
+
+        all_balances = SHEET.worksheet("user-details").col_values(3)
+        all_account_types = SHEET.worksheet("user-details").col_values(6)
+
+        # Gets all exisiting usernames and pairs them to the correct balances
+        # in a dictionary
+        existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES,
+                            balance in zip(ALL_USERNAMES, all_balances)}
+        existing_account_types = {ALL_USERNAMES: account_type for ALL_USERNAMES,
+                                account_type in zip(ALL_USERNAMES,
+                                                    all_account_types)}
+        balance = existing_balances.get(self.username)
+        account_type = existing_account_types.get(self.username)
+
+        # Gets the location of the cell that matches the username
+        username_cell = USER_DETAILS_SHEET.find(self.username)
+
+        user_option = input("Which user would you like to transfer to?\n")
+        print("\nLocating user...\n")
+
+        # Gets the location of the cell that matches the user they wish to
+        # transfer to
+        selected_user_cell = USER_DETAILS_SHEET.find(user_option)
+        existing_username = any(x == user_option for x in ALL_USERNAMES)
+        selected_user_account_type = existing_account_types.get(user_option)
+
+        # Checks if requested user exists in the spreadsheet
+        if existing_username is True:
+
+            # Checks if their account type
+            if selected_user_account_type == "Growth Account":
+                print("The selected users account is a Growth Account. "
+                    "Growth accounts are not able to transfer or recieve funds.")
+                print("Please select another user.\n")
+
+                while True:
+                    print("***********************")
+                    print("1. Try again")
+                    print("2. Back to main menu")
+                    print("***********************\n")
+                    option = input("Please select an option:\n")
+
+                    if option == '1':
+                        self.send_money()
+                        break
+                    elif option == '2':
+                        main_menu(self.username)
+                        break
+                    else:
+                        print(Fore.RED + "\nPlease select a valid option (1-2)\n")
+
+            while True:
+                amount_to_send = input("User found. How much would "
+                                    "you like to transfer?\n£")
+                try:
+                    if int(amount_to_send) < 0:
+                        print(Fore.RED + "You cannnot withdraw funds from another "
+                            "users account. Please try again.\n")
+                    elif int(amount_to_send) > 25000:
+                        print(Fore.RED + "There is a transfer limit of £25,000 "
+                            "per transaction.")
+                        print(Fore.RED + "Please enter a lower withdraw amount.\n")
+                    elif int(amount_to_send) < 25000:
+                        break
+                except ValueError:
+                    print(Fore.RED + f"Only numbers are accepted. "
+                                    "Please try again.\n")
+
+            new_balance = int(balance) - int(amount_to_send)
+
+            # Gets the selected users balance before transfer & after transfer
+            selected_user_balance = existing_balances.get(user_option)
+            transfer_balance = int(selected_user_balance) + int(amount_to_send)
+
+            # Throws a message if the transfer amount is more than available funds
+            if int(amount_to_send) > int(balance) or int(balance) == 0:
+
+                # Update user history with action
+                action = f"Attempted to transfer £{amount_to_send} "
+                f"to {user_option}. Insufficient funds"
+                Customer_Account(self.username).update_user_history(action)
+
+                print(Fore.RED + "\nInsufficient funds for transfer, "
+                                "please try again.\n")
+
+                while True:
+                    print("***********************")
+                    print("1. Try again")
+                    print("2. Back to main menu")
+                    print("***********************\n")
+                    option = input("Please select an option:\n")
+
+                    if option == '1':
+                        self.send_money()
+                        break
+                    elif option == '2':
+                        main_menu(self.username)
+                        break
+                    else:
+                        print(Fore.RED + "\nPlease select a valid option (1-2)\n")
+
+            else:
+                print("\nTransfering funds...\n")
+
+                # Updates logged in users & selected users balance on
+                # the spreadsheet
+                USER_DETAILS_SHEET.update_cell(selected_user_cell.row,
+                                            3, transfer_balance)
+                USER_DETAILS_SHEET.update_cell(username_cell.row, 3, new_balance)
+
+                # Update user & selected user history with action
+                action = f"Transfered £{amount_to_send} to {user_option}"
+                Customer_Account(self.username).update_user_history(action)
+                action2 = f"Recieved £{amount_to_send} from {self.username}"
+                Customer_Account(user_option).update_user_history(action2)
+
+                print(Fore.GREEN + "Transfer complete.")
+                print(f"Your new balance is £{new_balance}\n")
+
+                while True:
+                    option = input("\nPress any key to continue:\n")
+
+                    if option == option:
+                        main_menu(self.username)
+                        break
+        else:
+            print(Fore.RED + "User does not exist. Please try again.\n")
+            self.send_money()
 
 
 def start_menu():
@@ -498,16 +694,16 @@ def main_menu(username):
             withdraw_deposit_funds_menu(username)
             break
         elif option == '3':
-            send_money(username)
+            Bank_Account(username).send_money()
             break
         elif option == '4':
-            call_user_history(username)
+            Customer_Account(username).call_user_history()
             break
         elif option == '5':
             Customer_Account(username).password_change()
             break
         elif option == '6':
-            call_user_acc_details(username)
+            Customer_Account(username).call_user_acc_details()
             break
         elif option == '7':
             print("\nThank you for using Bank Of Sem. We hope you have a "
@@ -545,7 +741,7 @@ def withdraw_deposit_funds_menu(username):
             Bank_Account(username).deposit_funds()
             break
         elif option == '2':
-            withdraw_funds(username)
+            Bank_Account(username).withdraw_funds()
             break
         elif option == '3':
             main_menu(username)
@@ -554,289 +750,10 @@ def withdraw_deposit_funds_menu(username):
             print(Fore.RED + "\nPlease select a valid option (1-3)\n")
 
 
-def withdraw_funds(username):
-    """
-    Pairs all balances to the correct usernames then shows the balance
-    assosiated with the username used to log in. Allows the user to then
-    withdraw an amount from that balance and update the spreadsheet.
-    Wont allow more then the value of their exisiting balance to be withdrawn.
-    """
-    print(f"\nLoading...\n")
-
-    all_balances = SHEET.worksheet("user-details").col_values(3)
-
-    # Gets all exisiting usernames and pairs them to the correct balances in
-    # a dictionary
-    existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES,
-                         balance in zip(ALL_USERNAMES, all_balances)}
-    balance = existing_balances.get(username)
-    username_cell = USER_DETAILS_SHEET.find(username)
-
-    while True:
-        print("\n***********************")
-        withdraw_amount = input("How much would you like to withdraw?\n£")
-        print("***********************\n")
-
-        try:
-            if int(withdraw_amount) < 0:
-                print(Fore.RED + "Please enter a positive figure.\n")
-            elif int(withdraw_amount) > 25000:
-                print(Fore.RED + "There is a withdrawl limit of £25,000 per "
-                      "transaction. Please enter a lower withdraw amount.\n")
-            elif int(withdraw_amount) < 25000:
-                break
-        except ValueError:
-            print(Fore.RED + f"Only numbers are accepted. Please try again.\n")
-
-    new_balance = int(balance) - int(withdraw_amount)
-
-    # Throws message if withdraw amount is more then the available balance
-    # and wont allow the action
-    if int(withdraw_amount) > int(balance) or int(balance) == 0:
-
-        action = "Insufficient funds - Attemped to withdraw "
-        f"£{withdraw_amount} from account."
-        Customer_Account(username).update_user_history(action)
-
-        print(Fore.RED + "Insufficient funds for withdrawal, "
-              "please enter a lower amount\n")
-
-        while True:
-            print("***********************")
-            print("1. Try again")
-            print("2. Back")
-            print("***********************")
-            option = input("\nPlease select an option:\n")
-
-            if option == '1':
-                withdraw_funds(username)
-                break
-            elif option == '2':
-                main_menu(username)
-                break
-            else:
-                print(Fore.RED + "\nPlease select a valid option (1-2)\n")
-
-    else:
-        print("Withdrawing funds...\n")
-
-        # Updates users balance on the spreadsheet after withdrawl
-        USER_DETAILS_SHEET.update_cell(username_cell.row, 3, new_balance)
-
-        # Update user history with action
-        action = f"Withdrew £{withdraw_amount} from account. "
-        f"Balance after deposit: £{new_balance}"
-        Customer_Account(username).update_user_history(action)
-
-        print(Fore.GREEN + "Withdraw complete.\n")
-        print(f"Your new balance is £{new_balance}.\n")
-
-        while True:
-            option = input("\nPress any key to continue:\n")
-
-            if option == option:
-                main_menu(username)
-                break
-
-
-def send_money(username):
-    """
-    Allows the user to withdraw money from their balance and
-    deposit to another users.
-    """
-    print(f"\nLoading...\n")
-
-    all_balances = SHEET.worksheet("user-details").col_values(3)
-    all_account_types = SHEET.worksheet("user-details").col_values(6)
-
-    # Gets all exisiting usernames and pairs them to the correct balances
-    # in a dictionary
-    existing_balances = {ALL_USERNAMES: balance for ALL_USERNAMES,
-                         balance in zip(ALL_USERNAMES, all_balances)}
-    existing_account_types = {ALL_USERNAMES: account_type for ALL_USERNAMES,
-                              account_type in zip(ALL_USERNAMES,
-                                                  all_account_types)}
-    balance = existing_balances.get(username)
-    account_type = existing_account_types.get(username)
-
-    # Gets the location of the cell that matches the username
-    username_cell = USER_DETAILS_SHEET.find(username)
-
-    # Gets the location of the cell that matches the user they wish to
-    # transfer to
-    selected_user_cell = USER_DETAILS_SHEET.find(user_option)
-    existing_username = any(x == user_option for x in ALL_USERNAMES)
-    selected_user_account_type = existing_account_types.get(user_option)
-
-    user_option = input("Which user would you like to transfer to?\n")
-    print("\nLocating user...\n")
-
-    # Checks if requested user exists in the spreadsheet
-    if existing_username is True:
-
-        # Checks if their account type
-        if selected_user_account_type == "Growth Account":
-            print("The selected users account is a Growth Account. "
-                  "Growth accounts are not able to transfer or recieve funds.")
-            print("Please select another user.\n")
-
-            while True:
-                print("***********************")
-                print("1. Try again")
-                print("2. Back to main menu")
-                print("***********************\n")
-                option = input("Please select an option:\n")
-
-                if option == '1':
-                    send_money(username)
-                    break
-                elif option == '2':
-                    main_menu(username)
-                    break
-                else:
-                    print(Fore.RED + "\nPlease select a valid option (1-2)\n")
-
-        while True:
-            amount_to_send = input("User found. How much would "
-                                   "you like to transfer?\n£")
-            try:
-                if int(amount_to_send) < 0:
-                    print(Fore.RED + "You cannnot withdraw funds from another "
-                          "users account. Please try again.\n")
-                elif int(amount_to_send) > 25000:
-                    print(Fore.RED + "There is a transfer limit of £25,000 "
-                          "per transaction.")
-                    print(Fore.RED + "Please enter a lower withdraw amount.\n")
-                elif int(amount_to_send) < 25000:
-                    break
-            except ValueError:
-                print(Fore.RED + f"Only numbers are accepted. "
-                                 "Please try again.\n")
-
-        new_balance = int(balance) - int(amount_to_send)
-
-        # Gets the selected users balance before transfer & after transfer
-        selected_user_balance = existing_balances.get(user_option)
-        transfer_balance = int(selected_user_balance) + int(amount_to_send)
-
-        # Throws a message if the transfer amount is more than available funds
-        if int(amount_to_send) > int(balance) or int(balance) == 0:
-
-            # Update user history with action
-            action = f"Attempted to transfer £{amount_to_send} "
-            f"to {user_option}. Insufficient funds"
-            Customer_Account(username).update_user_history(action)
-
-            print(Fore.RED + "\nInsufficient funds for transfer, "
-                             "please try again.\n")
-
-            while True:
-                print("***********************")
-                print("1. Try again")
-                print("2. Back to main menu")
-                print("***********************\n")
-                option = input("Please select an option:\n")
-
-                if option == '1':
-                    send_money(username)
-                    break
-                elif option == '2':
-                    main_menu(username)
-                    break
-                else:
-                    print(Fore.RED + "\nPlease select a valid option (1-2)\n")
-
-        else:
-            print("\nTransfering funds...\n")
-
-            # Updates logged in users & selected users balance on
-            # the spreadsheet
-            USER_DETAILS_SHEET.update_cell(selected_user_cell.row,
-                                           3, transfer_balance)
-            USER_DETAILS_SHEET.update_cell(username_cell.row, 3, new_balance)
-
-            # Update user & selected user history with action
-            action = f"Transfered £{amount_to_send} to {user_option}"
-            Customer_Account(username).update_user_history(action)
-            action2 = f"Recieved £{amount_to_send} from {username}"
-            Customer_Account(user_option).update_user_history(action2)
-
-            print(Fore.GREEN + "Transfer complete.")
-            print(f"Your new balance is £{new_balance}\n")
-
-            while True:
-                option = input("\nPress any key to continue:\n")
-
-                if option == option:
-                    main_menu(username)
-                    break
-    else:
-        print(Fore.RED + "User does not exist. Please try again.\n")
-        send_money(username)
-
-
 def next_available_row(worksheet):
     # From an external source (See README)
     str_list = list(filter(None, worksheet.col_values(1)))
     return str(len(str_list)+1)
-
-
-def call_user_history(username):
-    """
-    Calls the data in the logged in users history worksheet and returns
-    it as a readable table
-    """
-    print(f"\nLoading...\n")
-
-    history_worksheet = SHEET.worksheet(f"{username}-history")
-    all_times = history_worksheet.col_values(1)
-    all_history = history_worksheet.col_values(2)
-    history_dict = {all_times: history for all_times,
-                    history in zip(all_times, all_history)}
-
-    for time, history in history_dict.items():
-        print(f'{time:19}  -  {history:40}')
-
-    action = "Viewed account history"
-    Customer_Account(username).update_user_history(action)
-
-    while True:
-        option = input("\nPress any key to continue:\n")
-
-        if option == option:
-            main_menu(username)
-            break
-
-
-def call_user_acc_details(username):
-    """
-    Calls and shows the user details data for the logged in user
-    """
-    print(f"\nLoading...\n")
-
-    username_cell = USER_DETAILS_SHEET.find(username)
-    row_headings = USER_DETAILS_SHEET.row_values(1)
-    username_row_data = USER_DETAILS_SHEET.row_values(username_cell.row)
-    acc_details_dict = {heading: data for heading,
-                        data in zip(row_headings, username_row_data)}
-
-    for heading, data in acc_details_dict.items():
-        if heading == 'Password':
-            print(f'{heading:15}  -  ****')
-        elif heading != 'Balance':
-            print(f'{heading:15}  -  {data}')
-        else:
-            print(f'{heading:15}  -  £{data}')
-
-    action = "Account information viewed."
-    Customer_Account(username).update_user_history(action)
-
-    while True:
-        option = input("\nPress any key to continue:\n")
-
-        if option == option:
-            main_menu(username)
-            break
 
 
 def check_account_type(username):
