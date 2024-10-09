@@ -137,11 +137,11 @@ Every user input will be validated for the correct type of data and the user wil
 
 - Once an account is created the username, password and account type are pushed to the database.
 - A random account number is generated, a sortcode and a balance of £0.
-- A user history page is also created. This page logs all future actions of the user once logged in.
+- A user history page is created using the account number. This page logs all future actions of the user once logged in.
 
 ![New user in datavase](<assets/readme images/Screenshot_8.png>)
 
-![New user history tab](<assets/readme images/Screenshot_9.png>)
+![New user history tab](<assets/readme images/Screenshot_43.png>)
 
 ![New user history](<assets/readme images/Screenshot_10.png>)
 
