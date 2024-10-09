@@ -25,14 +25,13 @@ init(autoreset=True)
 
 
 class Customer_Account:
-    time_now = datetime.now() + timedelta(hours=1)
-
     def __init__(self, username):
         self.username = username
 
     def account_create(self, password, account_type):
         self.password = password
         self.account_type = account_type
+        time_now = datetime.now() + timedelta(hours=1)
         new_user_details = [self.username, self.password, 0,
                             generate_acct_num(),
                             '31-80-90', self.account_type]
@@ -42,17 +41,19 @@ class Customer_Account:
         user_worksheet = SHEET.worksheet("user-details")
         user_worksheet.append_row(new_user_details)
 
+        username_cell = USER_DETAILS_SHEET.find(self.username)
+        user_acct_num = USER_DETAILS_SHEET.cell(username_cell.row, 4).value
+
         # Creates new history worksheet for new user
-        SHEET.add_worksheet(title=f"{self.username}-history",
+        SHEET.add_worksheet(title=f"{user_acct_num}-history",
                                   rows=100, cols=20)
-        SHEET.worksheet(f"{self.username}-history").update_acell('A1',
+        SHEET.worksheet(f"{user_acct_num}-history").update_acell('A1',
                                                                  'Date & Time')
-        SHEET.worksheet(f"{self.username}-history").update_acell('B1',
+        SHEET.worksheet(f"{user_acct_num}-history").update_acell('B1',
                                                                  'Details')
-        SHEET.worksheet(f"{self.username}-history").update_acell('A2',
-                                                                 str(self.
-                                                                     time_now))
-        SHEET.worksheet(f"{self.username}-history").update_acell('B2',
+        SHEET.worksheet(f"{user_acct_num}-history").update_acell('A2',
+                                                                 str(time_now))
+        SHEET.worksheet(f"{user_acct_num}-history").update_acell('B2',
                                                                  'New account '
                                                                  'created')
         print(Fore.GREEN + "Your new account has been created\n")
@@ -84,12 +85,15 @@ class Customer_Account:
         Updates the logged in users history workseet with
         the last completed action
         """
-        history_worksheet = SHEET.worksheet(f"{self.username}-history")
+        time_now = datetime.now() + timedelta(hours=1)
+        username_cell = USER_DETAILS_SHEET.find(self.username)
+        user_acct_num = USER_DETAILS_SHEET.cell(username_cell.row, 4).value
+        history_worksheet = SHEET.worksheet(f"{user_acct_num}-history")
         next_row = next_available_row(history_worksheet)
 
         # From an external source (Please see README)
         history_worksheet.update_acell("A{}".format(next_row),
-                                       str(self.time_now))
+                                       str(time_now))
         history_worksheet.update_acell("B{}".format(next_row), action)
 
     def password_change(self):
@@ -124,7 +128,9 @@ class Customer_Account:
         """
         print(f"\nLoading...\n")
 
-        history_worksheet = SHEET.worksheet(f"{self.username}-history")
+        username_cell = USER_DETAILS_SHEET.find(self.username)
+        user_acct_num = USER_DETAILS_SHEET.cell(username_cell.row, 4).value
+        history_worksheet = SHEET.worksheet(f"{user_acct_num}-history")
         all_times = history_worksheet.col_values(1)
         all_history = history_worksheet.col_values(2)
         history_dict = {all_times: history for all_times,
@@ -757,8 +763,7 @@ def add_interest(username, account):
         USER_DETAILS_SHEET.update_cell(username_cell.row, 3, new_balance)
 
         # Update user history with action
-        action = "1% interest added to balance. Balance "
-        f"after interest gained: £{new_balance}"
+        action = f"1% interest added to balance. New balance £{new_balance}"
         Customer_Account(username).update_user_history(action)
     else:
         pass
