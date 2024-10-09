@@ -394,7 +394,8 @@ class Bank_Account:
 
         # Checks if requested user exists in the spreadsheet
         if existing_username is True:
-            selected_user_account_type = USER_DETAILS_SHEET.cell(selected_user_cell.row, 6).value
+            selected_user_account_type = USER_DETAILS_SHEET.cell(
+                                         selected_user_cell.row, 6).value
 
             # Checks if their account type
             if selected_user_account_type == "Growth Account":
@@ -442,7 +443,8 @@ class Bank_Account:
             new_balance = int(balance) - int(amount_to_send)
 
             # Gets the selected users balance before transfer & after transfer
-            selected_user_balance = USER_DETAILS_SHEET.cell(selected_user_cell.row, 3).value
+            selected_user_balance = USER_DETAILS_SHEET.cell(
+                                    selected_user_cell.row, 3).value
             transfer_balance = int(selected_user_balance) + int(amount_to_send)
 
             # Throws a message if the transfer amount is more
